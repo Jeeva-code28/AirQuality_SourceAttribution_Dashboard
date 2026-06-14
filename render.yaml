@@ -2,10 +2,10 @@ services:
   - type: web
     name: aqi-monitor
     runtime: docker
-    plan: starter # Starter plan (2GB RAM) is recommended as the minimum required for GraphHopper NCR load
+    plan: free # Changed to free since GraphHopper is disabled
     envVars:
       - key: JAVA_OPTS
-        value: "-Xmx1800m -Xms512m"
+        value: "-Xmx300m -Xms128m"
       # To run with a production PostgreSQL DB, add your DB variables here or set them in the Render Dashboard:
       # - key: SPRING_PROFILES_ACTIVE
       #   value: postgres

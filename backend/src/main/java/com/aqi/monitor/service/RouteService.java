@@ -17,13 +17,18 @@ import java.util.stream.Collectors;
 @Service
 public class RouteService {
 
-    @Autowired
+    @Autowired(required = false)
     private GraphHopper graphHopper;
 
     @Autowired
     private AQIService aqiService;
 
     public Map<String, RouteResponse> calculateSafeRoutes(RouteRequest request) {
+        if (graphHopper == null) {
+            System.out.println("GraphHopper is disabled (Free Tier Mode). Returning empty routes.");
+            return new HashMap<>();
+        }
+
         // 1. Request routes from GraphHopper
         GHRequest ghRequest = new GHRequest(
                 request.getStartLat(), request.getStartLon(),
