@@ -374,7 +374,7 @@ export async function getStationsInBounds(lat1, lon1, lat2, lon2) {
 let globalFetchPromise = null;
 
 // --- Spring Boot Backend Integration ---
-const BACKEND_BASE_URL = "http://localhost:8080/api/aqi";
+const BACKEND_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8080/api/aqi";
 
 export async function getGlobalStations(onProgress = null) {
     // If a fetch is already in progress, return the existing promise
