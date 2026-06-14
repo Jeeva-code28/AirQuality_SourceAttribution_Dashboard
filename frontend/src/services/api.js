@@ -81,10 +81,11 @@ async function fetchWithThrottle(url, options = {}) {
  */
 export async function getAirQuality(lat, lon, includeHistory = false) {
     try {
-        const response = await fetchWithThrottle(`${BACKEND_BASE_URL}/current?lat=${lat}&lon=${lon}`);
+        const url = `https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${lat}&longitude=${lon}&current=us_aqi,pm10,pm2_5,nitrogen_dioxide,sulphur_dioxide,ozone,carbon_monoxide,carbon_dioxide&hourly=us_aqi,pm2_5,pm10&past_days=1&timezone=auto`;
+        const response = await fetchWithThrottle(url);
 
         if (!response.ok) {
-            throw new Error(`Backend API error: ${response.status}`);
+            throw new Error(`API error: ${response.status}`);
         }
 
         const data = await response.json();
@@ -97,7 +98,7 @@ export async function getAirQuality(lat, lon, includeHistory = false) {
 
         return data;
     } catch (error) {
-        console.error("Error fetching AQI data from backend:", error);
+        console.error("Error fetching AQI data:", error);
         // Fallback Mock Data so UI renders flawlessly without backend
         return {
             current: { us_aqi: 142, pm2_5: 55, pm10: 98, nitrogen_dioxide: 22, sulphur_dioxide: 15, ozone: 45, carbon_monoxide: 400, time: new Date().toISOString() }
@@ -110,10 +111,11 @@ export async function getAirQuality(lat, lon, includeHistory = false) {
  */
 export async function getHistoricalAirQuality(lat, lon) {
     try {
-        const response = await fetchWithThrottle(`${BACKEND_BASE_URL}/history?lat=${lat}&lon=${lon}`);
+        const url = `https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${lat}&longitude=${lon}&hourly=us_aqi,pm2_5,pm10&past_days=7&timezone=auto`;
+        const response = await fetchWithThrottle(url);
 
         if (!response.ok) {
-            throw new Error(`Backend History API error: ${response.status}`);
+            throw new Error(`API error: ${response.status}`);
         }
 
         const data = await response.json();
@@ -125,7 +127,7 @@ export async function getHistoricalAirQuality(lat, lon) {
 
         return data;
     } catch (error) {
-        console.error("Error fetching history from backend:", error);
+        console.error("Error fetching history:", error);
         // Fallback Mock History Data
         const times = Array.from({ length: 24 }, (_, i) => {
             const d = new Date();
