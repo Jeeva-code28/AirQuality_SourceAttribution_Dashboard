@@ -18,9 +18,9 @@ WORKDIR /app
 # Copy the packaged jar from the builder stage
 COPY --from=builder /app/backend/target/aqi-monitor-dashboard-1.0-SNAPSHOT.jar app.jar
 
-# Copy the OSM data file required by GraphHopper
-# Now osm is inside backend
-COPY backend/osm ./osm
+# Download the required OSM data for GraphHopper since it's too large for Git
+RUN mkdir -p osm && \
+    curl -L -o osm/ncr-complete.osm.pbf https://download.geofabrik.de/asia/india/northern-zone-latest.osm.pbf
 
 # Expose the port the application runs on
 EXPOSE 8080
