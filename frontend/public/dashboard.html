@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Government Air Quality Dashboard</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Leaflet -->
+    <!-- Leaflet -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+</head>
+
+<body>
+
+    <div class="app-container">
+
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="brand">
+                <i class="fa-solid fa-wind"></i>
+                <span>EnviroGov</span>
+            </div>
+
+            <ul class="nav-links">
+                <li class="nav-item active">
+                    <i class="fa-solid fa-chart-pie"></i>
+                    <span>Dashboard</span>
+                </li>
+                <li class="nav-item" onclick="window.location.href='map_view.html' + window.location.search"
+                    style="cursor: pointer;">
+                    <i class="fa-solid fa-map-location-dot"></i>
+                    <span>Live Map</span>
+                </li>
+                <li class="nav-item" onclick="window.location.href='analytics.html' + window.location.search"
+                    style="cursor: pointer;">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <span>Analytics</span>
+                </li>
+                <li class="nav-item" onclick="window.location.href='policies.html' + window.location.search"
+                    style="cursor: pointer;">
+                    <i class="fa-solid fa-building-shield"></i>
+                    <span>Policies</span>
+                </li>
+                <li class="nav-item" onclick="toggleLogout()" style="cursor: pointer;">
+                    <i class="fa-solid fa-gear"></i>
+                    <span style="flex: 1;">Settings</span>
+                    <i id="settings-chevron" class="fa-solid fa-chevron-down"
+                        style="font-size: 0.8rem; transition: transform 0.3s;"></i>
+                </li>
+                <li id="logout-option" class="nav-item"
+                    onclick="localStorage.removeItem('currentUser'); window.location.href='index.html'"
+                    style="display: none; background: rgba(255, 68, 68, 0.1); color: var(--neon-red); margin-left: 1rem; width: calc(100% - 1rem); margin-top: 0.5rem;">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span>Log Out</span>
+                </li>
+                <script>
+                    function toggleLogout() {
+                        const logoutOption = document.getElementById('logout-option');
+                        const chevron = document.getElementById('settings-chevron');
+                        if (logoutOption.style.display === 'none') {
+                            logoutOption.style.display = 'flex';
+                            chevron.style.transform = 'rotate(180deg)';
+                        } else {
+                            logoutOption.style.display = 'none';
+                            chevron.style.transform = 'rotate(0deg)';
+                        }
+                    }
+                </script>
+            </ul>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+
+            <header>
+                <div class="header-left">
+                    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.25rem;">Overview</p>
+                    <h1><span id="location-name">Government Authority View</span></h1>
+                </div>
+
+                <div class="header-actions">
+                    <div class="date" id="current-date">Loading date...</div>
+                    <button id="location-btn">
+                        <i class="fa-solid fa-location-crosshairs"></i> Locate Me
+                    </button>
+                    <!-- User Profile Placeholder -->
+                    <div
+                        style="width: 40px; height: 40px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                </div>
+            </header>
+
+            <div class="summary-container" style="margin-bottom: 1.5rem;">
+                <div class="summary-header" style="margin-bottom: 0.5rem;">
+                    <h2 style="font-size: 1.2rem; color: var(--primary); display: flex; align-items: center; gap: 8px;">
+                        <i class="fa-solid fa-circle-info"></i> Situation Summary
+                    </h2>
+                </div>
+                <div id="summary-text" style="font-size: 1.1rem; line-height: 1.6; color: var(--text-main);">
+                    Analyzing real-time data...
+                </div>
+            </div>
+
+            <div class="dashboard-grid">
+
+                <!-- AQI Hero Card -->
+                <div class="card aqi-card">
+                    <div class="card-header">
+                        <h2>Real-Time Air Quality</h2>
+                        <i class="fa-solid fa-lungs icon-main"></i>
+                    </div>
+
+                    <div class="aqi-container">
+                        <div>
+                            <span
+                                style="display: block; font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.5rem;">AQI
+                                Index</span>
+                            <span id="aqi-value">--</span>
+                        </div>
+                        <div style="align-self: center;">
+                            <span id="aqi-status" class="status-badge">Loading...</span>
+                        </div>
+                    </div>
+
+                    <div class="pollutants">
+                        <div class="pollutant"><span class="p-name">PM2.5</span><span id="pm25"
+                                class="p-value">--</span><span class="p-unit">µg/m³</span></div>
+                        <div class="pollutant"><span class="p-name">PM10</span><span id="pm10"
+                                class="p-value">--</span><span class="p-unit">µg/m³</span></div>
+                        <div class="pollutant"><span class="p-name">NO₂</span><span id="no2"
+                                class="p-value">--</span><span class="p-unit">µg/m³</span></div>
+                        <div class="pollutant"><span class="p-name">SO₂</span><span id="so2"
+                                class="p-value">--</span><span class="p-unit">µg/m³</span></div>
+                        <div class="pollutant"><span class="p-name">O₃</span><span id="o3"
+                                class="p-value">--</span><span class="p-unit">µg/m³</span></div>
+                        <div class="pollutant"><span class="p-name">CO</span><span id="co"
+                                class="p-value">--</span><span class="p-unit">µg/m³</span></div>
+                        <div class="pollutant"><span class="p-name">PM Ratio</span><span id="pm-ratio"
+                                class="p-value">--</span></div>
+                    </div>
+                </div>
+
+                <!-- NEW: Pollutant Insights Card -->
+                <div class="card insights-card">
+                    <div class="card-header">
+                        <h2>Pollutant Insights</h2>
+                        <i class="fa-solid fa-chart-simple icon-main"></i>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 0.5rem; height: 100%;">
+
+                        <!-- Primary Pollutant section -->
+                        <div
+                            style="background: rgba(255,255,255,0.03); padding: 8px 12px; border-radius: 8px; border-left: 3px solid var(--primary); display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <div
+                                    style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;">
+                                    Primary Pollutant</div>
+                                <div
+                                    style="font-size: 1.1rem; font-weight: 600; color: var(--text-main); margin-top: 2px;">
+                                    <span id="primary-pollutant">Waiting for Data...</span>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-triangle-exclamation"
+                                style="font-size: 1rem; color: var(--warning); opacity: 0.8;"></i>
+                        </div>
+
+                        <!-- 24h Change section -->
+                        <div
+                            style="background: rgba(255,255,255,0.03); padding: 8px 12px; border-radius: 8px; border-left: 3px solid var(--secondary); display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <div
+                                    style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;">
+                                    24-Hour Trend</div>
+                                <div
+                                    style="font-size: 1rem; font-weight: 600; color: var(--text-main); margin-top: 2px;">
+                                    <span id="aqi-change">Comparing...</span>
+                                </div>
+                            </div>
+                            <i id="change-icon" class="fa-solid fa-arrow-right"
+                                style="font-size: 1rem; opacity: 0.8;"></i>
+                        </div>
+
+                        <!-- Visibility section -->
+                        <div
+                            style="background: rgba(255,255,255,0.03); padding: 8px 12px; border-radius: 8px; border-left: 3px solid var(--accent); display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <div
+                                    style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;">
+                                    Visibility Risk</div>
+                                <div
+                                    style="font-size: 1rem; font-weight: 600; color: var(--text-main); margin-top: 2px;">
+                                    <span id="visibility-risk">Loading...</span>
+                                </div>
+                            </div>
+                            <i id="visibility-icon" class="fa-solid fa-eye" style="font-size: 1rem; opacity: 0.8;"></i>
+                        </div>
+
+                        <!-- Emergency Status section -->
+                        <div
+                            style="background: rgba(255,255,255,0.03); padding: 8px 12px; border-radius: 8px; border-left: 3px solid var(--danger); display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <div
+                                    style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;">
+                                    Emergency Status</div>
+                                <div
+                                    style="font-size: 1rem; font-weight: 600; color: var(--text-main); margin-top: 2px;">
+                                    <span id="emergency-status">Checking...</span>
+                                </div>
+                            </div>
+                            <i id="emergency-icon" class="fa-solid fa-triangle-exclamation"
+                                style="font-size: 1rem; opacity: 0.8;"></i>
+                        </div>
+
+                        <!-- Health Advisory section -->
+                        <div
+                            style="background: rgba(255,255,255,0.05); padding: 10px; border-radius: 8px; margin-top: 5px;">
+                            <div
+                                style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px;">
+                                <i class="fa-solid fa-user-doctor"></i> Health Advisory
+                            </div>
+                            <div id="health-advisory"
+                                style="font-size: 0.85rem; color: var(--text-main); line-height: 1.4;">
+                                Loading advisory...
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Station Info -->
+                <div class="card station-card">
+                    <div class="card-header">
+                        <h2>Monitoring Station</h2>
+                        <i class="fa-solid fa-broadcast-tower icon-main"></i>
+                    </div>
+                    <div class="station-details">
+                        <p class="station-name" id="station-name">Locating Station...</p>
+                        <div style="display: flex; flex-direction: column; gap: 4px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <p class="station-status" style="margin: 0;">
+                                    <span id="status-dot" class="status-dot"></span>
+                                    <span id="data-status-label">Live Feed</span>
+                                </p>
+                                <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">
+                                    <i class="fa-solid fa-location-arrow"></i> <span id="station-distance">-- km</span>
+                                </p>
+                            </div>
+                            <p style="font-size: 0.75rem; color: var(--text-muted); text-align: right; margin: 0;">
+                                <i class="fa-regular fa-clock"></i> <span id="last-update">Just now</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Weather -->
+                <div class="card weather-card">
+                    <div class="card-header">
+                        <h2>Weather</h2>
+                        <i class="fa-solid fa-cloud-sun icon-main"></i>
+                    </div>
+
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                        <span id="temperature" class="big-value" style="font-size: 3rem;">--</span>
+                        <span style="font-size: 1.5rem; color: var(--text-muted); padding-top: 10px;">°C</span>
+                    </div>
+
+                    <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                        <div
+                            style="display: flex; justify-content: space-between; padding-bottom: 0.5rem; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                            <span style="color: var(--text-muted);">Wind</span>
+                            <span><span id="wind-speed">--</span> km/h</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <span style="color: var(--text-muted);">Direction</span>
+                            <span><span id="wind-direction">--</span>°</span>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+                <!-- Meteorological Context -->
+                <div class="card forecast-card">
+                    <div class="card-header">
+                        <h2>Atmospheric Data</h2>
+                        <i class="fa-solid fa-caret-up icon-main"></i>
+                    </div>
+                    <div style="font-size: 0.9rem; color: var(--text-muted);">
+                        <p style="margin-bottom: 0.5rem;">Coordinates: 28.61°N, 77.21°E</p>
+                        <p style="margin-bottom: 1rem;">Elevation: 212 m</p>
+                        <div id="weather-description"
+                            style="padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px; color: var(--text-main);">
+                            Fetching live atmospheric parameters...
+                        </div>
+                    </div>
+                </div>
+
+            </div> <!-- End Grid -->
+
+            <footer>
+                <p>EnviroGov v2.0 • Data provided by Open-Meteo & CPCB API</p>
+            </footer>
+
+        </main>
+    </div>
+
+    <script src="js/stations.js?v=revert"></script>
+    <script src="js/script.js?v=72h_update"></script>
+
+</body>
+
+</html>

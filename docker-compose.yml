@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  aqi-monitor:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: aqi-monitor:latest
+    container_name: aqi-monitor-app
+    ports:
+      - "8080:8080"
+    environment:
+      - JAVA_OPTS=-Xmx4g -Xms2g
+      # Uncomment and configure the following to run with a production PostgreSQL DB:
+      # - SPRING_PROFILES_ACTIVE=postgres
+      # - SPRING_DATASOURCE_URL=jdbc:postgresql://your-db-host:5432/aqi_db
+      # - SPRING_DATASOURCE_USERNAME=postgres
+      # - SPRING_DATASOURCE_PASSWORD=yourpassword
+    volumes:
+      # Persist the GraphHopper routing graph cache to avoid rebuilding it on every restart
+      - aqi-routing-cache:/app/target
+    restart: unless-stopped
+
+volumes:
+  aqi-routing-cache:

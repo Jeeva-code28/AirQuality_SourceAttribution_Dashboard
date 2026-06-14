@@ -1,0 +1,49 @@
+# Dependencies
+node_modules/
+.venv/
+venv/
+env/
+__pycache__/
+*.pyc
+*.pyo
+
+# Build directories
+target/
+dist/
+build/
+.vite/
+maven-temp/
+
+# IDEs and editors
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Models and Large Files
+*.joblib
+*.pkl
+*.keras
+*.h5
+*.pb
+*.json
+!backend/ml_core/meta.json
+!backend/ml_core/features.json
+!frontend/package.json
+!frontend/package-lock.json
+
+# Environment Variables
+.env
+.env.local
+
+# Coverage
+coverage/
+.nyc_output/

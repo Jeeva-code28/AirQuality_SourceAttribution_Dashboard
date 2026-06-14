@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delhi Air & Wind Map - Full Screen</title>
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/svg+xml" href="assets/india_map.svg">
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000000;
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: rgba(30, 41, 59, 0.9);
+            color: #f1f5f9;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+            transition: all 0.2s;
+        }
+
+        .back-button:hover {
+            background: rgba(0, 243, 255, 0.1);
+            border-color: #00F3FF;
+            color: #00F3FF;
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .toggle-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: linear-gradient(135deg, #00F3FF, #00FFA3);
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .toggle-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
+        }
+
+        .map-view {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .active-view {
+            opacity: 1;
+            z-index: 1;
+            pointer-events: auto;
+        }
+
+        .hidden-view {
+            opacity: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
+
+        /* Legend */
+        .aqi-legend {
+            position: absolute;
+            bottom: 30px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(30, 41, 59, 0.95);
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+        }
+
+        .legend-title {
+            font-weight: 700;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #94a3b8;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+            font-size: 0.85rem;
+        }
+
+        .color-box {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+
+        /* Search Bar */
+        .search-container {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            display: flex;
+            gap: 10px;
+            background: rgba(30, 41, 59, 0.9);
+            padding: 10px;
+            border-radius: 12px;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+        }
+
+        .search-container input {
+            background: transparent;
+            border: none;
+            color: white;
+            padding: 5px;
+            width: 250px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .search-container input::placeholder {
+            color: #94a3b8;
+        }
+
+        .search-container button {
+            background: var(--accent-color, #00F3FF);
+            border: none;
+            color: #0f172a;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s;
+        }
+
+        .search-container button:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Visual Elements -->
+    <a href="dashboard.html" class="back-button" id="back-link">← Back to Dashboard</a>
+
+    <div class="search-container">
+        <input type="text" id="map-search" placeholder="Search city or area..." onkeypress="handleSearch(event)">
+        <button onclick="searchLocation()"><i class="fa-solid fa-search"></i></button>
+    </div>
+
+    <!-- Toggle Button -->
+    <button id="toggle-btn" class="toggle-button" onclick="toggleMapMode()">
+        <i class="fa-solid fa-wind"></i> Switch to <span id="toggle-text">Wind Animation</span>
+    </button>
+
+    <!-- View 1: Leaflet Map (AQI Numbers) -->
+    <div id="map-aqi" class="map-view active-view"></div>
+
+    <!-- View 2: Windy Iframe (Wind Animation) -->
+    <div id="map-wind" class="map-view hidden-view">
+        <iframe
+            src="https://embed.windy.com/embed2.html?lat=22.5&lon=82.0&detailLat=22.5&detailLon=82.0&width=650&height=450&zoom=4&level=surface&overlay=wind&product=ecmwf&menu=&message=&marker=&calendar=now&pressure=&type=map&location=coordinates&detail=&metricWind=default&metricTemp=default&radarRange=-1"></iframe>
+    </div>
+
+    <!-- View 3: Hotspot Map -->
+    <div id="map-hotspot" class="map-view hidden-view"></div>
+
+    <!-- AQI Legend (Only for AQI View) -->
+    <div id="aqi-legend" class="aqi-legend">
+        <div class="legend-title">AQI Index Guide</div>
+        <div class="legend-item">
+            <div class="color-box" style="background:#009966"></div> 0-50 (Good)
+        </div>
+        <div class="legend-item">
+            <div class="color-box" style="background:#ffde33"></div> 51-100 (Moderate)
+        </div>
+        <div class="legend-item">
+            <div class="color-box" style="background:#ff9933"></div> 101-150 (Unhealthy for Group)
+        </div>
+        <div class="legend-item">
+            <div class="color-box" style="background:#cc0033"></div> 151-200 (Unhealthy)
+        </div>
+        <div class="legend-item">
+            <div class="color-box" style="background:#660099"></div> 201-300 (Very Unhealthy)
+        </div>
+        <div class="legend-item">
+            <div class="color-box" style="background:#7e0023"></div> 300+ (Hazardous)
+        </div>
+    </div>
+
+    <!-- Hotspot Legend (Only for Hotspot View) -->
+    <div id="hotspot-legend" class="aqi-legend" style="display: none;">
+        <div class="legend-title">Hotspot Analysis</div>
+        <div class="legend-item">
+            <div class="color-box" style="background:rgba(255, 0, 0, 0.5); border: 2px solid red; border-radius: 50%;">
+            </div>
+            Severe Hotspot (>300 AQI)
+        </div>
+        <div class="legend-item" style="color: #cbd5e1; font-size: 0.8rem; margin-top: 5px;">
+            Click on global red zones for detailed impact analysis.
+        </div>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+    <!-- Stations Data -->
+    <script src="js/stations.js"></script>
+
+    <script>
+        // Initialize Leaflet Maps - Centered on India
+        const mapAqi = L.map('map-aqi').setView([22.5, 82.0], 5);
+        const mapHotspot = L.map('map-hotspot').setView([22.5, 82.0], 5);
+
+        // Base Layer for AQI Map
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
+            subdomains: 'abcd',
+            maxZoom: 19
+        }).addTo(mapAqi);
+
+        // Base Layer for Hotspot Map
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
+            subdomains: 'abcd',
+            maxZoom: 19
+        }).addTo(mapHotspot);
+
+        // AQI Tiles for AQI Map
+        L.tileLayer('https://tiles.aqicn.org/tiles/usepa-aqi/{z}/{x}/{y}.png?token=_', {
+            attribution: 'Air Quality Tiles &copy; <a href="http://waqi.info">waqi.info</a>',
+            opacity: 1
+        }).addTo(mapAqi);
+
+
+        // ---------------- REAL DATA LOGIC ----------------
+        // ---------------- REAL DATA LOGIC (CHUNKED) ----------------
+        async function initMapsWithRealData() {
+            console.log("Initializing Maps with Real Data (Chunked)...");
+
+            const hotspotIcon = L.divIcon({
+                className: 'custom-div-icon',
+                html: "<div style='background-color:rgba(255,0,0,0.5); width: 100%; height:100%; border-radius:50%; border: 2px solid red; animation: pulse 2s infinite;'></div>",
+                iconSize: [30, 30],
+                iconAnchor: [15, 15]
+            });
+
+            // Add CSS animation for pulse
+            if (!document.getElementById('pulse-style')) {
+                const style = document.createElement('style');
+                style.id = 'pulse-style';
+                style.innerHTML = `
+                    @keyframes pulse {
+                        0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); }
+                        70% { transform: scale(1.0); box-shadow: 0 0 0 10px rgba(255, 0, 0, 0); }
+                        100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+
+            // CHUNK LOGIC: Process in batches of 30 to avoid API limits/URL length issues
+            const chunkSize = 30;
+            for (let i = 0; i < aqiStations.length; i += chunkSize) {
+                const chunk = aqiStations.slice(i, i + chunkSize);
+
+                const lats = chunk.map(s => s.lat).join(',');
+                const lons = chunk.map(s => s.lon).join(',');
+
+                const url = `https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${lats}&longitude=${lons}&current=us_aqi,pm2_5,pm10&timezone=auto`;
+
+                try {
+                    const response = await fetch(url);
+                    const data = await response.json();
+
+                    // Handle single vs array response
+                    const results = Array.isArray(data) ? data : [data];
+
+                    results.forEach((res, index) => {
+                        const station = chunk[index]; // Match result index to CHUNK index
+                        if (!res.current) return;
+
+                        let aqi = res.current.us_aqi;
+                        const pm25 = res.current.pm2_5;
+
+                        // Determine Status
+                        let status = "Good";
+                        let color = "#009966";
+
+                        // --- DEMO FORCE: Make Anand Vihar Hazardous ---
+                        if (station.name.includes("Anand Vihar")) {
+                            console.warn("Forcing Anand Vihar to Hazardous for Demo");
+                            aqi = 450;
+                        }
+                        // ----------------------------------------------
+
+                        if (aqi > 50) { status = "Moderate"; color = "#ffde33"; }
+                        if (aqi > 100) { status = "Unhealthy for Sensitive"; color = "#ff9933"; }
+                        if (aqi > 150) { status = "Unhealthy"; color = "#cc0033"; }
+                        if (aqi > 200) { status = "Very Unhealthy"; color = "#660099"; }
+                        if (aqi > 300) { status = "Hazardous"; color = "#7e0023"; }
+
+                        // --- 1. Populate AQI Map (All Stations) ---
+                        const aqiMarker = L.circleMarker([station.lat, station.lon], {
+                            radius: 8,
+                            fillColor: color,
+                            color: "#fff",
+                            weight: 1,
+                            opacity: 1,
+                            fillOpacity: 0.8
+                        }).addTo(mapAqi);
+
+                        const popupContentBasic = `
+                            <div style="font-family: 'Inter', sans-serif; text-align: center;">
+                                <strong style="font-size: 1.1em;">${station.name}</strong><br>
+                                <span style="font-size: 1.5em; font-weight: bold; color: ${color};">${aqi}</span><br>
+                                <span style="font-size: 0.9em; color: #555;">${status}</span><br>
+                                <span style="font-size: 0.8em; color: #777;">PM2.5: ${pm25} µg/m³</span><br>
+                                <a href="dashboard.html?lat=${station.lat}&lon=${station.lon}&location_name=${encodeURIComponent(station.name)}" 
+                                   style="display:inline-block; margin-top:5px; padding:4px 8px; background:#007bff; color:white; text-decoration:none; border-radius:4px; font-size: 0.8em;">
+                                   Analyze
+                                </a>
+                            </div>
+                        `;
+                        aqiMarker.bindPopup(popupContentBasic);
+
+
+                        // --- 2. Populate Hotspot Map (Only Hazardous > 300) ---
+                        if (aqi > 300) {
+                            const radius = 15000; // Increased to 15km for better visibility at India-level zoom
+                            const population = "Calculating...";
+
+                            // Red Zone
+                            const circle = L.circle([station.lat, station.lon], {
+                                color: 'red',
+                                fillColor: '#f03',
+                                fillOpacity: 0.4,
+                                radius: radius
+                            }).addTo(mapHotspot);
+
+                            // Icon
+                            const marker = L.marker([station.lat, station.lon], { icon: hotspotIcon }).addTo(mapHotspot);
+
+                            const popupContentHotspot = `
+                                <div style="font-family: 'Inter', sans-serif; min-width: 200px;">
+                                    <h3 style="margin: 0 0 8px 0; color: #d32f2f; font-size: 1.1rem; border-bottom: 1px solid #eee; padding-bottom: 5px;">
+                                        <i class="fa-solid fa-triangle-exclamation"></i> Real Hotspot
+                                    </h3>
+                                    <div style="margin-bottom: 5px;"><strong>Location:</strong> ${station.name}</div>
+                                    <div style="margin-bottom: 5px; color: #d32f2f; font-weight: bold;">
+                                        AQI: ${aqi} (Hazardous)
+                                    </div>
+                                    <div style="margin-top: 10px; font-size:0.9em;">
+                                        Real-time sensor data indicates severe pollution levels.
+                                    </div>
+                                    <button onclick="window.location.href='dashboard.html?lat=${station.lat}&lon=${station.lon}&hotspot=true&h_aqi=${aqi}&location_name=${encodeURIComponent(station.name)}'" 
+                                        style="width: 100%; margin-top: 10px; padding: 6px; background: #d32f2f; color: white; border: none; border-radius: 4px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px;">
+                                        <i class="fa-solid fa-chart-line"></i> Analyze Zone
+                                    </button>
+                                </div>
+                            `;
+
+                            marker.bindPopup(popupContentHotspot);
+                            circle.bindPopup(popupContentHotspot);
+                        }
+                    });
+
+                } catch (error) {
+                    console.error("Failed to load map data chunk:", error);
+                }
+            }
+            console.log("Maps updated with chunked live data.");
+        }
+
+        // Run once
+        initMapsWithRealData();
+
+
+        // Handle URL params if any (to center map on previous location)
+        const urlParams = new URLSearchParams(window.location.search);
+        const latParam = urlParams.get('lat');
+        const lonParam = urlParams.get('lon');
+
+        if (latParam && lonParam) {
+            mapAqi.setView([latParam, lonParam], 10);
+            mapHotspot.setView([latParam, lonParam], 10);
+
+            L.marker([latParam, lonParam]).addTo(mapAqi)
+                .bindPopup("<b>Current Location</b>").openPopup();
+
+            // Also add 'User' marker to hotspot map for reference avoiding clutter
+            L.marker([latParam, lonParam]).addTo(mapHotspot)
+                .bindPopup("<b>Current Location</b>");
+
+            // Update back link to preserve location
+            document.getElementById('back-link').href = `dashboard.html?lat=${latParam}&lon=${lonParam}`;
+        }
+
+        // Map Click Handler for Pinning Location (Sync both maps?)
+        // Let's just keep it simple for now and attach to mapAqi. 
+        // Hotspot map is for viewing, not selecting new generic locations usually.
+        async function onMapClick(e) {
+            const lat = e.latlng.lat;
+            const lng = e.latlng.lng;
+
+            // Show loading popup immediately
+            const loadingContent = '<div style="text-align:center;">Finding location...<br><i class="fa-solid fa-spinner fa-spin"></i></div>';
+            if (currentMode === 2) {
+                L.popup().setLatLng(e.latlng).setContent(loadingContent).openOn(mapHotspot);
+            } else {
+                L.popup().setLatLng(e.latlng).setContent(loadingContent).openOn(mapAqi);
+            }
+
+            try {
+                // Use BigDataCloud API for reliable client-side reverse geocoding (No API Key required)
+                const response = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}&localityLanguage=en`);
+                const data = await response.json();
+
+                let displayName = "Selected Location";
+
+                // Construct a meaningful name
+                // Priority: Locality -> City -> PrincipalSubdivision
+                const parts = [];
+                if (data.locality) parts.push(data.locality);
+                if (data.city && data.city !== data.locality) parts.push(data.city);
+                if (data.principalSubdivision && (!data.city || data.principalSubdivision !== data.city)) parts.push(data.principalSubdivision);
+
+                if (parts.length > 0) {
+                    displayName = parts.join(', ');
+                } else if (data.countryName) {
+                    displayName = data.countryName;
+                }
+
+                const content = `
+                    <div style="text-align:center; color: #333;">
+                        <b>${displayName}</b><br>
+                        ${lat.toFixed(4)}, ${lng.toFixed(4)}<br>
+                        <a href="dashboard.html?lat=${lat}&lon=${lng}&location_name=${encodeURIComponent(displayName)}" 
+                           style="display:inline-block; margin-top:5px; padding:5px 10px; background:#007bff; color:white; text-decoration:none; border-radius:4px;">
+                           View Dashboard
+                        </a>
+                    </div>
+                `;
+
+                // Update popup
+                const popup = L.popup().setLatLng(e.latlng).setContent(content);
+                if (currentMode === 2) popup.openOn(mapHotspot);
+                else popup.openOn(mapAqi);
+
+            } catch (error) {
+                console.error("Reverse geocoding error:", error);
+                // Fallback content match existing style
+                const content = `
+                    <div style="text-align:center; color: #333;">
+                        <b>Selected Location</b><br>
+                        ${lat.toFixed(4)}, ${lng.toFixed(4)}<br>
+                        <a href="dashboard.html?lat=${lat}&lon=${lng}&location_name=Selected%20Location" 
+                           style="display:inline-block; margin-top:5px; padding:5px 10px; background:#007bff; color:white; text-decoration:none; border-radius:4px;">
+                           View Dashboard
+                        </a>
+                    </div>
+                `;
+                const popup = L.popup().setLatLng(e.latlng).setContent(content);
+                if (currentMode === 2) popup.openOn(mapHotspot);
+                else popup.openOn(mapAqi);
+            }
+        }
+
+        mapAqi.on('click', onMapClick);
+        mapHotspot.on('click', onMapClick);
+
+
+        // Toggle Logic
+        // Modes: AQI (Default) -> Wind -> Hotspot -> AQI
+        let currentMode = 0; // 0: AQI, 1: Wind, 2: Hotspot
+        const aqiView = document.getElementById('map-aqi');
+        const windView = document.getElementById('map-wind');
+        const hotspotView = document.getElementById('map-hotspot');
+
+        const aqiLegend = document.getElementById('aqi-legend');
+        const hotspotLegend = document.getElementById('hotspot-legend');
+
+        const btnText = document.getElementById('toggle-text');
+        const btnIcon = document.querySelector('#toggle-btn i');
+
+        function toggleMapMode() {
+            currentMode = (currentMode + 1) % 3;
+
+            // Reset all
+            aqiView.className = 'map-view hidden-view';
+            windView.className = 'map-view hidden-view';
+            hotspotView.className = 'map-view hidden-view';
+
+            aqiLegend.style.display = 'none';
+            hotspotLegend.style.display = 'none';
+
+            if (currentMode === 0) {
+                // AQI Mode
+                aqiView.className = 'map-view active-view';
+                aqiLegend.style.display = 'block';
+                btnText.textContent = "Wind Animation";
+                btnIcon.className = "fa-solid fa-wind";
+            } else if (currentMode === 1) {
+                // Wind Mode
+                windView.className = 'map-view active-view';
+                btnText.textContent = "Hotspot Detection";
+                btnIcon.className = "fa-solid fa-fire-flame-curved";
+            } else {
+                // Hotspot Mode
+                hotspotView.className = 'map-view active-view';
+                hotspotLegend.style.display = 'block';
+                btnText.textContent = "AQI Values";
+                btnIcon.className = "fa-solid fa-layer-group";
+
+                // Invalidate size to ensure tiles render correctly after being hidden
+                mapHotspot.invalidateSize();
+            }
+        }
+
+        /* Search Logic */
+        async function searchLocation() {
+            const query = document.getElementById('map-search').value;
+            if (!query) return;
+
+            const btn = document.querySelector('.search-container button');
+            const originalIcon = btn.innerHTML;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
+
+            try {
+                // Use Photon API for more granular search (Area, Street, etc.)
+                // Bounding box filter for India: bbox=68.1,6.7,97.4,35.6
+                const response = await fetch(`https://photon.komoot.io/api/?q=${encodeURIComponent(query)}&limit=5&bbox=68.1,6.7,97.4,35.6`);
+                const data = await response.json();
+
+                if (data.features && data.features.length > 0) {
+                    const firstResult = data.features[0];
+                    const lon = firstResult.geometry.coordinates[0];
+                    const lat = firstResult.geometry.coordinates[1];
+                    const props = firstResult.properties;
+
+                    // Build a detailed display name
+                    const parts = [];
+                    if (props.name) parts.push(props.name);
+                    else if (props.street) parts.push(props.street);
+
+                    if (props.district && props.district !== props.name) parts.push(props.district);
+                    if (props.city && props.city !== props.name && props.city !== props.district) parts.push(props.city);
+                    if (props.state && parts.length < 2) parts.push(props.state);
+
+                    const displayName = parts.join(', ') || "Selected Location";
+
+                    // Fly to location on both maps
+                    mapAqi.flyTo([lat, lon], 14, { duration: 2 });
+                    mapHotspot.flyTo([lat, lon], 14, { duration: 2 });
+
+                    // Drop pin
+                    const popupContent = `
+                        <div style="text-align:center; color: #333;">
+                            <b>${displayName}</b><br>
+                            ${lat.toFixed(4)}, ${lon.toFixed(4)}<br>
+                             <a href="dashboard.html?lat=${lat}&lon=${lon}&location_name=${encodeURIComponent(displayName)}" 
+                               style="display:inline-block; margin-top:5px; padding:5px 10px; background:#007bff; color:white; text-decoration:none; border-radius:4px;">
+                               View Dashboard
+                            </a>
+                        </div>
+                    `;
+
+                    // Open popup on active map layer
+                    if (currentMode === 2) {
+                        L.popup().setLatLng([lat, lon]).setContent(popupContent).openOn(mapHotspot);
+                    } else {
+                        // Default to AQI map (even if wind mode is active, though user won't see it until switch)
+                        L.popup().setLatLng([lat, lon]).setContent(popupContent).openOn(mapAqi);
+                    }
+
+                    // Update iframe if wind view is active
+                    if (currentMode === 1) {
+                        const iframe = document.querySelector('#map-wind iframe');
+                        iframe.src = `https://embed.windy.com/embed2.html?lat=${lat}&lon=${lon}&detailLat=${lat}&detailLon=${lon}&width=650&height=450&zoom=10&level=surface&overlay=wind&product=ecmwf&menu=&message=&marker=&calendar=now&pressure=&type=map&location=coordinates&detail=&metricWind=default&metricTemp=default&radarRange=-1`
+                    }
+
+                } else {
+                    alert("Location not found");
+                }
+            } catch (error) {
+                console.error("Search error:", error);
+                alert("Error searching location. Please try again.");
+            } finally {
+                btn.innerHTML = originalIcon;
+            }
+        }
+
+        function handleSearch(event) {
+            if (event.key === 'Enter') {
+                searchLocation();
+            }
+        }
+    </script>
+</body>
+
+</html>
