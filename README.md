@@ -1,4 +1,4 @@
-# EnviroGov - Air Quality & Source Attribution Dashboard
+# BreatheLens– AI-Powered Pollution Source Attribution & Forecasting Platform
 
 EnviroGov is a comprehensive, dual-portal platform designed to monitor air quality, analyze pollutant source contributions, and provide actionable health advisories. It features an **Authority Portal** for government officials and a **Citizen Portal** for the general public.
 
