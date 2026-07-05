@@ -29,12 +29,13 @@ EnviroGov is a comprehensive, dual-portal platform designed to monitor air quali
 
 ## 🛠️ Technology Stack
 
-* **Frontend (Citizen Portal):** React, Vite, JavaScript
+* **Frontend (Citizen Portal):** React (18.2.0), Vite, Tailwind CSS, Recharts, Leaflet
 * **Frontend (Authority Portal):** Vanilla HTML/CSS/JS, Leaflet.js (Mapping)
-* **Backend:** Java Spring Boot
+* **Backend:** Java 17, Spring Boot (3.2.2), Spring Data JPA, GraphHopper (Routing)
+* **Machine Learning & Python (`ml_core`):** Python, Pandas, NumPy, Scikit-Learn, LightGBM, TensorFlow / Keras, Joblib
 * **Database:** H2 (In-Memory) / PostgreSQL
 * **External APIs:** Open-Meteo (Air Quality & Weather), OpenStreetMap/Photon (Geocoding)
-* **Deployment:** Vercel (Frontend), Render (Backend)
+* **Deployment:** Docker, Vercel (Frontend), Render (Backend)
 
 ---
 
