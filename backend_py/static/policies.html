@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Policy Command Center | AQI Decision Support</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/policy.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --command-bg: #040712;
+            --panel-bg: rgba(10, 15, 30, 0.8);
+            --neon-blue: #00f2ff;
+            --neon-green: #39ff14;
+            --neon-amber: #ffb100;
+            --neon-red: #ff3131;
+            --border-glow: 0 0 10px rgba(0, 242, 255, 0.3);
+        }
+
+        body.policy-mode {
+            background-color: var(--command-bg);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .policy-header {
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            border-bottom: 2px solid var(--neon-blue);
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .policy-header h1 {
+            font-size: 1.8rem;
+            color: var(--neon-blue);
+            text-shadow: 0 0 15px var(--neon-blue);
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+        }
+
+        .pulse-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--neon-green);
+            box-shadow: 0 0 10px var(--neon-green);
+            animation: pulse 1.5s infinite;
+        }
+
+        .policy-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: auto auto;
+            gap: 20px;
+        }
+
+        .panel {
+            background: var(--panel-bg);
+            border: 1px solid rgba(0, 242, 255, 0.2);
+            border-radius: 8px;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--neon-blue), transparent);
+            opacity: 0.5;
+        }
+
+        .panel-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 10px;
+        }
+
+        /* Recommended Actions */
+        .action-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .action-item {
+            background: rgba(255, 255, 255, 0.03);
+            border-left: 4px solid var(--neon-amber);
+            padding: 15px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .action-item:hover {
+            background: rgba(255, 255, 255, 0.07);
+            transform: translateX(5px);
+            box-shadow: var(--border-glow);
+        }
+
+        .action-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .action-name {
+            font-weight: 700;
+            color: var(--text-primary);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.95rem;
+        }
+
+        .action-urgency {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .action-reason {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        .action-stats {
+            margin-top: 12px;
+            display: flex;
+            gap: 20px;
+            font-size: 0.75rem;
+        }
+
+        .stat-reduction {
+            color: var(--neon-green);
+        }
+
+        /* Simulator */
+        .simulator-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .control-group label {
+            display: block;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+        }
+
+        .intensity-slider {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            outline: none;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        .intensity-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            background: var(--neon-blue);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 10px var(--neon-blue);
+        }
+
+        .sim-output {
+            margin-top: 20px;
+            background: rgba(0, 242, 255, 0.05);
+            padding: 15px;
+            border-radius: 8px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            border: 1px dashed rgba(0, 242, 255, 0.3);
+        }
+
+        .sim-val {
+            text-align: center;
+        }
+
+        .sim-val .label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            display: block;
+        }
+
+        .sim-val .value {
+            font-size: 1.5rem;
+            font-family: 'Orbitron', sans-serif;
+            color: var(--neon-blue);
+        }
+
+        /* Historical */
+        .ranking-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .rank-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .rank-bar-bg {
+            flex-grow: 1;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .rank-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-green));
+            border-radius: 5px;
+        }
+
+        /* Compliance Heatmap */
+        .heatmap-container {
+            height: 200px;
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            grid-template-rows: repeat(5, 1fr);
+            gap: 2px;
+            margin-top: 10px;
+        }
+
+        .heat-cell {
+            background: rgba(57, 255, 20, 0.1);
+            border-radius: 2px;
+            transition: background 0.3s;
+        }
+
+        .heat-cell.warning {
+            background: rgba(255, 177, 0, 0.4);
+        }
+
+        .heat-cell.danger {
+            background: rgba(255, 49, 49, 0.6);
+        }
+
+        .back-btn {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: var(--panel-bg);
+            border: 1px solid var(--neon-blue);
+            color: var(--neon-blue);
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-family: 'Orbitron', sans-serif;
+            text-decoration: none;
+            transition: all 0.3s;
+            z-index: 100;
+        }
+
+        .back-btn:hover {
+            background: var(--neon-blue);
+            color: var(--command-bg);
+            box-shadow: 0 0 20px var(--neon-blue);
+        }
+
+        @media (max-width: 900px) {
+            .policy-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body class="policy-mode">
+    <div class="app-container">
+        <header class="policy-header">
+            <h1><i class="fa-solid fa-shield-halved"></i> Policy Command Center</h1>
+            <div class="status-indicator">
+                <div class="pulse-dot"></div>
+                <span>SYSTEM ACTIVE: REAL-TIME SIMULATION READY</span>
+            </div>
+        </header>
+
+        <main class="policy-grid">
+            <!-- A. Recommended Actions -->
+            <section class="panel">
+                <h2 class="panel-title"><i class="fa-solid fa-bolt"></i> Recommended Actions (AI-Based)</h2>
+                <div class="action-list" id="recommended-actions">
+                    <!-- Actions will be populated by JS -->
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Analyzing real-time triggers...</p>
+                </div>
+            </section>
+
+            <!-- B. Policy Impact Simulator -->
+            <section class="panel">
+                <h2 class="panel-title"><i class="fa-solid fa-flask"></i> Policy Impact Simulator</h2>
+                <div class="simulator-controls">
+                    <div class="control-group">
+                        <label>Intervention: <span id="current-intervention">Traffic Control (Odd-Even)</span></label>
+                        <select id="intervention-select"
+                            style="width: 100%; background: #1a1f2e; color: white; border: 1px solid var(--neon-blue); padding: 8px; border-radius: 4px;">
+                            <option value="traffic">Traffic Control (Odd-Even)</option>
+                            <option value="industry">Industrial Shut-down</option>
+                            <option value="construction">Construction Ban</option>
+                            <option value="sprinkling">Mechanical Road Sweeping/Sprinkling</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <label>Implementation Intensity: <span id="intensity-val">50%</span></label>
+                        <input type="range" min="0" max="100" value="50" class="intensity-slider" id="intensity-slider">
+                    </div>
+                    <div class="sim-output">
+                        <div class="sim-val">
+                            <span class="label">Predicted AQI Reduction</span>
+                            <span class="value" id="sim-reduction">-14%</span>
+                        </div>
+                        <div class="sim-val">
+                            <span class="label">Economic Impact</span>
+                            <span class="value" id="sim-econ" style="color: var(--neon-amber);">Medium</span>
+                        </div>
+                        <div class="sim-val" style="grid-column: span 2;">
+                            <span class="label">Projected AQI (Next 48h)</span>
+                            <span class="value" id="sim-projected">184 <small style="font-size: 0.6rem;">vs
+                                    210</small></span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- C. Historical Policy Performance -->
+            <section class="panel">
+                <h2 class="panel-title"><i class="fa-solid fa-clock-rotate-left"></i> Historical Policy Performance</h2>
+                <div class="ranking-list" id="historical-ranking">
+                    <!-- Populated by JS -->
+                    <p style="color: var(--text-secondary); font-size: 0.8rem;">Loading historical data for this
+                        sector...</p>
+                </div>
+            </section>
+
+            <!-- D. Compliance Monitoring -->
+            <section class="panel">
+                <h2 class="panel-title"><i class="fa-solid fa-satellite"></i> Compliance Monitoring (Enforcement
+                    Heatmap)</h2>
+                <p style="font-size: 0.8rem; color: var(--text-secondary);">Real-time tracking of 50 industrial zones
+                    and 200+ major construction sites.</p>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+                    <div class="stat-item">
+                        <span
+                            style="display: block; font-size: 0.7rem; color: var(--text-secondary); text-transform: uppercase;">Industry
+                            Compliance</span>
+                        <span id="industry-compliance-val"
+                            style="font-size: 1.2rem; color: var(--neon-green); font-family: 'Orbitron', sans-serif;">--%</span>
+                    </div>
+                    <div class="stat-item">
+                        <span
+                            style="display: block; font-size: 0.7rem; color: var(--text-secondary); text-transform: uppercase;">Construction
+                            Adherence</span>
+                        <span id="construction-compliance-val"
+                            style="font-size: 1.2rem; color: var(--neon-amber); font-family: 'Orbitron', sans-serif;">--%</span>
+                    </div>
+                    <div class="stat-item" style="text-align: right;">
+                        <span
+                            style="display: block; font-size: 0.7rem; color: var(--text-secondary); text-transform: uppercase;">Active
+                            Violations</span>
+                        <span id="active-violations-count"
+                            style="font-size: 1.2rem; color: var(--neon-red); font-family: 'Orbitron', sans-serif;">0</span>
+                    </div>
+                </div>
+                <div class="heatmap-container" id="compliance-heatmap">
+                    <!-- Cells populated by JS -->
+                </div>
+                <div
+                    style="display: flex; justify-content: space-between; margin-top: 10px; font-size: 0.7rem; color: var(--text-secondary);">
+                    <span><i class="fa-solid fa-square" style="color: rgba(57, 255, 20, 0.4);"></i> Compliant</span>
+                    <span><i class="fa-solid fa-square" style="color: rgba(255, 177, 0, 0.6);"></i> Minor
+                        Violations</span>
+                    <span><i class="fa-solid fa-square" style="color: rgba(255, 49, 49, 0.8);"></i> Critical
+                        Breach</span>
+                </div>
+            </section>
+        </main>
+
+        <a href="index.html" class="back-btn">
+            <i class="fa-solid fa-arrow-left"></i> RETURN TO MAIN DASHBOARD
+        </a>
+    </div>
+
+    <script src="js/policy_script.js"></script>
+</body>
+
+</html>

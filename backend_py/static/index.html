@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pollution Monitoring System - Welcome</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/landing.css">
+</head>
+
+<body>
+
+    <!-- Background Animation -->
+    <div class="background-animation" id="bg-animation"></div>
+
+    <div class="container">
+
+        <!-- SECTION 1: GET STARTED -->
+        <div id="step-1" class="section active">
+            <h1>Pollution Monitor</h1>
+            <p>Real-time Air Quality & Weather Analytics for a Healthier Future.</p>
+            <button class="btn" type="button" onclick="goToStep(2, event)">Get Started <i
+                    class="fa-solid fa-arrow-right"></i></button>
+        </div>
+
+        <!-- SECTION 2: ROLE SELECTION -->
+        <div id="step-2" class="section">
+            <h1>Select User Type</h1>
+            <p>Who are you logging in as?</p>
+
+            <div class="role-options">
+                <div class="role-card" onclick="goToStep(3, event)">
+                    <i class="fa-solid fa-building-columns"></i>
+                    <h3>Authority</h3>
+                </div>
+                <!-- Citizen Dashboard deferred as requested -->
+                <div class="role-card" onclick="window.location.href='/citizen.html'">
+                    <i class="fa-solid fa-user"></i>
+                    <h3>Citizen</h3>
+                </div>
+            </div>
+
+            <button class="back-btn" type="button" onclick="goToStep(1, event)">Back</button>
+        </div>
+
+        <!-- SECTION 3: CITIZEN / ADMIN LOGIN -->
+        <div id="step-3" class="section">
+            <h1>Authority Login</h1>
+            <p>Please enter your details to continue.</p>
+
+            <form onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" id="username" placeholder="Enter your name" required>
+                </div>
+                <div class="form-group">
+                    <label>Age</label>
+                    <input type="number" id="age" placeholder="Enter your age" required min="1" max="120">
+                </div>
+                <button type="submit" class="btn">Login <i class="fa-solid fa-right-to-bracket"></i></button>
+            </form>
+
+            <button class="back-btn" type="button" onclick="goToStep(2, event)">Back</button>
+        </div>
+
+    </div>
+
+    <script>
+        // Particle Animation Logic
+        const bg = document.getElementById('bg-animation');
+        for (let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDuration = (Math.random() * 5 + 5) + 's';
+            particle.style.animationDelay = (Math.random() * 5) + 's';
+            bg.appendChild(particle);
+        }
+
+        // Navigation Logic
+        function goToStep(stepNumber, event) {
+            if (event) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+
+            // Find current active section
+            const current = document.querySelector('.section.active');
+            const target = document.getElementById('step-' + stepNumber);
+
+            if (current && target && current !== target) {
+                // Remove active class to start fade out
+                current.classList.remove('active');
+                current.classList.add('hidden');
+
+                // Immediately start fade in for target
+                // We use a tiny timeout to ensure the browser processes the class change if needed, 
+                // but usually direct swap works. 
+                // Let's use requestAnimationFrame for best smoothness.
+                requestAnimationFrame(() => {
+                    target.classList.remove('hidden');
+                    target.classList.add('active');
+                });
+            } else if (target) {
+                // Fallback / Initial load scenario
+                target.classList.remove('hidden');
+                target.classList.add('active');
+            }
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const name = document.getElementById('username').value;
+            const age = document.getElementById('age').value;
+
+            if (name && age) {
+                console.log("Logging in as:", name);
+                // Save specific user data if needed here
+                localStorage.setItem('currentUser', JSON.stringify({ name, age }));
+
+                // Redirect to the main dashboard
+                window.location.href = 'dashboard.html';
+
+                // Return false to ensure no form submit propagation
+                return false;
+            }
+        }
+    </script>
+</body>
+
+</html>

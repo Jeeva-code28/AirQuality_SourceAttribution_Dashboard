@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Government Air Quality Dashboard</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+
+    <div class="app-container">
+
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="brand">
+                <i class="fa-solid fa-wind"></i>
+                <span>EnviroGov</span>
+            </div>
+
+            <ul class="nav-links">
+                <li class="nav-item" onclick="window.location.href='dashboard.html' + window.location.search"
+                    style="cursor: pointer;">
+                    <i class="fa-solid fa-chart-pie"></i>
+                    <span>Dashboard</span>
+                </li>
+                <li class="nav-item" onclick="window.location.href='map_view.html' + window.location.search"
+                    style="cursor: pointer;">
+                    <i class="fa-solid fa-map-location-dot"></i>
+                    <span>Live Map</span>
+                </li>
+                <li class="nav-item active">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <span>Analytics</span>
+                </li>
+                <li class="nav-item" onclick="window.location.href='policies.html' + window.location.search"
+                    style="cursor: pointer;">
+                    <i class="fa-solid fa-building-shield"></i>
+                    <span>Policies</span>
+                </li>
+                <li class="nav-item" onclick="toggleLogout()" style="cursor: pointer;">
+                    <i class="fa-solid fa-gear"></i>
+                    <span style="flex: 1;">Settings</span>
+                    <i id="settings-chevron" class="fa-solid fa-chevron-down"
+                        style="font-size: 0.8rem; transition: transform 0.3s;"></i>
+                </li>
+                <li id="logout-option" class="nav-item"
+                    onclick="localStorage.removeItem('currentUser'); window.location.href='index.html'"
+                    style="display: none; background: rgba(255, 68, 68, 0.1); color: var(--neon-red); margin-left: 1rem; width: calc(100% - 1rem); margin-top: 0.5rem;">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span>Log Out</span>
+                </li>
+                <script>
+                    function toggleLogout() {
+                        const logoutOption = document.getElementById('logout-option');
+                        const chevron = document.getElementById('settings-chevron');
+                        if (logoutOption.style.display === 'none' || logoutOption.style.display === '') {
+                            logoutOption.style.display = 'flex';
+                            chevron.style.transform = 'rotate(180deg)';
+                        } else {
+                            logoutOption.style.display = 'none';
+                            chevron.style.transform = 'rotate(0deg)';
+                        }
+                    }
+                </script>
+            </ul>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+
+            <header>
+                <div class="header-left">
+                    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.25rem;">Overview</p>
+                    <h1><span id="location-name">Government Authority View</span></h1>
+                </div>
+
+                <div class="header-actions">
+                    <div class="date" id="current-date">Loading date...</div>
+                    <button id="location-btn">
+                        <i class="fa-solid fa-location-crosshairs"></i> Locate Me
+                    </button>
+                    <!-- User Profile Placeholder -->
+                    <div
+                        style="width: 40px; height: 40px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                </div>
+            </header>
+
+            <div class="dashboard-grid">
+
+
+
+
+
+                <!-- Source Contribution -->
+                <div class="card source-card">
+                    <div class="card-header">
+                        <h2>Pollution Sources</h2>
+                        <i class="fa-solid fa-industry icon-main"></i>
+                    </div>
+                    <div class="chart-container" style="position: relative; height: 250px; width: 100%;">
+                        <canvas id="sourceChart"></canvas>
+                    </div>
+
+                    <!-- Confidence Score / Primary Source -->
+                    <div id="source-details"
+                        style="margin-top: 15px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+
+                        <div id="primary-source-text"
+                            style="font-size: 0.95rem; color: var(--text-main); line-height: 1.4;">
+                            Analyzing...
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Reasoning Card (New) -->
+                <div class="card reasoning-card" style="grid-column: span 6; display: flex; flex-direction: column;">
+                    <div class="card-header">
+                        <h2>AI Contextual Analysis</h2>
+                        <i class="fa-solid fa-brain icon-main" style="color: var(--accent);"></i>
+                    </div>
+                    <div class="card-body"
+                        style="flex: 1; display: flex; flex-direction: column; justify-content: center;">
+                        <div id="reasoning-content"
+                            style="background: rgba(147, 51, 234, 0.1); border-left: 4px solid var(--accent); padding: 15px; border-radius: 0 8px 8px 0; font-size: 1rem; line-height: 1.6; color: #e2e8f0;">
+                            <p style="margin-bottom: 10px;">
+                                <i class="fa-solid fa-spinner fa-spin"></i> Generating insights based on satellite data
+                                & meteorology...
+                            </p>
+                        </div>
+                        <div
+                            style="margin-top: 15px; font-size: 0.85rem; color: var(--text-muted); display: flex; gap: 10px; align-items: center;">
+                            <i class="fa-solid fa-satellite-dish"></i> Data Sources: NASA FIRMS, Sentinel-5P, Local
+                            Sensors
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Forecast / Prediction -->
+                <div class="card prediction-card">
+                    <div class="card-header">
+                        <h2>AI Model Forecast (72h)</h2>
+                        <i class="fa-solid fa-robot icon-main"></i>
+                    </div>
+                    <div class="chart-container" style="position: relative; height: 250px; width: 100%;">
+                        <canvas id="forecastChart"></canvas>
+                    </div>
+                </div>
+
+
+
+
+
+            </div> <!-- End Grid -->
+
+            <footer>
+                <p>EnviroGov v2.0 • Data provided by Open-Meteo & CPCB API</p>
+            </footer>
+
+        </main>
+    </div>
+
+    <script src="js/stations.js"></script>
+    <script src="js/script.js"></script>
+
+</body>
+
+</html>
