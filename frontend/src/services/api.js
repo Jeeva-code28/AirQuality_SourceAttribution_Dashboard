@@ -81,7 +81,7 @@ async function fetchWithThrottle(url, options = {}) {
  */
 export async function getAirQuality(lat, lon, includeHistory = false) {
     try {
-        const url = `https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${lat}&longitude=${lon}&current=us_aqi,pm10,pm2_5,nitrogen_dioxide,sulphur_dioxide,ozone,carbon_monoxide,carbon_dioxide&hourly=us_aqi,pm2_5,pm10&past_days=1&timezone=auto`;
+        const url = `https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${lat}&longitude=${lon}&current=us_aqi,pm10,pm2_5,nitrogen_dioxide,sulphur_dioxide,ozone,carbon_monoxide,carbon_dioxide&hourly=us_aqi,pm10,pm2_5,nitrogen_dioxide,sulphur_dioxide,ozone,carbon_monoxide,carbon_dioxide&past_days=1&timezone=auto`;
         const response = await fetchWithThrottle(url);
 
         if (!response.ok) {
@@ -89,6 +89,25 @@ export async function getAirQuality(lat, lon, includeHistory = false) {
         }
 
         const data = await response.json();
+
+        // Open-Meteo sometimes returns null for the current hour. Fallback to latest available hourly data.
+        if (data && data.current && data.hourly) {
+            const fields = ['us_aqi', 'pm10', 'pm2_5', 'nitrogen_dioxide', 'sulphur_dioxide', 'ozone', 'carbon_monoxide', 'carbon_dioxide'];
+            
+            for (const field of fields) {
+                if (data.current[field] === null || data.current[field] === undefined) {
+                    if (data.hourly[field]) {
+                        // Find most recent non-null value
+                        for (let i = data.hourly[field].length - 1; i >= 0; i--) {
+                            if (data.hourly[field][i] !== null && data.hourly[field][i] !== undefined) {
+                                data.current[field] = data.hourly[field][i];
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
         // Validate AQI Data - Filter out unrealistic values
         if (data && data.current && data.current.us_aqi > 1000) {

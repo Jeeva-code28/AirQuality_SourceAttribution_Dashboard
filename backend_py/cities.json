@@ -1,0 +1,5834 @@
+[
+  {
+    "name": "New York",
+    "lat": 40.71,
+    "lon": -74,
+    "country": "USA"
+  },
+  {
+    "name": "Los Angeles",
+    "lat": 34.05,
+    "lon": -118.24,
+    "country": "USA"
+  },
+  {
+    "name": "Chicago",
+    "lat": 41.87,
+    "lon": -87.62,
+    "country": "USA"
+  },
+  {
+    "name": "Houston",
+    "lat": 29.76,
+    "lon": -95.36,
+    "country": "USA"
+  },
+  {
+    "name": "Phoenix",
+    "lat": 33.44,
+    "lon": -112.07,
+    "country": "USA"
+  },
+  {
+    "name": "Philadelphia",
+    "lat": 39.95,
+    "lon": -75.16,
+    "country": "USA"
+  },
+  {
+    "name": "San Antonio",
+    "lat": 29.42,
+    "lon": -98.49,
+    "country": "USA"
+  },
+  {
+    "name": "San Diego",
+    "lat": 32.71,
+    "lon": -117.16,
+    "country": "USA"
+  },
+  {
+    "name": "Dallas",
+    "lat": 32.77,
+    "lon": -96.79,
+    "country": "USA"
+  },
+  {
+    "name": "San Jose",
+    "lat": 37.33,
+    "lon": -121.88,
+    "country": "USA"
+  },
+  {
+    "name": "Austin",
+    "lat": 30.26,
+    "lon": -97.74,
+    "country": "USA"
+  },
+  {
+    "name": "Jacksonville",
+    "lat": 30.33,
+    "lon": -81.65,
+    "country": "USA"
+  },
+  {
+    "name": "Fort Worth",
+    "lat": 32.75,
+    "lon": -97.33,
+    "country": "USA"
+  },
+  {
+    "name": "Columbus",
+    "lat": 39.96,
+    "lon": -82.99,
+    "country": "USA"
+  },
+  {
+    "name": "Charlotte",
+    "lat": 35.22,
+    "lon": -80.84,
+    "country": "USA"
+  },
+  {
+    "name": "San Francisco",
+    "lat": 37.77,
+    "lon": -122.41,
+    "country": "USA"
+  },
+  {
+    "name": "Indianapolis",
+    "lat": 39.76,
+    "lon": -86.15,
+    "country": "USA"
+  },
+  {
+    "name": "Seattle",
+    "lat": 47.6,
+    "lon": -122.33,
+    "country": "USA"
+  },
+  {
+    "name": "Denver",
+    "lat": 39.73,
+    "lon": -104.99,
+    "country": "USA"
+  },
+  {
+    "name": "Washington",
+    "lat": 38.9,
+    "lon": -77.03,
+    "country": "USA"
+  },
+  {
+    "name": "Boston",
+    "lat": 42.36,
+    "lon": -71.05,
+    "country": "USA"
+  },
+  {
+    "name": "El Paso",
+    "lat": 31.77,
+    "lon": -106.44,
+    "country": "USA"
+  },
+  {
+    "name": "Nashville",
+    "lat": 36.16,
+    "lon": -86.78,
+    "country": "USA"
+  },
+  {
+    "name": "Detroit",
+    "lat": 42.33,
+    "lon": -83.04,
+    "country": "USA"
+  },
+  {
+    "name": "Oklahoma City",
+    "lat": 35.46,
+    "lon": -97.51,
+    "country": "USA"
+  },
+  {
+    "name": "Portland",
+    "lat": 45.51,
+    "lon": -122.67,
+    "country": "USA"
+  },
+  {
+    "name": "Las Vegas",
+    "lat": 36.16,
+    "lon": -115.13,
+    "country": "USA"
+  },
+  {
+    "name": "Memphis",
+    "lat": 35.14,
+    "lon": -90.04,
+    "country": "USA"
+  },
+  {
+    "name": "Louisville",
+    "lat": 38.25,
+    "lon": -85.75,
+    "country": "USA"
+  },
+  {
+    "name": "Baltimore",
+    "lat": 39.29,
+    "lon": -76.61,
+    "country": "USA"
+  },
+  {
+    "name": "Milwaukee",
+    "lat": 43.03,
+    "lon": -87.9,
+    "country": "USA"
+  },
+  {
+    "name": "Albuquerque",
+    "lat": 35.08,
+    "lon": -106.65,
+    "country": "USA"
+  },
+  {
+    "name": "Tucson",
+    "lat": 32.22,
+    "lon": -110.97,
+    "country": "USA"
+  },
+  {
+    "name": "Fresno",
+    "lat": 36.74,
+    "lon": -119.78,
+    "country": "USA"
+  },
+  {
+    "name": "Mesa",
+    "lat": 33.41,
+    "lon": -111.83,
+    "country": "USA"
+  },
+  {
+    "name": "Sacramento",
+    "lat": 38.58,
+    "lon": -121.49,
+    "country": "USA"
+  },
+  {
+    "name": "Atlanta",
+    "lat": 33.74,
+    "lon": -84.38,
+    "country": "USA"
+  },
+  {
+    "name": "Kansas City",
+    "lat": 39.09,
+    "lon": -94.57,
+    "country": "USA"
+  },
+  {
+    "name": "Colorado Springs",
+    "lat": 38.83,
+    "lon": -104.82,
+    "country": "USA"
+  },
+  {
+    "name": "Miami",
+    "lat": 25.76,
+    "lon": -80.19,
+    "country": "USA"
+  },
+  {
+    "name": "Raleigh",
+    "lat": 35.77,
+    "lon": -78.63,
+    "country": "USA"
+  },
+  {
+    "name": "Omaha",
+    "lat": 41.25,
+    "lon": -95.93,
+    "country": "USA"
+  },
+  {
+    "name": "Long Beach",
+    "lat": 33.77,
+    "lon": -118.19,
+    "country": "USA"
+  },
+  {
+    "name": "Virginia Beach",
+    "lat": 36.85,
+    "lon": -75.97,
+    "country": "USA"
+  },
+  {
+    "name": "Oakland",
+    "lat": 37.8,
+    "lon": -122.27,
+    "country": "USA"
+  },
+  {
+    "name": "Minneapolis",
+    "lat": 44.97,
+    "lon": -93.26,
+    "country": "USA"
+  },
+  {
+    "name": "Tulsa",
+    "lat": 36.15,
+    "lon": -95.99,
+    "country": "USA"
+  },
+  {
+    "name": "Arlington",
+    "lat": 32.73,
+    "lon": -97.1,
+    "country": "USA"
+  },
+  {
+    "name": "Tampa",
+    "lat": 27.95,
+    "lon": -82.45,
+    "country": "USA"
+  },
+  {
+    "name": "New Orleans",
+    "lat": 29.95,
+    "lon": -90.07,
+    "country": "USA"
+  },
+  {
+    "name": "Wichita",
+    "lat": 37.68,
+    "lon": -97.33,
+    "country": "USA"
+  },
+  {
+    "name": "Bakersfield",
+    "lat": 35.37,
+    "lon": -119.01,
+    "country": "USA"
+  },
+  {
+    "name": "Cleveland",
+    "lat": 41.49,
+    "lon": -81.69,
+    "country": "USA"
+  },
+  {
+    "name": "Aurora",
+    "lat": 39.72,
+    "lon": -104.83,
+    "country": "USA"
+  },
+  {
+    "name": "Anaheim",
+    "lat": 33.83,
+    "lon": -117.91,
+    "country": "USA"
+  },
+  {
+    "name": "Honolulu",
+    "lat": 21.3,
+    "lon": -157.85,
+    "country": "USA"
+  },
+  {
+    "name": "Santa Ana",
+    "lat": 33.74,
+    "lon": -117.86,
+    "country": "USA"
+  },
+  {
+    "name": "Riverside",
+    "lat": 33.95,
+    "lon": -117.39,
+    "country": "USA"
+  },
+  {
+    "name": "Corpus Christi",
+    "lat": 27.8,
+    "lon": -97.39,
+    "country": "USA"
+  },
+  {
+    "name": "Lexington",
+    "lat": 38.04,
+    "lon": -84.5,
+    "country": "USA"
+  },
+  {
+    "name": "Stockton",
+    "lat": 37.95,
+    "lon": -121.29,
+    "country": "USA"
+  },
+  {
+    "name": "Henderson",
+    "lat": 36.03,
+    "lon": -114.98,
+    "country": "USA"
+  },
+  {
+    "name": "Saint Paul",
+    "lat": 44.95,
+    "lon": -93.08,
+    "country": "USA"
+  },
+  {
+    "name": "St. Louis",
+    "lat": 38.62,
+    "lon": -90.19,
+    "country": "USA"
+  },
+  {
+    "name": "Cincinnati",
+    "lat": 39.1,
+    "lon": -84.51,
+    "country": "USA"
+  },
+  {
+    "name": "Pittsburgh",
+    "lat": 40.44,
+    "lon": -79.99,
+    "country": "USA"
+  },
+  {
+    "name": "Greensboro",
+    "lat": 36.07,
+    "lon": -79.79,
+    "country": "USA"
+  },
+  {
+    "name": "Anchorage",
+    "lat": 61.21,
+    "lon": -149.9,
+    "country": "USA"
+  },
+  {
+    "name": "Plano",
+    "lat": 33.01,
+    "lon": -96.69,
+    "country": "USA"
+  },
+  {
+    "name": "Lincoln",
+    "lat": 40.8,
+    "lon": -96.68,
+    "country": "USA"
+  },
+  {
+    "name": "Orlando",
+    "lat": 28.53,
+    "lon": -81.37,
+    "country": "USA"
+  },
+  {
+    "name": "Irvine",
+    "lat": 33.68,
+    "lon": -117.82,
+    "country": "USA"
+  },
+  {
+    "name": "Newark",
+    "lat": 40.73,
+    "lon": -74.17,
+    "country": "USA"
+  },
+  {
+    "name": "Toledo",
+    "lat": 41.66,
+    "lon": -83.55,
+    "country": "USA"
+  },
+  {
+    "name": "Durham",
+    "lat": 35.99,
+    "lon": -78.89,
+    "country": "USA"
+  },
+  {
+    "name": "Chula Vista",
+    "lat": 32.64,
+    "lon": -117.08,
+    "country": "USA"
+  },
+  {
+    "name": "Fort Wayne",
+    "lat": 41.07,
+    "lon": -85.13,
+    "country": "USA"
+  },
+  {
+    "name": "Jersey City",
+    "lat": 40.71,
+    "lon": -74.04,
+    "country": "USA"
+  },
+  {
+    "name": "St. Petersburg",
+    "lat": 27.76,
+    "lon": -82.64,
+    "country": "USA"
+  },
+  {
+    "name": "Laredo",
+    "lat": 27.53,
+    "lon": -99.48,
+    "country": "USA"
+  },
+  {
+    "name": "Madison",
+    "lat": 43.07,
+    "lon": -89.4,
+    "country": "USA"
+  },
+  {
+    "name": "Chandler",
+    "lat": 33.3,
+    "lon": -111.84,
+    "country": "USA"
+  },
+  {
+    "name": "Buffalo",
+    "lat": 42.88,
+    "lon": -78.87,
+    "country": "USA"
+  },
+  {
+    "name": "Lubbock",
+    "lat": 33.57,
+    "lon": -101.85,
+    "country": "USA"
+  },
+  {
+    "name": "Scottsdale",
+    "lat": 33.49,
+    "lon": -111.92,
+    "country": "USA"
+  },
+  {
+    "name": "Reno",
+    "lat": 39.52,
+    "lon": -119.81,
+    "country": "USA"
+  },
+  {
+    "name": "Glendale",
+    "lat": 33.53,
+    "lon": -112.18,
+    "country": "USA"
+  },
+  {
+    "name": "Gilbert",
+    "lat": 33.35,
+    "lon": -111.78,
+    "country": "USA"
+  },
+  {
+    "name": "Winston-Salem",
+    "lat": 36.09,
+    "lon": -80.24,
+    "country": "USA"
+  },
+  {
+    "name": "North Las Vegas",
+    "lat": 36.19,
+    "lon": -115.11,
+    "country": "USA"
+  },
+  {
+    "name": "Norfolk",
+    "lat": 36.85,
+    "lon": -76.28,
+    "country": "USA"
+  },
+  {
+    "name": "Chesapeake",
+    "lat": 36.76,
+    "lon": -76.28,
+    "country": "USA"
+  },
+  {
+    "name": "Garland",
+    "lat": 32.91,
+    "lon": -96.63,
+    "country": "USA"
+  },
+  {
+    "name": "Irving",
+    "lat": 32.81,
+    "lon": -96.94,
+    "country": "USA"
+  },
+  {
+    "name": "Hialeah",
+    "lat": 25.85,
+    "lon": -80.29,
+    "country": "USA"
+  },
+  {
+    "name": "Fremont",
+    "lat": 37.54,
+    "lon": -121.98,
+    "country": "USA"
+  },
+  {
+    "name": "Boise",
+    "lat": 43.61,
+    "lon": -116.2,
+    "country": "USA"
+  },
+  {
+    "name": "Richmond",
+    "lat": 37.54,
+    "lon": -77.43,
+    "country": "USA"
+  },
+  {
+    "name": "Baton Rouge",
+    "lat": 30.45,
+    "lon": -91.18,
+    "country": "USA"
+  },
+  {
+    "name": "Toronto",
+    "lat": 43.65,
+    "lon": -79.38,
+    "country": "Canada"
+  },
+  {
+    "name": "Montreal",
+    "lat": 45.5,
+    "lon": -73.56,
+    "country": "Canada"
+  },
+  {
+    "name": "Vancouver",
+    "lat": 49.28,
+    "lon": -123.12,
+    "country": "Canada"
+  },
+  {
+    "name": "Calgary",
+    "lat": 51.04,
+    "lon": -114.07,
+    "country": "Canada"
+  },
+  {
+    "name": "Edmonton",
+    "lat": 53.54,
+    "lon": -113.49,
+    "country": "Canada"
+  },
+  {
+    "name": "Ottawa",
+    "lat": 45.42,
+    "lon": -75.69,
+    "country": "Canada"
+  },
+  {
+    "name": "Winnipeg",
+    "lat": 49.89,
+    "lon": -97.13,
+    "country": "Canada"
+  },
+  {
+    "name": "Quebec City",
+    "lat": 46.81,
+    "lon": -71.2,
+    "country": "Canada"
+  },
+  {
+    "name": "Hamilton",
+    "lat": 43.25,
+    "lon": -79.87,
+    "country": "Canada"
+  },
+  {
+    "name": "Brampton",
+    "lat": 43.73,
+    "lon": -79.76,
+    "country": "Canada"
+  },
+  {
+    "name": "Surrey",
+    "lat": 49.19,
+    "lon": -122.84,
+    "country": "Canada"
+  },
+  {
+    "name": "Kitchener",
+    "lat": 43.45,
+    "lon": -80.49,
+    "country": "Canada"
+  },
+  {
+    "name": "Laval",
+    "lat": 45.56,
+    "lon": -73.75,
+    "country": "Canada"
+  },
+  {
+    "name": "Halifax",
+    "lat": 44.64,
+    "lon": -63.57,
+    "country": "Canada"
+  },
+  {
+    "name": "London",
+    "lat": 42.98,
+    "lon": -81.24,
+    "country": "Canada"
+  },
+  {
+    "name": "Victoria",
+    "lat": 48.42,
+    "lon": -123.36,
+    "country": "Canada"
+  },
+  {
+    "name": "Windsor",
+    "lat": 42.31,
+    "lon": -83.03,
+    "country": "Canada"
+  },
+  {
+    "name": "Oshawa",
+    "lat": 43.89,
+    "lon": -78.86,
+    "country": "Canada"
+  },
+  {
+    "name": "Saskatoon",
+    "lat": 52.13,
+    "lon": -106.67,
+    "country": "Canada"
+  },
+  {
+    "name": "Regina",
+    "lat": 50.44,
+    "lon": -104.6,
+    "country": "Canada"
+  },
+  {
+    "name": "New Delhi (CP)",
+    "lat": 28.61,
+    "lon": 77.21,
+    "country": "India"
+  },
+  {
+    "name": "Delhi (Dwarka)",
+    "lat": 28.59,
+    "lon": 77.04,
+    "country": "India"
+  },
+  {
+    "name": "Delhi (Rohini)",
+    "lat": 28.7,
+    "lon": 77.1,
+    "country": "India"
+  },
+  {
+    "name": "Delhi (Okhla)",
+    "lat": 28.55,
+    "lon": 77.26,
+    "country": "India"
+  },
+  {
+    "name": "Delhi (Punjabi Bagh)",
+    "lat": 28.66,
+    "lon": 77.12,
+    "country": "India"
+  },
+  {
+    "name": "Delhi (Anand Vihar)",
+    "lat": 28.64,
+    "lon": 77.31,
+    "country": "India"
+  },
+  {
+    "name": "Delhi (Nehru Place)",
+    "lat": 28.54,
+    "lon": 77.25,
+    "country": "India"
+  },
+  {
+    "name": "Delhi (Mayur Vihar)",
+    "lat": 28.6,
+    "lon": 77.29,
+    "country": "India"
+  },
+  {
+    "name": "Noida (Sec 18)",
+    "lat": 28.57,
+    "lon": 77.32,
+    "country": "India"
+  },
+  {
+    "name": "Noida (Sec 62)",
+    "lat": 28.62,
+    "lon": 77.36,
+    "country": "India"
+  },
+  {
+    "name": "Gurgaon (Cyber City)",
+    "lat": 28.49,
+    "lon": 77.08,
+    "country": "India"
+  },
+  {
+    "name": "Gurgaon (Sec 56)",
+    "lat": 28.42,
+    "lon": 77.1,
+    "country": "India"
+  },
+  {
+    "name": "Ghaziabad (Indirapuram)",
+    "lat": 28.64,
+    "lon": 77.36,
+    "country": "India"
+  },
+  {
+    "name": "Faridabad (Sector 12)",
+    "lat": 28.4,
+    "lon": 77.31,
+    "country": "India"
+  },
+  {
+    "name": "Mumbai (Colaba)",
+    "lat": 18.91,
+    "lon": 72.81,
+    "country": "India"
+  },
+  {
+    "name": "Mumbai (Bandra)",
+    "lat": 19.06,
+    "lon": 72.83,
+    "country": "India"
+  },
+  {
+    "name": "Mumbai (Andheri)",
+    "lat": 19.11,
+    "lon": 72.84,
+    "country": "India"
+  },
+  {
+    "name": "Mumbai (Borivali)",
+    "lat": 19.23,
+    "lon": 72.85,
+    "country": "India"
+  },
+  {
+    "name": "Mumbai (Chembur)",
+    "lat": 19.05,
+    "lon": 72.9,
+    "country": "India"
+  },
+  {
+    "name": "Mumbai (Dadar)",
+    "lat": 19.02,
+    "lon": 72.84,
+    "country": "India"
+  },
+  {
+    "name": "Mumbai (Juhu)",
+    "lat": 19.1,
+    "lon": 72.82,
+    "country": "India"
+  },
+  {
+    "name": "Mumbai (Mulund)",
+    "lat": 19.17,
+    "lon": 72.95,
+    "country": "India"
+  },
+  {
+    "name": "Navi Mumbai (Vashi)",
+    "lat": 19.07,
+    "lon": 72.99,
+    "country": "India"
+  },
+  {
+    "name": "Navi Mumbai (Belapur)",
+    "lat": 19.02,
+    "lon": 73.03,
+    "country": "India"
+  },
+  {
+    "name": "Thane (West)",
+    "lat": 19.21,
+    "lon": 72.97,
+    "country": "India"
+  },
+  {
+    "name": "Thane (Ghodbunder)",
+    "lat": 19.26,
+    "lon": 72.96,
+    "country": "India"
+  },
+  {
+    "name": "Bangalore (City)",
+    "lat": 12.97,
+    "lon": 77.59,
+    "country": "India"
+  },
+  {
+    "name": "Bangalore (Whitefield)",
+    "lat": 12.96,
+    "lon": 77.75,
+    "country": "India"
+  },
+  {
+    "name": "Bangalore (Indiranagar)",
+    "lat": 12.97,
+    "lon": 77.64,
+    "country": "India"
+  },
+  {
+    "name": "Bangalore (Koramangala)",
+    "lat": 12.93,
+    "lon": 77.62,
+    "country": "India"
+  },
+  {
+    "name": "Bangalore (Jayanagar)",
+    "lat": 12.93,
+    "lon": 77.58,
+    "country": "India"
+  },
+  {
+    "name": "Bangalore (Electronic City)",
+    "lat": 12.84,
+    "lon": 77.66,
+    "country": "India"
+  },
+  {
+    "name": "Bangalore (Hebbal)",
+    "lat": 13.04,
+    "lon": 77.59,
+    "country": "India"
+  },
+  {
+    "name": "Bangalore (Yeshwanthpur)",
+    "lat": 13.02,
+    "lon": 77.55,
+    "country": "India"
+  },
+  {
+    "name": "Chennai (Central)",
+    "lat": 13.08,
+    "lon": 80.27,
+    "country": "India"
+  },
+  {
+    "name": "Chennai (Adyar)",
+    "lat": 13,
+    "lon": 80.26,
+    "country": "India"
+  },
+  {
+    "name": "Chennai (T. Nagar)",
+    "lat": 13.04,
+    "lon": 80.23,
+    "country": "India"
+  },
+  {
+    "name": "Chennai (Velachery)",
+    "lat": 12.98,
+    "lon": 80.22,
+    "country": "India"
+  },
+  {
+    "name": "Chennai (Anna Nagar)",
+    "lat": 13.08,
+    "lon": 80.21,
+    "country": "India"
+  },
+  {
+    "name": "Chennai (Marina Beach)",
+    "lat": 13.05,
+    "lon": 80.28,
+    "country": "India"
+  },
+  {
+    "name": "Chennai (Tambaram)",
+    "lat": 12.92,
+    "lon": 80.12,
+    "country": "India"
+  },
+  {
+    "name": "Kolkata (Park Street)",
+    "lat": 22.55,
+    "lon": 88.35,
+    "country": "India"
+  },
+  {
+    "name": "Kolkata (Salt Lake)",
+    "lat": 22.58,
+    "lon": 88.41,
+    "country": "India"
+  },
+  {
+    "name": "Kolkata (Dum Dum)",
+    "lat": 22.64,
+    "lon": 88.43,
+    "country": "India"
+  },
+  {
+    "name": "Kolkata (Ballygunge)",
+    "lat": 22.52,
+    "lon": 88.36,
+    "country": "India"
+  },
+  {
+    "name": "Kolkata (New Town)",
+    "lat": 22.59,
+    "lon": 88.48,
+    "country": "India"
+  },
+  {
+    "name": "Howrah (Station)",
+    "lat": 22.58,
+    "lon": 88.33,
+    "country": "India"
+  },
+  {
+    "name": "Hyderabad (Charminar)",
+    "lat": 17.36,
+    "lon": 78.47,
+    "country": "India"
+  },
+  {
+    "name": "Hyderabad (Secunderabad)",
+    "lat": 17.43,
+    "lon": 78.5,
+    "country": "India"
+  },
+  {
+    "name": "Hyderabad (Hitech City)",
+    "lat": 17.44,
+    "lon": 78.37,
+    "country": "India"
+  },
+  {
+    "name": "Hyderabad (Jubilee Hills)",
+    "lat": 17.43,
+    "lon": 78.4,
+    "country": "India"
+  },
+  {
+    "name": "Hyderabad (Gachibowli)",
+    "lat": 17.44,
+    "lon": 78.34,
+    "country": "India"
+  },
+  {
+    "name": "Hyderabad (Kukatpally)",
+    "lat": 17.49,
+    "lon": 78.4,
+    "country": "India"
+  },
+  {
+    "name": "Pune (Shivaji Nagar)",
+    "lat": 18.53,
+    "lon": 73.84,
+    "country": "India"
+  },
+  {
+    "name": "Pune (Hinjewadi)",
+    "lat": 18.59,
+    "lon": 73.73,
+    "country": "India"
+  },
+  {
+    "name": "Pune (Viman Nagar)",
+    "lat": 18.56,
+    "lon": 73.91,
+    "country": "India"
+  },
+  {
+    "name": "Pune (Magarpatta)",
+    "lat": 18.51,
+    "lon": 73.93,
+    "country": "India"
+  },
+  {
+    "name": "Pune (Kothrud)",
+    "lat": 18.5,
+    "lon": 73.8,
+    "country": "India"
+  },
+  {
+    "name": "Pimpri-Chinchwad",
+    "lat": 18.62,
+    "lon": 73.8,
+    "country": "India"
+  },
+  {
+    "name": "Ahmedabad (City)",
+    "lat": 23.02,
+    "lon": 72.57,
+    "country": "India"
+  },
+  {
+    "name": "Ahmedabad (Maninagar)",
+    "lat": 23,
+    "lon": 72.6,
+    "country": "India"
+  },
+  {
+    "name": "Ahmedabad (Satellite)",
+    "lat": 23.03,
+    "lon": 72.5,
+    "country": "India"
+  },
+  {
+    "name": "Ahmedabad (Naroda)",
+    "lat": 23.06,
+    "lon": 72.66,
+    "country": "India"
+  },
+  {
+    "name": "Gandhinagar (Sector 10)",
+    "lat": 23.21,
+    "lon": 72.63,
+    "country": "India"
+  },
+  {
+    "name": "Jaipur (City)",
+    "lat": 26.91,
+    "lon": 75.78,
+    "country": "India"
+  },
+  {
+    "name": "Jaipur (Mansarovar)",
+    "lat": 26.86,
+    "lon": 75.75,
+    "country": "India"
+  },
+  {
+    "name": "Lucknow (Hazratganj)",
+    "lat": 26.84,
+    "lon": 80.94,
+    "country": "India"
+  },
+  {
+    "name": "Lucknow (Gomti Nagar)",
+    "lat": 26.85,
+    "lon": 80.99,
+    "country": "India"
+  },
+  {
+    "name": "Kanpur (City)",
+    "lat": 26.44,
+    "lon": 80.33,
+    "country": "India"
+  },
+  {
+    "name": "Kanpur (IIT)",
+    "lat": 26.51,
+    "lon": 80.23,
+    "country": "India"
+  },
+  {
+    "name": "Nagpur (Zero Mile)",
+    "lat": 21.14,
+    "lon": 79.08,
+    "country": "India"
+  },
+  {
+    "name": "Nagpur (Airport)",
+    "lat": 21.09,
+    "lon": 79.05,
+    "country": "India"
+  },
+  {
+    "name": "Indore (Rajwada)",
+    "lat": 22.71,
+    "lon": 75.85,
+    "country": "India"
+  },
+  {
+    "name": "Indore (Vijay Nagar)",
+    "lat": 22.75,
+    "lon": 75.88,
+    "country": "India"
+  },
+  {
+    "name": "Bhopal (City)",
+    "lat": 23.25,
+    "lon": 77.41,
+    "country": "India"
+  },
+  {
+    "name": "Bhopal (Kolar)",
+    "lat": 23.18,
+    "lon": 77.4,
+    "country": "India"
+  },
+  {
+    "name": "Visakhapatnam (City)",
+    "lat": 17.68,
+    "lon": 83.21,
+    "country": "India"
+  },
+  {
+    "name": "Visakhapatnam (Beach)",
+    "lat": 17.71,
+    "lon": 83.32,
+    "country": "India"
+  },
+  {
+    "name": "Patna (Gandhi Maidan)",
+    "lat": 25.61,
+    "lon": 85.14,
+    "country": "India"
+  },
+  {
+    "name": "Patna (Bailey Road)",
+    "lat": 25.6,
+    "lon": 85.08,
+    "country": "India"
+  },
+  {
+    "name": "Vadodara (Alkapuri)",
+    "lat": 22.31,
+    "lon": 73.17,
+    "country": "India"
+  },
+  {
+    "name": "Vadodara (Manjalpur)",
+    "lat": 22.27,
+    "lon": 73.19,
+    "country": "India"
+  },
+  {
+    "name": "Ghaziabad",
+    "lat": 28.66,
+    "lon": 77.45,
+    "country": "India"
+  },
+  {
+    "name": "Ludhiana",
+    "lat": 30.9,
+    "lon": 75.85,
+    "country": "India"
+  },
+  {
+    "name": "Agra",
+    "lat": 27.17,
+    "lon": 78,
+    "country": "India"
+  },
+  {
+    "name": "Nashik",
+    "lat": 19.99,
+    "lon": 73.78,
+    "country": "India"
+  },
+  {
+    "name": "Faridabad",
+    "lat": 28.4,
+    "lon": 77.31,
+    "country": "India"
+  },
+  {
+    "name": "Meerut",
+    "lat": 28.98,
+    "lon": 77.7,
+    "country": "India"
+  },
+  {
+    "name": "Rajkot",
+    "lat": 22.3,
+    "lon": 70.8,
+    "country": "India"
+  },
+  {
+    "name": "Kalyan-Dombivli",
+    "lat": 19.23,
+    "lon": 73.13,
+    "country": "India"
+  },
+  {
+    "name": "Vasai-Virar",
+    "lat": 19.39,
+    "lon": 72.83,
+    "country": "India"
+  },
+  {
+    "name": "Varanasi",
+    "lat": 25.31,
+    "lon": 82.97,
+    "country": "India"
+  },
+  {
+    "name": "Srinagar",
+    "lat": 34.08,
+    "lon": 74.79,
+    "country": "India"
+  },
+  {
+    "name": "Aurangabad",
+    "lat": 19.87,
+    "lon": 75.34,
+    "country": "India"
+  },
+  {
+    "name": "Dhanbad",
+    "lat": 23.79,
+    "lon": 86.43,
+    "country": "India"
+  },
+  {
+    "name": "Amritsar",
+    "lat": 31.63,
+    "lon": 74.87,
+    "country": "India"
+  },
+  {
+    "name": "Navi Mumbai",
+    "lat": 19.03,
+    "lon": 73.02,
+    "country": "India"
+  },
+  {
+    "name": "Allahabad",
+    "lat": 25.43,
+    "lon": 81.84,
+    "country": "India"
+  },
+  {
+    "name": "Howrah",
+    "lat": 22.59,
+    "lon": 88.31,
+    "country": "India"
+  },
+  {
+    "name": "Ranchi",
+    "lat": 23.34,
+    "lon": 85.3,
+    "country": "India"
+  },
+  {
+    "name": "Gwalior",
+    "lat": 26.21,
+    "lon": 78.17,
+    "country": "India"
+  },
+  {
+    "name": "Jabalpur",
+    "lat": 23.18,
+    "lon": 79.98,
+    "country": "India"
+  },
+  {
+    "name": "Coimbatore",
+    "lat": 11.01,
+    "lon": 76.95,
+    "country": "India"
+  },
+  {
+    "name": "Vijayawada",
+    "lat": 16.5,
+    "lon": 80.64,
+    "country": "India"
+  },
+  {
+    "name": "Jodhpur",
+    "lat": 26.23,
+    "lon": 73.02,
+    "country": "India"
+  },
+  {
+    "name": "Madurai",
+    "lat": 9.92,
+    "lon": 78.11,
+    "country": "India"
+  },
+  {
+    "name": "Raipur",
+    "lat": 21.25,
+    "lon": 81.62,
+    "country": "India"
+  },
+  {
+    "name": "Kota",
+    "lat": 25.18,
+    "lon": 75.83,
+    "country": "India"
+  },
+  {
+    "name": "Guwahati",
+    "lat": 26.14,
+    "lon": 91.73,
+    "country": "India"
+  },
+  {
+    "name": "Chandigarh",
+    "lat": 30.73,
+    "lon": 76.77,
+    "country": "India"
+  },
+  {
+    "name": "Solapur",
+    "lat": 17.65,
+    "lon": 75.9,
+    "country": "India"
+  },
+  {
+    "name": "Hubli-Dharwad",
+    "lat": 15.36,
+    "lon": 75.12,
+    "country": "India"
+  },
+  {
+    "name": "Bareilly",
+    "lat": 28.36,
+    "lon": 79.43,
+    "country": "India"
+  },
+  {
+    "name": "Moradabad",
+    "lat": 28.83,
+    "lon": 78.77,
+    "country": "India"
+  },
+  {
+    "name": "Mysore",
+    "lat": 12.29,
+    "lon": 76.63,
+    "country": "India"
+  },
+  {
+    "name": "Gurgaon",
+    "lat": 28.45,
+    "lon": 77.02,
+    "country": "India"
+  },
+  {
+    "name": "Aligarh",
+    "lat": 27.89,
+    "lon": 78.08,
+    "country": "India"
+  },
+  {
+    "name": "Jalandhar",
+    "lat": 31.32,
+    "lon": 75.57,
+    "country": "India"
+  },
+  {
+    "name": "Tiruchirappalli",
+    "lat": 10.79,
+    "lon": 78.7,
+    "country": "India"
+  },
+  {
+    "name": "Bhubaneswar",
+    "lat": 20.29,
+    "lon": 85.82,
+    "country": "India"
+  },
+  {
+    "name": "Salem",
+    "lat": 11.66,
+    "lon": 78.14,
+    "country": "India"
+  },
+  {
+    "name": "Mira-Bhayandar",
+    "lat": 19.28,
+    "lon": 72.85,
+    "country": "India"
+  },
+  {
+    "name": "Warangal",
+    "lat": 17.96,
+    "lon": 79.59,
+    "country": "India"
+  },
+  {
+    "name": "Noida",
+    "lat": 28.53,
+    "lon": 77.39,
+    "country": "India"
+  },
+  {
+    "name": "Kochi",
+    "lat": 9.93,
+    "lon": 76.26,
+    "country": "India"
+  },
+  {
+    "name": "Prayagraj",
+    "lat": 25.43,
+    "lon": 81.84,
+    "country": "India"
+  },
+  {
+    "name": "Gorakhpur",
+    "lat": 26.76,
+    "lon": 83.36,
+    "country": "India"
+  },
+  {
+    "name": "Saharanpur",
+    "lat": 29.96,
+    "lon": 77.54,
+    "country": "India"
+  },
+  {
+    "name": "Muzaffarnagar",
+    "lat": 29.47,
+    "lon": 77.7,
+    "country": "India"
+  },
+  {
+    "name": "Mathura",
+    "lat": 27.49,
+    "lon": 77.67,
+    "country": "India"
+  },
+  {
+    "name": "Firozabad",
+    "lat": 27.15,
+    "lon": 78.39,
+    "country": "India"
+  },
+  {
+    "name": "Shahjahanpur",
+    "lat": 27.88,
+    "lon": 79.9,
+    "country": "India"
+  },
+  {
+    "name": "Rampur",
+    "lat": 28.8,
+    "lon": 79.02,
+    "country": "India"
+  },
+  {
+    "name": "Jhansi",
+    "lat": 25.44,
+    "lon": 78.56,
+    "country": "India"
+  },
+  {
+    "name": "Etawah",
+    "lat": 26.78,
+    "lon": 79.02,
+    "country": "India"
+  },
+  {
+    "name": "Bulandshahr",
+    "lat": 28.4,
+    "lon": 77.85,
+    "country": "India"
+  },
+  {
+    "name": "Nagpur",
+    "lat": 21.14,
+    "lon": 79.08,
+    "country": "India"
+  },
+  {
+    "name": "Amravati",
+    "lat": 20.93,
+    "lon": 77.75,
+    "country": "India"
+  },
+  {
+    "name": "Kolhapur",
+    "lat": 16.7,
+    "lon": 74.22,
+    "country": "India"
+  },
+  {
+    "name": "Sangli",
+    "lat": 16.85,
+    "lon": 74.57,
+    "country": "India"
+  },
+  {
+    "name": "Akola",
+    "lat": 20.7,
+    "lon": 77,
+    "country": "India"
+  },
+  {
+    "name": "Latur",
+    "lat": 18.4,
+    "lon": 76.56,
+    "country": "India"
+  },
+  {
+    "name": "Dhule",
+    "lat": 20.9,
+    "lon": 74.77,
+    "country": "India"
+  },
+  {
+    "name": "Ahmednagar",
+    "lat": 19.09,
+    "lon": 74.73,
+    "country": "India"
+  },
+  {
+    "name": "Chandrapur",
+    "lat": 19.95,
+    "lon": 79.3,
+    "country": "India"
+  },
+  {
+    "name": "Jalgaon",
+    "lat": 21,
+    "lon": 75.56,
+    "country": "India"
+  },
+  {
+    "name": "Bhiwandi",
+    "lat": 19.3,
+    "lon": 73.05,
+    "country": "India"
+  },
+  {
+    "name": "Nanded",
+    "lat": 19.16,
+    "lon": 77.31,
+    "country": "India"
+  },
+  {
+    "name": "Malegaon",
+    "lat": 20.55,
+    "lon": 74.52,
+    "country": "India"
+  },
+  {
+    "name": "Tiruppur",
+    "lat": 11.1,
+    "lon": 77.34,
+    "country": "India"
+  },
+  {
+    "name": "Erode",
+    "lat": 11.34,
+    "lon": 77.71,
+    "country": "India"
+  },
+  {
+    "name": "Vellore",
+    "lat": 12.91,
+    "lon": 79.13,
+    "country": "India"
+  },
+  {
+    "name": "Thoothukudi",
+    "lat": 8.76,
+    "lon": 78.13,
+    "country": "India"
+  },
+  {
+    "name": "Dindigul",
+    "lat": 10.36,
+    "lon": 77.98,
+    "country": "India"
+  },
+  {
+    "name": "Thanjavur",
+    "lat": 10.78,
+    "lon": 79.13,
+    "country": "India"
+  },
+  {
+    "name": "Tirunelveli",
+    "lat": 8.71,
+    "lon": 77.75,
+    "country": "India"
+  },
+  {
+    "name": "Karur",
+    "lat": 10.95,
+    "lon": 78.07,
+    "country": "India"
+  },
+  {
+    "name": "Nagercoil",
+    "lat": 8.17,
+    "lon": 77.43,
+    "country": "India"
+  },
+  {
+    "name": "Kumbakonam",
+    "lat": 10.96,
+    "lon": 79.37,
+    "country": "India"
+  },
+  {
+    "name": "Tiruvannamalai",
+    "lat": 12.23,
+    "lon": 79.07,
+    "country": "India"
+  },
+  {
+    "name": "Mangalore",
+    "lat": 12.91,
+    "lon": 74.85,
+    "country": "India"
+  },
+  {
+    "name": "Belgaum",
+    "lat": 15.85,
+    "lon": 74.5,
+    "country": "India"
+  },
+  {
+    "name": "Gulbarga",
+    "lat": 17.32,
+    "lon": 76.83,
+    "country": "India"
+  },
+  {
+    "name": "Davanagere",
+    "lat": 14.46,
+    "lon": 75.92,
+    "country": "India"
+  },
+  {
+    "name": "Bellary",
+    "lat": 15.14,
+    "lon": 76.92,
+    "country": "India"
+  },
+  {
+    "name": "Bijapur",
+    "lat": 16.82,
+    "lon": 75.71,
+    "country": "India"
+  },
+  {
+    "name": "Shimoga",
+    "lat": 13.93,
+    "lon": 75.56,
+    "country": "India"
+  },
+  {
+    "name": "Tumkur",
+    "lat": 13.34,
+    "lon": 77.1,
+    "country": "India"
+  },
+  {
+    "name": "Raichur",
+    "lat": 16.2,
+    "lon": 77.35,
+    "country": "India"
+  },
+  {
+    "name": "Bidar",
+    "lat": 17.91,
+    "lon": 77.51,
+    "country": "India"
+  },
+  {
+    "name": "Guntur",
+    "lat": 16.3,
+    "lon": 80.43,
+    "country": "India"
+  },
+  {
+    "name": "Nellore",
+    "lat": 14.44,
+    "lon": 79.98,
+    "country": "India"
+  },
+  {
+    "name": "Kurnool",
+    "lat": 15.82,
+    "lon": 78.03,
+    "country": "India"
+  },
+  {
+    "name": "Kadapa",
+    "lat": 14.46,
+    "lon": 78.82,
+    "country": "India"
+  },
+  {
+    "name": "Rajahmundry",
+    "lat": 17,
+    "lon": 81.77,
+    "country": "India"
+  },
+  {
+    "name": "Kakinada",
+    "lat": 16.96,
+    "lon": 82.23,
+    "country": "India"
+  },
+  {
+    "name": "Tirupati",
+    "lat": 13.62,
+    "lon": 79.41,
+    "country": "India"
+  },
+  {
+    "name": "Anantapur",
+    "lat": 14.68,
+    "lon": 77.6,
+    "country": "India"
+  },
+  {
+    "name": "Nizamabad",
+    "lat": 18.67,
+    "lon": 78.08,
+    "country": "India"
+  },
+  {
+    "name": "Karimnagar",
+    "lat": 18.43,
+    "lon": 79.12,
+    "country": "India"
+  },
+  {
+    "name": "Bhavnagar",
+    "lat": 21.76,
+    "lon": 72.15,
+    "country": "India"
+  },
+  {
+    "name": "Jamnagar",
+    "lat": 22.47,
+    "lon": 70.06,
+    "country": "India"
+  },
+  {
+    "name": "Junagadh",
+    "lat": 21.52,
+    "lon": 70.45,
+    "country": "India"
+  },
+  {
+    "name": "Gandhinagar",
+    "lat": 23.21,
+    "lon": 72.63,
+    "country": "India"
+  },
+  {
+    "name": "Anand",
+    "lat": 22.55,
+    "lon": 72.95,
+    "country": "India"
+  },
+  {
+    "name": "Navsari",
+    "lat": 20.95,
+    "lon": 72.93,
+    "country": "India"
+  },
+  {
+    "name": "Bharuch",
+    "lat": 21.7,
+    "lon": 72.98,
+    "country": "India"
+  },
+  {
+    "name": "Mehsana",
+    "lat": 23.58,
+    "lon": 72.36,
+    "country": "India"
+  },
+  {
+    "name": "Morbi",
+    "lat": 22.81,
+    "lon": 70.83,
+    "country": "India"
+  },
+  {
+    "name": "Porbandar",
+    "lat": 21.64,
+    "lon": 69.6,
+    "country": "India"
+  },
+  {
+    "name": "Bikaner",
+    "lat": 28.01,
+    "lon": 73.31,
+    "country": "India"
+  },
+  {
+    "name": "Udaipur",
+    "lat": 24.58,
+    "lon": 73.68,
+    "country": "India"
+  },
+  {
+    "name": "Ajmer",
+    "lat": 26.45,
+    "lon": 74.63,
+    "country": "India"
+  },
+  {
+    "name": "Bhilwara",
+    "lat": 25.34,
+    "lon": 74.63,
+    "country": "India"
+  },
+  {
+    "name": "Alwar",
+    "lat": 27.56,
+    "lon": 76.6,
+    "country": "India"
+  },
+  {
+    "name": "Bharatpur",
+    "lat": 27.21,
+    "lon": 77.49,
+    "country": "India"
+  },
+  {
+    "name": "Pali",
+    "lat": 25.77,
+    "lon": 73.32,
+    "country": "India"
+  },
+  {
+    "name": "Tonk",
+    "lat": 26.16,
+    "lon": 75.78,
+    "country": "India"
+  },
+  {
+    "name": "Sikar",
+    "lat": 27.61,
+    "lon": 75.13,
+    "country": "India"
+  },
+  {
+    "name": "Ujjain",
+    "lat": 23.17,
+    "lon": 75.78,
+    "country": "India"
+  },
+  {
+    "name": "Dewas",
+    "lat": 22.96,
+    "lon": 76.05,
+    "country": "India"
+  },
+  {
+    "name": "Satna",
+    "lat": 24.6,
+    "lon": 80.82,
+    "country": "India"
+  },
+  {
+    "name": "Ratlam",
+    "lat": 23.33,
+    "lon": 75.03,
+    "country": "India"
+  },
+  {
+    "name": "Rewa",
+    "lat": 24.52,
+    "lon": 81.3,
+    "country": "India"
+  },
+  {
+    "name": "Murwara",
+    "lat": 23.83,
+    "lon": 80.39,
+    "country": "India"
+  },
+  {
+    "name": "Singrauli",
+    "lat": 24.19,
+    "lon": 82.67,
+    "country": "India"
+  },
+  {
+    "name": "Burhanpur",
+    "lat": 21.3,
+    "lon": 76.22,
+    "country": "India"
+  },
+  {
+    "name": "Sagar",
+    "lat": 23.83,
+    "lon": 78.73,
+    "country": "India"
+  },
+  {
+    "name": "Durgapur",
+    "lat": 23.55,
+    "lon": 87.31,
+    "country": "India"
+  },
+  {
+    "name": "Asansol",
+    "lat": 23.68,
+    "lon": 86.97,
+    "country": "India"
+  },
+  {
+    "name": "Siliguri",
+    "lat": 26.71,
+    "lon": 88.42,
+    "country": "India"
+  },
+  {
+    "name": "Kharagpur",
+    "lat": 22.33,
+    "lon": 87.23,
+    "country": "India"
+  },
+  {
+    "name": "Bardhaman",
+    "lat": 23.25,
+    "lon": 87.85,
+    "country": "India"
+  },
+  {
+    "name": "Malda",
+    "lat": 25,
+    "lon": 88.13,
+    "country": "India"
+  },
+  {
+    "name": "Baharampur",
+    "lat": 24.1,
+    "lon": 88.25,
+    "country": "India"
+  },
+  {
+    "name": "Habra",
+    "lat": 22.83,
+    "lon": 88.63,
+    "country": "India"
+  },
+  {
+    "name": "Gaya",
+    "lat": 24.79,
+    "lon": 84.99,
+    "country": "India"
+  },
+  {
+    "name": "Bhagalpur",
+    "lat": 25.24,
+    "lon": 86.97,
+    "country": "India"
+  },
+  {
+    "name": "Muzaffarpur",
+    "lat": 26.12,
+    "lon": 85.39,
+    "country": "India"
+  },
+  {
+    "name": "Darbhanga",
+    "lat": 26.15,
+    "lon": 85.89,
+    "country": "India"
+  },
+  {
+    "name": "Purnia",
+    "lat": 25.77,
+    "lon": 87.47,
+    "country": "India"
+  },
+  {
+    "name": "Arrah",
+    "lat": 25.55,
+    "lon": 84.66,
+    "country": "India"
+  },
+  {
+    "name": "Begusarai",
+    "lat": 25.41,
+    "lon": 86.13,
+    "country": "India"
+  },
+  {
+    "name": "Jamshedpur",
+    "lat": 22.8,
+    "lon": 86.18,
+    "country": "India"
+  },
+  {
+    "name": "Bokaro",
+    "lat": 23.66,
+    "lon": 86.15,
+    "country": "India"
+  },
+  {
+    "name": "Hazaribagh",
+    "lat": 23.99,
+    "lon": 85.36,
+    "country": "India"
+  },
+  {
+    "name": "Cuttack",
+    "lat": 20.46,
+    "lon": 85.88,
+    "country": "India"
+  },
+  {
+    "name": "Rourkela",
+    "lat": 22.26,
+    "lon": 84.86,
+    "country": "India"
+  },
+  {
+    "name": "Brahmapur",
+    "lat": 19.31,
+    "lon": 84.79,
+    "country": "India"
+  },
+  {
+    "name": "Sambalpur",
+    "lat": 21.46,
+    "lon": 83.97,
+    "country": "India"
+  },
+  {
+    "name": "Puri",
+    "lat": 19.79,
+    "lon": 85.82,
+    "country": "India"
+  },
+  {
+    "name": "Balasore",
+    "lat": 21.49,
+    "lon": 86.93,
+    "country": "India"
+  },
+  {
+    "name": "Patiala",
+    "lat": 30.33,
+    "lon": 76.38,
+    "country": "India"
+  },
+  {
+    "name": "Bathinda",
+    "lat": 30.21,
+    "lon": 74.95,
+    "country": "India"
+  },
+  {
+    "name": "Mohali",
+    "lat": 30.7,
+    "lon": 76.71,
+    "country": "India"
+  },
+  {
+    "name": "Pathankot",
+    "lat": 32.27,
+    "lon": 75.64,
+    "country": "India"
+  },
+  {
+    "name": "Hoshiarpur",
+    "lat": 31.53,
+    "lon": 75.91,
+    "country": "India"
+  },
+  {
+    "name": "Faridkot",
+    "lat": 30.67,
+    "lon": 74.75,
+    "country": "India"
+  },
+  {
+    "name": "Panipat",
+    "lat": 29.38,
+    "lon": 76.96,
+    "country": "India"
+  },
+  {
+    "name": "Ambala",
+    "lat": 30.37,
+    "lon": 76.77,
+    "country": "India"
+  },
+  {
+    "name": "Yamunanagar",
+    "lat": 30.12,
+    "lon": 77.28,
+    "country": "India"
+  },
+  {
+    "name": "Rohtak",
+    "lat": 28.89,
+    "lon": 76.58,
+    "country": "India"
+  },
+  {
+    "name": "Hisar",
+    "lat": 29.15,
+    "lon": 75.72,
+    "country": "India"
+  },
+  {
+    "name": "Karnal",
+    "lat": 29.68,
+    "lon": 76.98,
+    "country": "India"
+  },
+  {
+    "name": "Sonipat",
+    "lat": 28.99,
+    "lon": 77.01,
+    "country": "India"
+  },
+  {
+    "name": "Thiruvananthapuram",
+    "lat": 8.52,
+    "lon": 76.93,
+    "country": "India"
+  },
+  {
+    "name": "Kozhikode",
+    "lat": 11.25,
+    "lon": 75.77,
+    "country": "India"
+  },
+  {
+    "name": "Thrissur",
+    "lat": 10.52,
+    "lon": 76.21,
+    "country": "India"
+  },
+  {
+    "name": "Kollam",
+    "lat": 8.88,
+    "lon": 76.59,
+    "country": "India"
+  },
+  {
+    "name": "Palakkad",
+    "lat": 10.77,
+    "lon": 76.65,
+    "country": "India"
+  },
+  {
+    "name": "Alappuzha",
+    "lat": 9.49,
+    "lon": 76.33,
+    "country": "India"
+  },
+  {
+    "name": "Malappuram",
+    "lat": 11.04,
+    "lon": 76.07,
+    "country": "India"
+  },
+  {
+    "name": "Kannur",
+    "lat": 11.86,
+    "lon": 75.37,
+    "country": "India"
+  },
+  {
+    "name": "Bhilai",
+    "lat": 21.2,
+    "lon": 81.38,
+    "country": "India"
+  },
+  {
+    "name": "Bilaspur",
+    "lat": 22.07,
+    "lon": 82.13,
+    "country": "India"
+  },
+  {
+    "name": "Korba",
+    "lat": 22.35,
+    "lon": 82.68,
+    "country": "India"
+  },
+  {
+    "name": "Durg",
+    "lat": 21.19,
+    "lon": 81.28,
+    "country": "India"
+  },
+  {
+    "name": "Rajnandgaon",
+    "lat": 21.09,
+    "lon": 81.03,
+    "country": "India"
+  },
+  {
+    "name": "Dibrugarh",
+    "lat": 27.48,
+    "lon": 94.91,
+    "country": "India"
+  },
+  {
+    "name": "Silchar",
+    "lat": 24.82,
+    "lon": 92.79,
+    "country": "India"
+  },
+  {
+    "name": "Jorhat",
+    "lat": 26.75,
+    "lon": 94.21,
+    "country": "India"
+  },
+  {
+    "name": "Nagaon",
+    "lat": 26.34,
+    "lon": 92.68,
+    "country": "India"
+  },
+  {
+    "name": "Tezpur",
+    "lat": 26.63,
+    "lon": 92.8,
+    "country": "India"
+  },
+  {
+    "name": "Imphal",
+    "lat": 24.8,
+    "lon": 93.93,
+    "country": "India"
+  },
+  {
+    "name": "Aizawl",
+    "lat": 23.72,
+    "lon": 92.71,
+    "country": "India"
+  },
+  {
+    "name": "Agartala",
+    "lat": 23.83,
+    "lon": 91.28,
+    "country": "India"
+  },
+  {
+    "name": "Shillong",
+    "lat": 25.57,
+    "lon": 91.88,
+    "country": "India"
+  },
+  {
+    "name": "Itanagar",
+    "lat": 27.1,
+    "lon": 93.61,
+    "country": "India"
+  },
+  {
+    "name": "Dehradun",
+    "lat": 30.31,
+    "lon": 78.03,
+    "country": "India"
+  },
+  {
+    "name": "Haridwar",
+    "lat": 29.94,
+    "lon": 78.16,
+    "country": "India"
+  },
+  {
+    "name": "Roorkee",
+    "lat": 29.85,
+    "lon": 77.88,
+    "country": "India"
+  },
+  {
+    "name": "Haldwani",
+    "lat": 29.21,
+    "lon": 79.51,
+    "country": "India"
+  },
+  {
+    "name": "Rudrapur",
+    "lat": 28.97,
+    "lon": 79.39,
+    "country": "India"
+  },
+  {
+    "name": "Shimla",
+    "lat": 31.1,
+    "lon": 77.17,
+    "country": "India"
+  },
+  {
+    "name": "Dharamshala",
+    "lat": 32.22,
+    "lon": 76.32,
+    "country": "India"
+  },
+  {
+    "name": "Solan",
+    "lat": 30.9,
+    "lon": 77.09,
+    "country": "India"
+  },
+  {
+    "name": "Mandi",
+    "lat": 31.7,
+    "lon": 76.93,
+    "country": "India"
+  },
+  {
+    "name": "Jammu",
+    "lat": 32.73,
+    "lon": 74.85,
+    "country": "India"
+  },
+  {
+    "name": "Udhampur",
+    "lat": 32.93,
+    "lon": 75.14,
+    "country": "India"
+  },
+  {
+    "name": "Panaji",
+    "lat": 15.49,
+    "lon": 73.82,
+    "country": "India"
+  },
+  {
+    "name": "Margao",
+    "lat": 15.27,
+    "lon": 73.95,
+    "country": "India"
+  },
+  {
+    "name": "Vasco da Gama",
+    "lat": 15.39,
+    "lon": 73.81,
+    "country": "India"
+  },
+  {
+    "name": "Puducherry",
+    "lat": 11.93,
+    "lon": 79.82,
+    "country": "India"
+  },
+  {
+    "name": "Port Blair",
+    "lat": 11.66,
+    "lon": 92.74,
+    "country": "India"
+  },
+  {
+    "name": "Leh",
+    "lat": 34.15,
+    "lon": 77.57,
+    "country": "India"
+  },
+  {
+    "name": "Kargil",
+    "lat": 34.55,
+    "lon": 76.13,
+    "country": "India"
+  },
+  {
+    "name": "Manali",
+    "lat": 32.24,
+    "lon": 77.18,
+    "country": "India"
+  },
+  {
+    "name": "Kullu",
+    "lat": 31.95,
+    "lon": 77.1,
+    "country": "India"
+  },
+  {
+    "name": "Dalhousie",
+    "lat": 32.53,
+    "lon": 75.97,
+    "country": "India"
+  },
+  {
+    "name": "Mussoorie",
+    "lat": 30.45,
+    "lon": 78.07,
+    "country": "India"
+  },
+  {
+    "name": "Nainital",
+    "lat": 29.39,
+    "lon": 79.45,
+    "country": "India"
+  },
+  {
+    "name": "Almora",
+    "lat": 29.59,
+    "lon": 79.64,
+    "country": "India"
+  },
+  {
+    "name": "Pithoragarh",
+    "lat": 29.58,
+    "lon": 80.21,
+    "country": "India"
+  },
+  {
+    "name": "Gangtok",
+    "lat": 27.33,
+    "lon": 88.61,
+    "country": "India"
+  },
+  {
+    "name": "Silchar",
+    "lat": 24.83,
+    "lon": 92.77,
+    "country": "India"
+  },
+  {
+    "name": "Dibrugarh",
+    "lat": 27.47,
+    "lon": 94.91,
+    "country": "India"
+  },
+  {
+    "name": "Tezpur",
+    "lat": 26.65,
+    "lon": 92.79,
+    "country": "India"
+  },
+  {
+    "name": "Jorhat",
+    "lat": 26.75,
+    "lon": 94.2,
+    "country": "India"
+  },
+  {
+    "name": "Dimapur",
+    "lat": 25.9,
+    "lon": 93.72,
+    "country": "India"
+  },
+  {
+    "name": "Kohima",
+    "lat": 25.67,
+    "lon": 94.1,
+    "country": "India"
+  },
+  {
+    "name": "Imphal",
+    "lat": 24.81,
+    "lon": 93.93,
+    "country": "India"
+  },
+  {
+    "name": "Aizawl",
+    "lat": 23.73,
+    "lon": 92.71,
+    "country": "India"
+  },
+  {
+    "name": "Agartala",
+    "lat": 23.83,
+    "lon": 91.28,
+    "country": "India"
+  },
+  {
+    "name": "Shillong",
+    "lat": 25.57,
+    "lon": 91.89,
+    "country": "India"
+  },
+  {
+    "name": "Bhuj",
+    "lat": 23.24,
+    "lon": 69.66,
+    "country": "India"
+  },
+  {
+    "name": "Gandhidham",
+    "lat": 23.07,
+    "lon": 70.13,
+    "country": "India"
+  },
+  {
+    "name": "Jaisalmer",
+    "lat": 26.91,
+    "lon": 70.93,
+    "country": "India"
+  },
+  {
+    "name": "Barmer",
+    "lat": 25.75,
+    "lon": 71.41,
+    "country": "India"
+  },
+  {
+    "name": "Mount Abu",
+    "lat": 24.59,
+    "lon": 72.71,
+    "country": "India"
+  },
+  {
+    "name": "Sirohi",
+    "lat": 24.88,
+    "lon": 72.86,
+    "country": "India"
+  },
+  {
+    "name": "Palanpur",
+    "lat": 24.17,
+    "lon": 72.43,
+    "country": "India"
+  },
+  {
+    "name": "Khandwa",
+    "lat": 21.83,
+    "lon": 76.34,
+    "country": "India"
+  },
+  {
+    "name": "Jagdalpur",
+    "lat": 19.07,
+    "lon": 82.01,
+    "country": "India"
+  },
+  {
+    "name": "Raigarh",
+    "lat": 21.89,
+    "lon": 83.39,
+    "country": "India"
+  },
+  {
+    "name": "Korba",
+    "lat": 22.35,
+    "lon": 82.68,
+    "country": "India"
+  },
+  {
+    "name": "Bilaspur",
+    "lat": 22.07,
+    "lon": 82.14,
+    "country": "India"
+  },
+  {
+    "name": "Rourkela",
+    "lat": 22.26,
+    "lon": 84.85,
+    "country": "India"
+  },
+  {
+    "name": "Berhampur",
+    "lat": 19.31,
+    "lon": 84.79,
+    "country": "India"
+  },
+  {
+    "name": "Sambalpur",
+    "lat": 21.46,
+    "lon": 83.97,
+    "country": "India"
+  },
+  {
+    "name": "Balasore",
+    "lat": 21.49,
+    "lon": 86.93,
+    "country": "India"
+  },
+  {
+    "name": "Puri",
+    "lat": 19.81,
+    "lon": 85.83,
+    "country": "India"
+  },
+  {
+    "name": "Bhagalpur",
+    "lat": 25.24,
+    "lon": 87.01,
+    "country": "India"
+  },
+  {
+    "name": "Muzaffarpur",
+    "lat": 26.12,
+    "lon": 85.39,
+    "country": "India"
+  },
+  {
+    "name": "Darbhanga",
+    "lat": 26.15,
+    "lon": 85.89,
+    "country": "India"
+  },
+  {
+    "name": "Deoghar",
+    "lat": 24.48,
+    "lon": 86.69,
+    "country": "India"
+  },
+  {
+    "name": "Alappuzha",
+    "lat": 9.49,
+    "lon": 76.33,
+    "country": "India"
+  },
+  {
+    "name": "Kottayam",
+    "lat": 9.59,
+    "lon": 76.52,
+    "country": "India"
+  },
+  {
+    "name": "Idukki",
+    "lat": 9.84,
+    "lon": 76.98,
+    "country": "India"
+  },
+  {
+    "name": "Wayanad",
+    "lat": 11.68,
+    "lon": 76.13,
+    "country": "India"
+  },
+  {
+    "name": "Kanchipuram",
+    "lat": 12.83,
+    "lon": 79.7,
+    "country": "India"
+  },
+  {
+    "name": "Cuddalore",
+    "lat": 11.74,
+    "lon": 79.77,
+    "country": "India"
+  },
+  {
+    "name": "Tuticorin",
+    "lat": 8.76,
+    "lon": 78.13,
+    "country": "India"
+  },
+  {
+    "name": "Udupi",
+    "lat": 13.34,
+    "lon": 74.74,
+    "country": "India"
+  },
+  {
+    "name": "Manipal",
+    "lat": 13.35,
+    "lon": 74.78,
+    "country": "India"
+  },
+  {
+    "name": "Hassan",
+    "lat": 13,
+    "lon": 76.1,
+    "country": "India"
+  },
+  {
+    "name": "Chitradurga",
+    "lat": 14.22,
+    "lon": 76.4,
+    "country": "India"
+  },
+  {
+    "name": "Kadapa",
+    "lat": 14.46,
+    "lon": 78.82,
+    "country": "India"
+  },
+  {
+    "name": "Kurnool",
+    "lat": 15.82,
+    "lon": 78.03,
+    "country": "India"
+  },
+  {
+    "name": "Anantapur",
+    "lat": 14.68,
+    "lon": 77.6,
+    "country": "India"
+  },
+  {
+    "name": "Sitapur",
+    "lat": 27.56,
+    "lon": 80.68,
+    "country": "India"
+  },
+  {
+    "name": "Lakhimpur",
+    "lat": 27.94,
+    "lon": 80.77,
+    "country": "India"
+  },
+  {
+    "name": "Bahraich",
+    "lat": 27.58,
+    "lon": 81.6,
+    "country": "India"
+  },
+  {
+    "name": "Unnao",
+    "lat": 26.54,
+    "lon": 80.48,
+    "country": "India"
+  },
+  {
+    "name": "Jaunpur",
+    "lat": 25.75,
+    "lon": 82.68,
+    "country": "India"
+  },
+  {
+    "name": "Rae Bareli",
+    "lat": 26.22,
+    "lon": 81.24,
+    "country": "India"
+  },
+  {
+    "name": "Hardoi",
+    "lat": 27.42,
+    "lon": 80.12,
+    "country": "India"
+  },
+  {
+    "name": "Barabanki",
+    "lat": 27.05,
+    "lon": 81.2,
+    "country": "India"
+  },
+  {
+    "name": "Fatehpur",
+    "lat": 25.92,
+    "lon": 80.81,
+    "country": "India"
+  },
+  {
+    "name": "Mirzapur",
+    "lat": 25.15,
+    "lon": 82.56,
+    "country": "India"
+  },
+  {
+    "name": "Banda",
+    "lat": 25.48,
+    "lon": 80.33,
+    "country": "India"
+  },
+  {
+    "name": "Orai",
+    "lat": 25.99,
+    "lon": 79.45,
+    "country": "India"
+  },
+  {
+    "name": "Gonda",
+    "lat": 27.13,
+    "lon": 81.93,
+    "country": "India"
+  },
+  {
+    "name": "Basti",
+    "lat": 26.79,
+    "lon": 82.76,
+    "country": "India"
+  },
+  {
+    "name": "Sasaram",
+    "lat": 24.95,
+    "lon": 84.03,
+    "country": "India"
+  },
+  {
+    "name": "Saharsa",
+    "lat": 25.88,
+    "lon": 86.6,
+    "country": "India"
+  },
+  {
+    "name": "Hajipur",
+    "lat": 25.69,
+    "lon": 85.22,
+    "country": "India"
+  },
+  {
+    "name": "Motihari",
+    "lat": 26.65,
+    "lon": 84.92,
+    "country": "India"
+  },
+  {
+    "name": "Chhapra",
+    "lat": 25.78,
+    "lon": 84.73,
+    "country": "India"
+  },
+  {
+    "name": "Siwan",
+    "lat": 26.22,
+    "lon": 84.36,
+    "country": "India"
+  },
+  {
+    "name": "Bettiah",
+    "lat": 26.8,
+    "lon": 84.5,
+    "country": "India"
+  },
+  {
+    "name": "Kishanganj",
+    "lat": 26.1,
+    "lon": 87.95,
+    "country": "India"
+  },
+  {
+    "name": "Parbhani",
+    "lat": 19.27,
+    "lon": 76.78,
+    "country": "India"
+  },
+  {
+    "name": "Beed",
+    "lat": 18.99,
+    "lon": 75.76,
+    "country": "India"
+  },
+  {
+    "name": "Gondia",
+    "lat": 21.45,
+    "lon": 80.19,
+    "country": "India"
+  },
+  {
+    "name": "Wardha",
+    "lat": 20.73,
+    "lon": 78.6,
+    "country": "India"
+  },
+  {
+    "name": "Yavatmal",
+    "lat": 20.39,
+    "lon": 78.12,
+    "country": "India"
+  },
+  {
+    "name": "Satara",
+    "lat": 17.69,
+    "lon": 74,
+    "country": "India"
+  },
+  {
+    "name": "Ratnagiri",
+    "lat": 16.99,
+    "lon": 73.31,
+    "country": "India"
+  },
+  {
+    "name": "Osmanabad",
+    "lat": 18.17,
+    "lon": 76.04,
+    "country": "India"
+  },
+  {
+    "name": "Nandurbar",
+    "lat": 21.37,
+    "lon": 74.23,
+    "country": "India"
+  },
+  {
+    "name": "Buldhana",
+    "lat": 20.53,
+    "lon": 76.18,
+    "country": "India"
+  },
+  {
+    "name": "Hosapete",
+    "lat": 15.27,
+    "lon": 76.39,
+    "country": "India"
+  },
+  {
+    "name": "Madikeri",
+    "lat": 12.42,
+    "lon": 75.75,
+    "country": "India"
+  },
+  {
+    "name": "Tikota",
+    "lat": 16.92,
+    "lon": 75.52,
+    "country": "India"
+  },
+  {
+    "name": "Chikkaballapur",
+    "lat": 13.43,
+    "lon": 77.72,
+    "country": "India"
+  },
+  {
+    "name": "Kolar",
+    "lat": 13.13,
+    "lon": 78.13,
+    "country": "India"
+  },
+  {
+    "name": "Mandya",
+    "lat": 12.52,
+    "lon": 76.89,
+    "country": "India"
+  },
+  {
+    "name": "Sivakasi",
+    "lat": 9.45,
+    "lon": 77.8,
+    "country": "India"
+  },
+  {
+    "name": "Karaikudi",
+    "lat": 10.07,
+    "lon": 78.78,
+    "country": "India"
+  },
+  {
+    "name": "Hosur",
+    "lat": 12.73,
+    "lon": 77.83,
+    "country": "India"
+  },
+  {
+    "name": "Pollachi",
+    "lat": 10.66,
+    "lon": 77.01,
+    "country": "India"
+  },
+  {
+    "name": "Neyveli",
+    "lat": 11.53,
+    "lon": 79.48,
+    "country": "India"
+  },
+  {
+    "name": "Hanumangarh",
+    "lat": 29.58,
+    "lon": 74.32,
+    "country": "India"
+  },
+  {
+    "name": "Churu",
+    "lat": 28.29,
+    "lon": 74.95,
+    "country": "India"
+  },
+  {
+    "name": "Jhunjhunu",
+    "lat": 28.13,
+    "lon": 75.4,
+    "country": "India"
+  },
+  {
+    "name": "Sri Ganganagar",
+    "lat": 29.92,
+    "lon": 73.88,
+    "country": "India"
+  },
+  {
+    "name": "Chittorgarh",
+    "lat": 24.88,
+    "lon": 74.63,
+    "country": "India"
+  },
+  {
+    "name": "London",
+    "lat": 51.5,
+    "lon": -0.12,
+    "country": "UK"
+  },
+  {
+    "name": "Birmingham",
+    "lat": 52.48,
+    "lon": -1.89,
+    "country": "UK"
+  },
+  {
+    "name": "Manchester",
+    "lat": 53.48,
+    "lon": -2.24,
+    "country": "UK"
+  },
+  {
+    "name": "Leeds",
+    "lat": 53.8,
+    "lon": -1.54,
+    "country": "UK"
+  },
+  {
+    "name": "Glasgow",
+    "lat": 55.86,
+    "lon": -4.25,
+    "country": "UK"
+  },
+  {
+    "name": "Paris",
+    "lat": 48.85,
+    "lon": 2.35,
+    "country": "France"
+  },
+  {
+    "name": "Marseille",
+    "lat": 43.29,
+    "lon": 5.36,
+    "country": "France"
+  },
+  {
+    "name": "Lyon",
+    "lat": 45.76,
+    "lon": 4.83,
+    "country": "France"
+  },
+  {
+    "name": "Toulouse",
+    "lat": 43.6,
+    "lon": 1.44,
+    "country": "France"
+  },
+  {
+    "name": "Nice",
+    "lat": 43.71,
+    "lon": 7.26,
+    "country": "France"
+  },
+  {
+    "name": "Berlin",
+    "lat": 52.52,
+    "lon": 13.4,
+    "country": "Germany"
+  },
+  {
+    "name": "Hamburg",
+    "lat": 53.55,
+    "lon": 9.99,
+    "country": "Germany"
+  },
+  {
+    "name": "Munich",
+    "lat": 48.13,
+    "lon": 11.58,
+    "country": "Germany"
+  },
+  {
+    "name": "Cologne",
+    "lat": 50.93,
+    "lon": 6.96,
+    "country": "Germany"
+  },
+  {
+    "name": "Frankfurt",
+    "lat": 50.11,
+    "lon": 8.68,
+    "country": "Germany"
+  },
+  {
+    "name": "Madrid",
+    "lat": 40.41,
+    "lon": -3.7,
+    "country": "Spain"
+  },
+  {
+    "name": "Barcelona",
+    "lat": 41.38,
+    "lon": 2.16,
+    "country": "Spain"
+  },
+  {
+    "name": "Valencia",
+    "lat": 39.46,
+    "lon": -0.37,
+    "country": "Spain"
+  },
+  {
+    "name": "Seville",
+    "lat": 37.38,
+    "lon": -5.98,
+    "country": "Spain"
+  },
+  {
+    "name": "Zaragoza",
+    "lat": 41.64,
+    "lon": -0.88,
+    "country": "Spain"
+  },
+  {
+    "name": "Rome",
+    "lat": 41.9,
+    "lon": 12.49,
+    "country": "Italy"
+  },
+  {
+    "name": "Milan",
+    "lat": 45.46,
+    "lon": 9.19,
+    "country": "Italy"
+  },
+  {
+    "name": "Naples",
+    "lat": 40.85,
+    "lon": 14.26,
+    "country": "Italy"
+  },
+  {
+    "name": "Turin",
+    "lat": 45.07,
+    "lon": 7.68,
+    "country": "Italy"
+  },
+  {
+    "name": "Palermo",
+    "lat": 38.11,
+    "lon": 13.36,
+    "country": "Italy"
+  },
+  {
+    "name": "Moscow",
+    "lat": 55.75,
+    "lon": 37.61,
+    "country": "Russia"
+  },
+  {
+    "name": "Saint Petersburg",
+    "lat": 59.93,
+    "lon": 30.33,
+    "country": "Russia"
+  },
+  {
+    "name": "Novosibirsk",
+    "lat": 55,
+    "lon": 82.93,
+    "country": "Russia"
+  },
+  {
+    "name": "Yekaterinburg",
+    "lat": 56.84,
+    "lon": 60.61,
+    "country": "Russia"
+  },
+  {
+    "name": "Kazan",
+    "lat": 55.79,
+    "lon": 49.12,
+    "country": "Russia"
+  },
+  {
+    "name": "Istanbul",
+    "lat": 41,
+    "lon": 28.97,
+    "country": "Turkey"
+  },
+  {
+    "name": "Ankara",
+    "lat": 39.93,
+    "lon": 32.85,
+    "country": "Turkey"
+  },
+  {
+    "name": "Izmir",
+    "lat": 38.42,
+    "lon": 27.14,
+    "country": "Turkey"
+  },
+  {
+    "name": "Bursa",
+    "lat": 40.18,
+    "lon": 29.06,
+    "country": "Turkey"
+  },
+  {
+    "name": "Adana",
+    "lat": 37,
+    "lon": 35.32,
+    "country": "Turkey"
+  },
+  {
+    "name": "Amsterdam",
+    "lat": 52.36,
+    "lon": 4.9,
+    "country": "Netherlands"
+  },
+  {
+    "name": "Rotterdam",
+    "lat": 51.92,
+    "lon": 4.47,
+    "country": "Netherlands"
+  },
+  {
+    "name": "Brussels",
+    "lat": 50.85,
+    "lon": 4.35,
+    "country": "Belgium"
+  },
+  {
+    "name": "Antwerp",
+    "lat": 51.21,
+    "lon": 4.4,
+    "country": "Belgium"
+  },
+  {
+    "name": "Vienna",
+    "lat": 48.2,
+    "lon": 16.37,
+    "country": "Austria"
+  },
+  {
+    "name": "Zurich",
+    "lat": 47.37,
+    "lon": 8.54,
+    "country": "Switzerland"
+  },
+  {
+    "name": "Warsaw",
+    "lat": 52.22,
+    "lon": 21.01,
+    "country": "Poland"
+  },
+  {
+    "name": "Krakow",
+    "lat": 50.06,
+    "lon": 19.94,
+    "country": "Poland"
+  },
+  {
+    "name": "Prague",
+    "lat": 50.07,
+    "lon": 14.43,
+    "country": "Czech Republic"
+  },
+  {
+    "name": "Budapest",
+    "lat": 47.49,
+    "lon": 19.04,
+    "country": "Hungary"
+  },
+  {
+    "name": "Bucharest",
+    "lat": 44.42,
+    "lon": 26.1,
+    "country": "Romania"
+  },
+  {
+    "name": "Athens",
+    "lat": 37.98,
+    "lon": 23.72,
+    "country": "Greece"
+  },
+  {
+    "name": "Lisbon",
+    "lat": 38.72,
+    "lon": -9.13,
+    "country": "Portugal"
+  },
+  {
+    "name": "Porto",
+    "lat": 41.15,
+    "lon": -8.62,
+    "country": "Portugal"
+  },
+  {
+    "name": "Stockholm",
+    "lat": 59.32,
+    "lon": 18.06,
+    "country": "Sweden"
+  },
+  {
+    "name": "Copenhagen",
+    "lat": 55.67,
+    "lon": 12.56,
+    "country": "Denmark"
+  },
+  {
+    "name": "Oslo",
+    "lat": 59.91,
+    "lon": 10.75,
+    "country": "Norway"
+  },
+  {
+    "name": "Helsinki",
+    "lat": 60.16,
+    "lon": 24.93,
+    "country": "Finland"
+  },
+  {
+    "name": "Dublin",
+    "lat": 53.34,
+    "lon": -6.26,
+    "country": "Ireland"
+  },
+  {
+    "name": "Kyiv",
+    "lat": 50.45,
+    "lon": 30.52,
+    "country": "Ukraine"
+  },
+  {
+    "name": "Kharkiv",
+    "lat": 49.99,
+    "lon": 36.23,
+    "country": "Ukraine"
+  },
+  {
+    "name": "Beijing",
+    "lat": 39.9,
+    "lon": 116.4,
+    "country": "China"
+  },
+  {
+    "name": "Shanghai",
+    "lat": 31.23,
+    "lon": 121.47,
+    "country": "China"
+  },
+  {
+    "name": "Guangzhou",
+    "lat": 23.12,
+    "lon": 113.26,
+    "country": "China"
+  },
+  {
+    "name": "Shenzhen",
+    "lat": 22.54,
+    "lon": 114.05,
+    "country": "China"
+  },
+  {
+    "name": "Chengdu",
+    "lat": 30.57,
+    "lon": 104.06,
+    "country": "China"
+  },
+  {
+    "name": "Chongqing",
+    "lat": 29.56,
+    "lon": 106.55,
+    "country": "China"
+  },
+  {
+    "name": "Tianjin",
+    "lat": 39.34,
+    "lon": 117.36,
+    "country": "China"
+  },
+  {
+    "name": "Wuhan",
+    "lat": 30.59,
+    "lon": 114.3,
+    "country": "China"
+  },
+  {
+    "name": "Xi'an",
+    "lat": 34.34,
+    "lon": 108.93,
+    "country": "China"
+  },
+  {
+    "name": "Hangzhou",
+    "lat": 30.27,
+    "lon": 120.15,
+    "country": "China"
+  },
+  {
+    "name": "Nanjing",
+    "lat": 32.06,
+    "lon": 118.79,
+    "country": "China"
+  },
+  {
+    "name": "Hong Kong",
+    "lat": 22.31,
+    "lon": 114.16,
+    "country": "Hong Kong"
+  },
+  {
+    "name": "Tokyo",
+    "lat": 35.67,
+    "lon": 139.65,
+    "country": "Japan"
+  },
+  {
+    "name": "Yokohama",
+    "lat": 35.44,
+    "lon": 139.63,
+    "country": "Japan"
+  },
+  {
+    "name": "Osaka",
+    "lat": 34.69,
+    "lon": 135.5,
+    "country": "Japan"
+  },
+  {
+    "name": "Nagoya",
+    "lat": 35.18,
+    "lon": 136.9,
+    "country": "Japan"
+  },
+  {
+    "name": "Sapporo",
+    "lat": 43.06,
+    "lon": 141.35,
+    "country": "Japan"
+  },
+  {
+    "name": "Fukuoka",
+    "lat": 33.59,
+    "lon": 130.4,
+    "country": "Japan"
+  },
+  {
+    "name": "Kobe",
+    "lat": 34.69,
+    "lon": 135.19,
+    "country": "Japan"
+  },
+  {
+    "name": "Kyoto",
+    "lat": 35.01,
+    "lon": 135.76,
+    "country": "Japan"
+  },
+  {
+    "name": "Seoul",
+    "lat": 37.56,
+    "lon": 126.97,
+    "country": "South Korea"
+  },
+  {
+    "name": "Busan",
+    "lat": 35.17,
+    "lon": 129.07,
+    "country": "South Korea"
+  },
+  {
+    "name": "Incheon",
+    "lat": 37.45,
+    "lon": 126.7,
+    "country": "South Korea"
+  },
+  {
+    "name": "Daegu",
+    "lat": 35.87,
+    "lon": 128.6,
+    "country": "South Korea"
+  },
+  {
+    "name": "Bangkok",
+    "lat": 13.75,
+    "lon": 100.5,
+    "country": "Thailand"
+  },
+  {
+    "name": "Nonthaburi",
+    "lat": 13.86,
+    "lon": 100.51,
+    "country": "Thailand"
+  },
+  {
+    "name": "Jakarta",
+    "lat": -6.2,
+    "lon": 106.84,
+    "country": "Indonesia"
+  },
+  {
+    "name": "Surabaya",
+    "lat": -7.25,
+    "lon": 112.75,
+    "country": "Indonesia"
+  },
+  {
+    "name": "Bandung",
+    "lat": -6.91,
+    "lon": 107.61,
+    "country": "Indonesia"
+  },
+  {
+    "name": "Medan",
+    "lat": 3.59,
+    "lon": 98.67,
+    "country": "Indonesia"
+  },
+  {
+    "name": "Ho Chi Minh City",
+    "lat": 10.82,
+    "lon": 106.62,
+    "country": "Vietnam"
+  },
+  {
+    "name": "Hanoi",
+    "lat": 21.02,
+    "lon": 105.83,
+    "country": "Vietnam"
+  },
+  {
+    "name": "Manila",
+    "lat": 14.59,
+    "lon": 120.98,
+    "country": "Philippines"
+  },
+  {
+    "name": "Quezon City",
+    "lat": 14.67,
+    "lon": 121.04,
+    "country": "Philippines"
+  },
+  {
+    "name": "Davao City",
+    "lat": 7.19,
+    "lon": 125.45,
+    "country": "Philippines"
+  },
+  {
+    "name": "Kuala Lumpur",
+    "lat": 3.13,
+    "lon": 101.68,
+    "country": "Malaysia"
+  },
+  {
+    "name": "Singapore",
+    "lat": 1.35,
+    "lon": 103.81,
+    "country": "Singapore"
+  },
+  {
+    "name": "Taipei",
+    "lat": 25.03,
+    "lon": 121.56,
+    "country": "Taiwan"
+  },
+  {
+    "name": "Kaohsiung",
+    "lat": 22.62,
+    "lon": 120.3,
+    "country": "Taiwan"
+  },
+  {
+    "name": "Dubai",
+    "lat": 25.2,
+    "lon": 55.27,
+    "country": "UAE"
+  },
+  {
+    "name": "Abu Dhabi",
+    "lat": 24.45,
+    "lon": 54.37,
+    "country": "UAE"
+  },
+  {
+    "name": "Riyadh",
+    "lat": 24.71,
+    "lon": 46.67,
+    "country": "Saudi Arabia"
+  },
+  {
+    "name": "Jeddah",
+    "lat": 21.54,
+    "lon": 39.19,
+    "country": "Saudi Arabia"
+  },
+  {
+    "name": "Mecca",
+    "lat": 21.38,
+    "lon": 39.85,
+    "country": "Saudi Arabia"
+  },
+  {
+    "name": "Tehran",
+    "lat": 35.68,
+    "lon": 51.38,
+    "country": "Iran"
+  },
+  {
+    "name": "Mashhad",
+    "lat": 36.26,
+    "lon": 59.61,
+    "country": "Iran"
+  },
+  {
+    "name": "Isfahan",
+    "lat": 32.65,
+    "lon": 51.66,
+    "country": "Iran"
+  },
+  {
+    "name": "Baghdad",
+    "lat": 33.31,
+    "lon": 44.36,
+    "country": "Iraq"
+  },
+  {
+    "name": "Tel Aviv",
+    "lat": 32.08,
+    "lon": 34.78,
+    "country": "Israel"
+  },
+  {
+    "name": "Jerusalem",
+    "lat": 31.76,
+    "lon": 35.21,
+    "country": "Israel"
+  },
+  {
+    "name": "Amman",
+    "lat": 31.94,
+    "lon": 35.92,
+    "country": "Jordan"
+  },
+  {
+    "name": "Beirut",
+    "lat": 33.89,
+    "lon": 35.5,
+    "country": "Lebanon"
+  },
+  {
+    "name": "Doha",
+    "lat": 25.28,
+    "lon": 51.53,
+    "country": "Qatar"
+  },
+  {
+    "name": "Kuwait City",
+    "lat": 29.37,
+    "lon": 47.97,
+    "country": "Kuwait"
+  },
+  {
+    "name": "Sao Paulo",
+    "lat": -23.55,
+    "lon": -46.63,
+    "country": "Brazil"
+  },
+  {
+    "name": "Rio de Janeiro",
+    "lat": -22.9,
+    "lon": -43.17,
+    "country": "Brazil"
+  },
+  {
+    "name": "Brasilia",
+    "lat": -15.82,
+    "lon": -47.92,
+    "country": "Brazil"
+  },
+  {
+    "name": "Salvador",
+    "lat": -12.97,
+    "lon": -38.5,
+    "country": "Brazil"
+  },
+  {
+    "name": "Fortaleza",
+    "lat": -3.73,
+    "lon": -38.52,
+    "country": "Brazil"
+  },
+  {
+    "name": "Belo Horizonte",
+    "lat": -19.91,
+    "lon": -43.93,
+    "country": "Brazil"
+  },
+  {
+    "name": "Manaus",
+    "lat": -3.11,
+    "lon": -60.02,
+    "country": "Brazil"
+  },
+  {
+    "name": "Curitiba",
+    "lat": -25.42,
+    "lon": -49.27,
+    "country": "Brazil"
+  },
+  {
+    "name": "Recife",
+    "lat": -8.04,
+    "lon": -34.87,
+    "country": "Brazil"
+  },
+  {
+    "name": "Porto Alegre",
+    "lat": -30.03,
+    "lon": -51.22,
+    "country": "Brazil"
+  },
+  {
+    "name": "Buenos Aires",
+    "lat": -34.6,
+    "lon": -58.38,
+    "country": "Argentina"
+  },
+  {
+    "name": "Cordoba",
+    "lat": -31.42,
+    "lon": -64.18,
+    "country": "Argentina"
+  },
+  {
+    "name": "Rosario",
+    "lat": -32.94,
+    "lon": -60.63,
+    "country": "Argentina"
+  },
+  {
+    "name": "Santiago",
+    "lat": -33.44,
+    "lon": -70.66,
+    "country": "Chile"
+  },
+  {
+    "name": "Bogota",
+    "lat": 4.71,
+    "lon": -74.07,
+    "country": "Colombia"
+  },
+  {
+    "name": "Medellin",
+    "lat": 6.24,
+    "lon": -75.58,
+    "country": "Colombia"
+  },
+  {
+    "name": "Cali",
+    "lat": 3.45,
+    "lon": -76.53,
+    "country": "Colombia"
+  },
+  {
+    "name": "Barranquilla",
+    "lat": 10.96,
+    "lon": -74.79,
+    "country": "Colombia"
+  },
+  {
+    "name": "Lima",
+    "lat": -12.04,
+    "lon": -77.04,
+    "country": "Peru"
+  },
+  {
+    "name": "Arequipa",
+    "lat": -16.4,
+    "lon": -71.53,
+    "country": "Peru"
+  },
+  {
+    "name": "Caracas",
+    "lat": 10.48,
+    "lon": -66.9,
+    "country": "Venezuela"
+  },
+  {
+    "name": "Maracaibo",
+    "lat": 10.63,
+    "lon": -71.6,
+    "country": "Venezuela"
+  },
+  {
+    "name": "Quito",
+    "lat": -0.18,
+    "lon": -78.46,
+    "country": "Ecuador"
+  },
+  {
+    "name": "Guayaquil",
+    "lat": -2.18,
+    "lon": -79.88,
+    "country": "Ecuador"
+  },
+  {
+    "name": "La Paz",
+    "lat": -16.48,
+    "lon": -68.11,
+    "country": "Bolivia"
+  },
+  {
+    "name": "Santa Cruz",
+    "lat": -17.76,
+    "lon": -63.18,
+    "country": "Bolivia"
+  },
+  {
+    "name": "Asuncion",
+    "lat": -25.26,
+    "lon": -57.57,
+    "country": "Paraguay"
+  },
+  {
+    "name": "Montevideo",
+    "lat": -34.9,
+    "lon": -56.16,
+    "country": "Uruguay"
+  },
+  {
+    "name": "Cairo",
+    "lat": 30.04,
+    "lon": 31.23,
+    "country": "Egypt"
+  },
+  {
+    "name": "Alexandria",
+    "lat": 31.2,
+    "lon": 29.91,
+    "country": "Egypt"
+  },
+  {
+    "name": "Giza",
+    "lat": 30.01,
+    "lon": 31.2,
+    "country": "Egypt"
+  },
+  {
+    "name": "Lagos",
+    "lat": 6.52,
+    "lon": 3.37,
+    "country": "Nigeria"
+  },
+  {
+    "name": "Kano",
+    "lat": 12,
+    "lon": 8.59,
+    "country": "Nigeria"
+  },
+  {
+    "name": "Ibadan",
+    "lat": 7.37,
+    "lon": 3.94,
+    "country": "Nigeria"
+  },
+  {
+    "name": "Abuja",
+    "lat": 9.07,
+    "lon": 7.39,
+    "country": "Nigeria"
+  },
+  {
+    "name": "Kinshasa",
+    "lat": -4.44,
+    "lon": 15.26,
+    "country": "DRC"
+  },
+  {
+    "name": "Johannesburg",
+    "lat": -26.2,
+    "lon": 28.04,
+    "country": "South Africa"
+  },
+  {
+    "name": "Cape Town",
+    "lat": -33.92,
+    "lon": 18.42,
+    "country": "South Africa"
+  },
+  {
+    "name": "Durban",
+    "lat": -29.85,
+    "lon": 31.02,
+    "country": "South Africa"
+  },
+  {
+    "name": "Pretoria",
+    "lat": -25.74,
+    "lon": 28.18,
+    "country": "South Africa"
+  },
+  {
+    "name": "Nairobi",
+    "lat": -1.29,
+    "lon": 36.82,
+    "country": "Kenya"
+  },
+  {
+    "name": "Mombasa",
+    "lat": -4.04,
+    "lon": 39.66,
+    "country": "Kenya"
+  },
+  {
+    "name": "Addis Ababa",
+    "lat": 9.03,
+    "lon": 38.74,
+    "country": "Ethiopia"
+  },
+  {
+    "name": "Casablanca",
+    "lat": 33.57,
+    "lon": -7.58,
+    "country": "Morocco"
+  },
+  {
+    "name": "Rabat",
+    "lat": 34.02,
+    "lon": -6.83,
+    "country": "Morocco"
+  },
+  {
+    "name": "Algiers",
+    "lat": 36.75,
+    "lon": 3.05,
+    "country": "Algeria"
+  },
+  {
+    "name": "Accra",
+    "lat": 5.6,
+    "lon": -0.18,
+    "country": "Ghana"
+  },
+  {
+    "name": "Kumasi",
+    "lat": 6.66,
+    "lon": -1.61,
+    "country": "Ghana"
+  },
+  {
+    "name": "Dar es Salaam",
+    "lat": -6.79,
+    "lon": 39.2,
+    "country": "Tanzania"
+  },
+  {
+    "name": "Abidjan",
+    "lat": 5.3,
+    "lon": -4.01,
+    "country": "Ivory Coast"
+  },
+  {
+    "name": "Dakar",
+    "lat": 14.71,
+    "lon": -17.46,
+    "country": "Senegal"
+  },
+  {
+    "name": "Luanda",
+    "lat": -8.83,
+    "lon": 13.23,
+    "country": "Angola"
+  },
+  {
+    "name": "Khartoum",
+    "lat": 15.5,
+    "lon": 32.55,
+    "country": "Sudan"
+  },
+  {
+    "name": "Sydney",
+    "lat": -33.86,
+    "lon": 151.2,
+    "country": "Australia"
+  },
+  {
+    "name": "Melbourne",
+    "lat": -37.81,
+    "lon": 144.96,
+    "country": "Australia"
+  },
+  {
+    "name": "Brisbane",
+    "lat": -27.47,
+    "lon": 153.02,
+    "country": "Australia"
+  },
+  {
+    "name": "Perth",
+    "lat": -31.95,
+    "lon": 115.86,
+    "country": "Australia"
+  },
+  {
+    "name": "Adelaide",
+    "lat": -34.92,
+    "lon": 138.6,
+    "country": "Australia"
+  },
+  {
+    "name": "Gold Coast",
+    "lat": -28.01,
+    "lon": 153.39,
+    "country": "Australia"
+  },
+  {
+    "name": "Canberra",
+    "lat": -35.28,
+    "lon": 149.13,
+    "country": "Australia"
+  },
+  {
+    "name": "Auckland",
+    "lat": -36.84,
+    "lon": 174.76,
+    "country": "New Zealand"
+  },
+  {
+    "name": "Wellington",
+    "lat": -41.28,
+    "lon": 174.77,
+    "country": "New Zealand"
+  },
+  {
+    "name": "Christchurch",
+    "lat": -43.53,
+    "lon": 172.63,
+    "country": "New Zealand"
+  },
+  {
+    "name": "Dhaka",
+    "lat": 23.81,
+    "lon": 90.41,
+    "country": "Bangladesh"
+  },
+  {
+    "name": "Chittagong",
+    "lat": 22.35,
+    "lon": 91.83,
+    "country": "Bangladesh"
+  },
+  {
+    "name": "Khulna",
+    "lat": 22.84,
+    "lon": 89.54,
+    "country": "Bangladesh"
+  },
+  {
+    "name": "Yangon",
+    "lat": 16.8,
+    "lon": 96.15,
+    "country": "Myanmar"
+  },
+  {
+    "name": "Mandalay",
+    "lat": 21.97,
+    "lon": 96.08,
+    "country": "Myanmar"
+  },
+  {
+    "name": "Phnom Penh",
+    "lat": 11.56,
+    "lon": 104.92,
+    "country": "Cambodia"
+  },
+  {
+    "name": "Vientiane",
+    "lat": 17.96,
+    "lon": 102.61,
+    "country": "Laos"
+  },
+  {
+    "name": "Colombo",
+    "lat": 6.93,
+    "lon": 79.85,
+    "country": "Sri Lanka"
+  },
+  {
+    "name": "Kathmandu",
+    "lat": 27.7,
+    "lon": 85.32,
+    "country": "Nepal"
+  },
+  {
+    "name": "Pokhara",
+    "lat": 28.26,
+    "lon": 83.97,
+    "country": "Nepal"
+  },
+  {
+    "name": "Thimphu",
+    "lat": 27.47,
+    "lon": 89.63,
+    "country": "Bhutan"
+  },
+  {
+    "name": "Male",
+    "lat": 4.17,
+    "lon": 73.5,
+    "country": "Maldives"
+  },
+  {
+    "name": "Islamabad",
+    "lat": 33.69,
+    "lon": 73.04,
+    "country": "Pakistan"
+  },
+  {
+    "name": "Karachi",
+    "lat": 24.86,
+    "lon": 67,
+    "country": "Pakistan"
+  },
+  {
+    "name": "Lahore",
+    "lat": 31.55,
+    "lon": 74.34,
+    "country": "Pakistan"
+  },
+  {
+    "name": "Faisalabad",
+    "lat": 31.41,
+    "lon": 73.08,
+    "country": "Pakistan"
+  },
+  {
+    "name": "Rawalpindi",
+    "lat": 33.6,
+    "lon": 73.04,
+    "country": "Pakistan"
+  },
+  {
+    "name": "Multan",
+    "lat": 30.19,
+    "lon": 71.47,
+    "country": "Pakistan"
+  },
+  {
+    "name": "Peshawar",
+    "lat": 34,
+    "lon": 71.54,
+    "country": "Pakistan"
+  },
+  {
+    "name": "Kabul",
+    "lat": 34.52,
+    "lon": 69.17,
+    "country": "Afghanistan"
+  },
+  {
+    "name": "Tashkent",
+    "lat": 41.31,
+    "lon": 69.27,
+    "country": "Uzbekistan"
+  },
+  {
+    "name": "Samarkand",
+    "lat": 39.65,
+    "lon": 66.95,
+    "country": "Uzbekistan"
+  },
+  {
+    "name": "Almaty",
+    "lat": 43.22,
+    "lon": 76.85,
+    "country": "Kazakhstan"
+  },
+  {
+    "name": "Nur-Sultan",
+    "lat": 51.16,
+    "lon": 71.47,
+    "country": "Kazakhstan"
+  },
+  {
+    "name": "Bishkek",
+    "lat": 42.87,
+    "lon": 74.59,
+    "country": "Kyrgyzstan"
+  },
+  {
+    "name": "Dushanbe",
+    "lat": 38.56,
+    "lon": 68.77,
+    "country": "Tajikistan"
+  },
+  {
+    "name": "Ashgabat",
+    "lat": 37.96,
+    "lon": 58.33,
+    "country": "Turkmenistan"
+  },
+  {
+    "name": "Baku",
+    "lat": 40.4,
+    "lon": 49.87,
+    "country": "Azerbaijan"
+  },
+  {
+    "name": "Tbilisi",
+    "lat": 41.69,
+    "lon": 44.83,
+    "country": "Georgia"
+  },
+  {
+    "name": "Yerevan",
+    "lat": 40.18,
+    "lon": 44.51,
+    "country": "Armenia"
+  },
+  {
+    "name": "Ulaanbaatar",
+    "lat": 47.91,
+    "lon": 106.91,
+    "country": "Mongolia"
+  },
+  {
+    "name": "Suzhou",
+    "lat": 31.3,
+    "lon": 120.61,
+    "country": "China"
+  },
+  {
+    "name": "Harbin",
+    "lat": 45.75,
+    "lon": 126.65,
+    "country": "China"
+  },
+  {
+    "name": "Qingdao",
+    "lat": 36.06,
+    "lon": 120.38,
+    "country": "China"
+  },
+  {
+    "name": "Dalian",
+    "lat": 38.91,
+    "lon": 121.61,
+    "country": "China"
+  },
+  {
+    "name": "Jinan",
+    "lat": 36.67,
+    "lon": 116.99,
+    "country": "China"
+  },
+  {
+    "name": "Changsha",
+    "lat": 28.22,
+    "lon": 112.93,
+    "country": "China"
+  },
+  {
+    "name": "Kunming",
+    "lat": 25.04,
+    "lon": 102.71,
+    "country": "China"
+  },
+  {
+    "name": "Urumqi",
+    "lat": 43.82,
+    "lon": 87.61,
+    "country": "China"
+  },
+  {
+    "name": "Lanzhou",
+    "lat": 36.05,
+    "lon": 103.83,
+    "country": "China"
+  },
+  {
+    "name": "Shijiazhuang",
+    "lat": 38.04,
+    "lon": 114.47,
+    "country": "China"
+  },
+  {
+    "name": "Zhengzhou",
+    "lat": 34.74,
+    "lon": 113.62,
+    "country": "China"
+  },
+  {
+    "name": "Changchun",
+    "lat": 43.86,
+    "lon": 125.32,
+    "country": "China"
+  },
+  {
+    "name": "Taiyuan",
+    "lat": 37.86,
+    "lon": 112.54,
+    "country": "China"
+  },
+  {
+    "name": "Nanchang",
+    "lat": 28.68,
+    "lon": 115.85,
+    "country": "China"
+  },
+  {
+    "name": "Guiyang",
+    "lat": 26.64,
+    "lon": 106.62,
+    "country": "China"
+  },
+  {
+    "name": "Fuzhou",
+    "lat": 26.07,
+    "lon": 119.29,
+    "country": "China"
+  },
+  {
+    "name": "Nanning",
+    "lat": 22.81,
+    "lon": 108.31,
+    "country": "China"
+  },
+  {
+    "name": "Hefei",
+    "lat": 31.82,
+    "lon": 117.22,
+    "country": "China"
+  },
+  {
+    "name": "Kawasaki",
+    "lat": 35.53,
+    "lon": 139.7,
+    "country": "Japan"
+  },
+  {
+    "name": "Saitama",
+    "lat": 35.9,
+    "lon": 139.64,
+    "country": "Japan"
+  },
+  {
+    "name": "Hiroshima",
+    "lat": 34.39,
+    "lon": 132.45,
+    "country": "Japan"
+  },
+  {
+    "name": "Sendai",
+    "lat": 38.26,
+    "lon": 140.87,
+    "country": "Japan"
+  },
+  {
+    "name": "Kitakyushu",
+    "lat": 33.88,
+    "lon": 130.87,
+    "country": "Japan"
+  },
+  {
+    "name": "Chiba",
+    "lat": 35.6,
+    "lon": 140.11,
+    "country": "Japan"
+  },
+  {
+    "name": "Sakai",
+    "lat": 34.57,
+    "lon": 135.48,
+    "country": "Japan"
+  },
+  {
+    "name": "Niigata",
+    "lat": 37.9,
+    "lon": 139.02,
+    "country": "Japan"
+  },
+  {
+    "name": "Hamamatsu",
+    "lat": 34.7,
+    "lon": 137.73,
+    "country": "Japan"
+  },
+  {
+    "name": "Kumamoto",
+    "lat": 32.8,
+    "lon": 130.7,
+    "country": "Japan"
+  },
+  {
+    "name": "Okayama",
+    "lat": 34.66,
+    "lon": 133.91,
+    "country": "Japan"
+  },
+  {
+    "name": "Kagoshima",
+    "lat": 31.59,
+    "lon": 130.55,
+    "country": "Japan"
+  },
+  {
+    "name": "Shizuoka",
+    "lat": 34.97,
+    "lon": 138.38,
+    "country": "Japan"
+  },
+  {
+    "name": "Semarang",
+    "lat": -6.96,
+    "lon": 110.41,
+    "country": "Indonesia"
+  },
+  {
+    "name": "Makassar",
+    "lat": -5.14,
+    "lon": 119.43,
+    "country": "Indonesia"
+  },
+  {
+    "name": "Palembang",
+    "lat": -2.97,
+    "lon": 104.74,
+    "country": "Indonesia"
+  },
+  {
+    "name": "Tangerang",
+    "lat": -6.17,
+    "lon": 106.63,
+    "country": "Indonesia"
+  },
+  {
+    "name": "Depok",
+    "lat": -6.4,
+    "lon": 106.81,
+    "country": "Indonesia"
+  },
+  {
+    "name": "Bekasi",
+    "lat": -6.23,
+    "lon": 106.99,
+    "country": "Indonesia"
+  },
+  {
+    "name": "Bogor",
+    "lat": -6.59,
+    "lon": 106.79,
+    "country": "Indonesia"
+  },
+  {
+    "name": "Yogyakarta",
+    "lat": -7.79,
+    "lon": 110.36,
+    "country": "Indonesia"
+  },
+  {
+    "name": "Da Nang",
+    "lat": 16.05,
+    "lon": 108.22,
+    "country": "Vietnam"
+  },
+  {
+    "name": "Can Tho",
+    "lat": 10.03,
+    "lon": 105.77,
+    "country": "Vietnam"
+  },
+  {
+    "name": "Hai Phong",
+    "lat": 20.84,
+    "lon": 106.68,
+    "country": "Vietnam"
+  },
+  {
+    "name": "Cebu City",
+    "lat": 10.31,
+    "lon": 123.89,
+    "country": "Philippines"
+  },
+  {
+    "name": "Caloocan",
+    "lat": 14.65,
+    "lon": 120.96,
+    "country": "Philippines"
+  },
+  {
+    "name": "Zamboanga",
+    "lat": 6.91,
+    "lon": 122.07,
+    "country": "Philippines"
+  },
+  {
+    "name": "Taguig",
+    "lat": 14.51,
+    "lon": 121.05,
+    "country": "Philippines"
+  },
+  {
+    "name": "Pasig",
+    "lat": 14.57,
+    "lon": 121.08,
+    "country": "Philippines"
+  },
+  {
+    "name": "George Town",
+    "lat": 5.41,
+    "lon": 100.33,
+    "country": "Malaysia"
+  },
+  {
+    "name": "Ipoh",
+    "lat": 4.59,
+    "lon": 101.08,
+    "country": "Malaysia"
+  },
+  {
+    "name": "Johor Bahru",
+    "lat": 1.49,
+    "lon": 103.74,
+    "country": "Malaysia"
+  },
+  {
+    "name": "Petaling Jaya",
+    "lat": 3.1,
+    "lon": 101.6,
+    "country": "Malaysia"
+  },
+  {
+    "name": "Shiraz",
+    "lat": 29.59,
+    "lon": 52.58,
+    "country": "Iran"
+  },
+  {
+    "name": "Tabriz",
+    "lat": 38.08,
+    "lon": 46.29,
+    "country": "Iran"
+  },
+  {
+    "name": "Karaj",
+    "lat": 35.83,
+    "lon": 50.99,
+    "country": "Iran"
+  },
+  {
+    "name": "Ahvaz",
+    "lat": 31.31,
+    "lon": 48.69,
+    "country": "Iran"
+  },
+  {
+    "name": "Basra",
+    "lat": 30.51,
+    "lon": 47.78,
+    "country": "Iraq"
+  },
+  {
+    "name": "Mosul",
+    "lat": 36.34,
+    "lon": 43.11,
+    "country": "Iraq"
+  },
+  {
+    "name": "Erbil",
+    "lat": 36.19,
+    "lon": 44.01,
+    "country": "Iraq"
+  },
+  {
+    "name": "Haifa",
+    "lat": 32.81,
+    "lon": 34.98,
+    "country": "Israel"
+  },
+  {
+    "name": "Damascus",
+    "lat": 33.51,
+    "lon": 36.3,
+    "country": "Syria"
+  },
+  {
+    "name": "Aleppo",
+    "lat": 36.2,
+    "lon": 37.16,
+    "country": "Syria"
+  },
+  {
+    "name": "Sanaa",
+    "lat": 15.35,
+    "lon": 44.2,
+    "country": "Yemen"
+  },
+  {
+    "name": "Aden",
+    "lat": 12.78,
+    "lon": 45.01,
+    "country": "Yemen"
+  },
+  {
+    "name": "Muscat",
+    "lat": 23.58,
+    "lon": 58.38,
+    "country": "Oman"
+  },
+  {
+    "name": "Manama",
+    "lat": 26.22,
+    "lon": 50.58,
+    "country": "Bahrain"
+  },
+  {
+    "name": "Sharjah",
+    "lat": 25.34,
+    "lon": 55.41,
+    "country": "UAE"
+  },
+  {
+    "name": "Ajman",
+    "lat": 25.41,
+    "lon": 55.43,
+    "country": "UAE"
+  },
+  {
+    "name": "Medina",
+    "lat": 24.47,
+    "lon": 39.61,
+    "country": "Saudi Arabia"
+  },
+  {
+    "name": "Dammam",
+    "lat": 26.43,
+    "lon": 50.1,
+    "country": "Saudi Arabia"
+  },
+  {
+    "name": "Taif",
+    "lat": 21.26,
+    "lon": 40.41,
+    "country": "Saudi Arabia"
+  },
+  {
+    "name": "Minsk",
+    "lat": 53.9,
+    "lon": 27.56,
+    "country": "Belarus"
+  },
+  {
+    "name": "Chisinau",
+    "lat": 47,
+    "lon": 28.85,
+    "country": "Moldova"
+  },
+  {
+    "name": "Sofia",
+    "lat": 42.69,
+    "lon": 23.32,
+    "country": "Bulgaria"
+  },
+  {
+    "name": "Plovdiv",
+    "lat": 42.14,
+    "lon": 24.74,
+    "country": "Bulgaria"
+  },
+  {
+    "name": "Belgrade",
+    "lat": 44.81,
+    "lon": 20.46,
+    "country": "Serbia"
+  },
+  {
+    "name": "Zagreb",
+    "lat": 45.81,
+    "lon": 15.98,
+    "country": "Croatia"
+  },
+  {
+    "name": "Split",
+    "lat": 43.51,
+    "lon": 16.43,
+    "country": "Croatia"
+  },
+  {
+    "name": "Skopje",
+    "lat": 41.99,
+    "lon": 21.43,
+    "country": "North Macedonia"
+  },
+  {
+    "name": "Tirana",
+    "lat": 41.32,
+    "lon": 19.81,
+    "country": "Albania"
+  },
+  {
+    "name": "Sarajevo",
+    "lat": 43.85,
+    "lon": 18.38,
+    "country": "Bosnia"
+  },
+  {
+    "name": "Vilnius",
+    "lat": 54.68,
+    "lon": 25.27,
+    "country": "Lithuania"
+  },
+  {
+    "name": "Riga",
+    "lat": 56.94,
+    "lon": 24.1,
+    "country": "Latvia"
+  },
+  {
+    "name": "Tallinn",
+    "lat": 59.43,
+    "lon": 24.74,
+    "country": "Estonia"
+  },
+  {
+    "name": "Ljubljana",
+    "lat": 46.05,
+    "lon": 14.5,
+    "country": "Slovenia"
+  },
+  {
+    "name": "Bratislava",
+    "lat": 48.14,
+    "lon": 17.1,
+    "country": "Slovakia"
+  },
+  {
+    "name": "Gdansk",
+    "lat": 54.35,
+    "lon": 18.64,
+    "country": "Poland"
+  },
+  {
+    "name": "Wroclaw",
+    "lat": 51.1,
+    "lon": 17.03,
+    "country": "Poland"
+  },
+  {
+    "name": "Lodz",
+    "lat": 51.77,
+    "lon": 19.45,
+    "country": "Poland"
+  },
+  {
+    "name": "Poznan",
+    "lat": 52.4,
+    "lon": 16.92,
+    "country": "Poland"
+  },
+  {
+    "name": "Brno",
+    "lat": 49.19,
+    "lon": 16.6,
+    "country": "Czech Republic"
+  },
+  {
+    "name": "Marseille",
+    "lat": 43.29,
+    "lon": 5.36,
+    "country": "France"
+  },
+  {
+    "name": "Bordeaux",
+    "lat": 44.83,
+    "lon": -0.57,
+    "country": "France"
+  },
+  {
+    "name": "Lille",
+    "lat": 50.62,
+    "lon": 3.05,
+    "country": "France"
+  },
+  {
+    "name": "Nantes",
+    "lat": 47.21,
+    "lon": -1.55,
+    "country": "France"
+  },
+  {
+    "name": "Strasbourg",
+    "lat": 48.57,
+    "lon": 7.75,
+    "country": "France"
+  },
+  {
+    "name": "Rennes",
+    "lat": 48.11,
+    "lon": -1.67,
+    "country": "France"
+  },
+  {
+    "name": "Stuttgart",
+    "lat": 48.77,
+    "lon": 9.18,
+    "country": "Germany"
+  },
+  {
+    "name": "Dusseldorf",
+    "lat": 51.22,
+    "lon": 6.77,
+    "country": "Germany"
+  },
+  {
+    "name": "Dortmund",
+    "lat": 51.51,
+    "lon": 7.46,
+    "country": "Germany"
+  },
+  {
+    "name": "Essen",
+    "lat": 51.45,
+    "lon": 7.01,
+    "country": "Germany"
+  },
+  {
+    "name": "Leipzig",
+    "lat": 51.33,
+    "lon": 12.37,
+    "country": "Germany"
+  },
+  {
+    "name": "Bremen",
+    "lat": 53.07,
+    "lon": 8.8,
+    "country": "Germany"
+  },
+  {
+    "name": "Dresden",
+    "lat": 51.05,
+    "lon": 13.73,
+    "country": "Germany"
+  },
+  {
+    "name": "Hanover",
+    "lat": 52.37,
+    "lon": 9.73,
+    "country": "Germany"
+  },
+  {
+    "name": "Nuremberg",
+    "lat": 49.45,
+    "lon": 11.07,
+    "country": "Germany"
+  },
+  {
+    "name": "Malaga",
+    "lat": 36.72,
+    "lon": -4.42,
+    "country": "Spain"
+  },
+  {
+    "name": "Bilbao",
+    "lat": 43.26,
+    "lon": -2.92,
+    "country": "Spain"
+  },
+  {
+    "name": "Murcia",
+    "lat": 37.98,
+    "lon": -1.12,
+    "country": "Spain"
+  },
+  {
+    "name": "Palma",
+    "lat": 39.56,
+    "lon": 2.65,
+    "country": "Spain"
+  },
+  {
+    "name": "Las Palmas",
+    "lat": 28.12,
+    "lon": -15.43,
+    "country": "Spain"
+  },
+  {
+    "name": "Genoa",
+    "lat": 44.4,
+    "lon": 8.93,
+    "country": "Italy"
+  },
+  {
+    "name": "Bologna",
+    "lat": 44.49,
+    "lon": 11.34,
+    "country": "Italy"
+  },
+  {
+    "name": "Florence",
+    "lat": 43.77,
+    "lon": 11.25,
+    "country": "Italy"
+  },
+  {
+    "name": "Bari",
+    "lat": 41.11,
+    "lon": 16.85,
+    "country": "Italy"
+  },
+  {
+    "name": "Catania",
+    "lat": 37.5,
+    "lon": 15.08,
+    "country": "Italy"
+  },
+  {
+    "name": "Venice",
+    "lat": 45.44,
+    "lon": 12.31,
+    "country": "Italy"
+  },
+  {
+    "name": "Verona",
+    "lat": 45.43,
+    "lon": 10.99,
+    "country": "Italy"
+  },
+  {
+    "name": "Messina",
+    "lat": 38.19,
+    "lon": 15.55,
+    "country": "Italy"
+  },
+  {
+    "name": "Gothenburg",
+    "lat": 57.7,
+    "lon": 11.96,
+    "country": "Sweden"
+  },
+  {
+    "name": "Malmo",
+    "lat": 55.6,
+    "lon": 13,
+    "country": "Sweden"
+  },
+  {
+    "name": "Aarhus",
+    "lat": 56.15,
+    "lon": 10.21,
+    "country": "Denmark"
+  },
+  {
+    "name": "Bergen",
+    "lat": 60.39,
+    "lon": 5.32,
+    "country": "Norway"
+  },
+  {
+    "name": "Trondheim",
+    "lat": 63.43,
+    "lon": 10.39,
+    "country": "Norway"
+  },
+  {
+    "name": "Tampere",
+    "lat": 61.49,
+    "lon": 23.76,
+    "country": "Finland"
+  },
+  {
+    "name": "Cork",
+    "lat": 51.89,
+    "lon": -8.48,
+    "country": "Ireland"
+  },
+  {
+    "name": "Odessa",
+    "lat": 46.48,
+    "lon": 30.73,
+    "country": "Ukraine"
+  },
+  {
+    "name": "Dnipro",
+    "lat": 48.46,
+    "lon": 35.04,
+    "country": "Ukraine"
+  },
+  {
+    "name": "Lviv",
+    "lat": 49.83,
+    "lon": 24.02,
+    "country": "Ukraine"
+  },
+  {
+    "name": "Kampala",
+    "lat": 0.31,
+    "lon": 32.58,
+    "country": "Uganda"
+  },
+  {
+    "name": "Kigali",
+    "lat": -1.95,
+    "lon": 30.06,
+    "country": "Rwanda"
+  },
+  {
+    "name": "Lusaka",
+    "lat": -15.41,
+    "lon": 28.28,
+    "country": "Zambia"
+  },
+  {
+    "name": "Harare",
+    "lat": -17.82,
+    "lon": 31.03,
+    "country": "Zimbabwe"
+  },
+  {
+    "name": "Bulawayo",
+    "lat": -20.15,
+    "lon": 28.58,
+    "country": "Zimbabwe"
+  },
+  {
+    "name": "Maputo",
+    "lat": -25.96,
+    "lon": 32.58,
+    "country": "Mozambique"
+  },
+  {
+    "name": "Antananarivo",
+    "lat": -18.87,
+    "lon": 47.5,
+    "country": "Madagascar"
+  },
+  {
+    "name": "Port Louis",
+    "lat": -20.16,
+    "lon": 57.5,
+    "country": "Mauritius"
+  },
+  {
+    "name": "Douala",
+    "lat": 4.04,
+    "lon": 9.7,
+    "country": "Cameroon"
+  },
+  {
+    "name": "Yaounde",
+    "lat": 3.86,
+    "lon": 11.51,
+    "country": "Cameroon"
+  },
+  {
+    "name": "Conakry",
+    "lat": 9.64,
+    "lon": -13.57,
+    "country": "Guinea"
+  },
+  {
+    "name": "Bamako",
+    "lat": 12.65,
+    "lon": -8,
+    "country": "Mali"
+  },
+  {
+    "name": "Ouagadougou",
+    "lat": 12.36,
+    "lon": -1.53,
+    "country": "Burkina Faso"
+  },
+  {
+    "name": "Niamey",
+    "lat": 13.51,
+    "lon": 2.11,
+    "country": "Niger"
+  },
+  {
+    "name": "Lome",
+    "lat": 6.12,
+    "lon": 1.23,
+    "country": "Togo"
+  },
+  {
+    "name": "Cotonou",
+    "lat": 6.36,
+    "lon": 2.41,
+    "country": "Benin"
+  },
+  {
+    "name": "Libreville",
+    "lat": 0.39,
+    "lon": 9.45,
+    "country": "Gabon"
+  },
+  {
+    "name": "Brazzaville",
+    "lat": -4.26,
+    "lon": 15.24,
+    "country": "Congo"
+  },
+  {
+    "name": "Bangui",
+    "lat": 4.36,
+    "lon": 18.55,
+    "country": "CAR"
+  },
+  {
+    "name": "Ndjamena",
+    "lat": 12.1,
+    "lon": 15.04,
+    "country": "Chad"
+  },
+  {
+    "name": "Tunis",
+    "lat": 36.8,
+    "lon": 10.18,
+    "country": "Tunisia"
+  },
+  {
+    "name": "Tripoli",
+    "lat": 32.88,
+    "lon": 13.19,
+    "country": "Libya"
+  },
+  {
+    "name": "Benghazi",
+    "lat": 32.11,
+    "lon": 20.06,
+    "country": "Libya"
+  },
+  {
+    "name": "Fes",
+    "lat": 34.03,
+    "lon": -5,
+    "country": "Morocco"
+  },
+  {
+    "name": "Marrakech",
+    "lat": 31.62,
+    "lon": -7.98,
+    "country": "Morocco"
+  },
+  {
+    "name": "Tangier",
+    "lat": 35.76,
+    "lon": -5.8,
+    "country": "Morocco"
+  },
+  {
+    "name": "Oran",
+    "lat": 35.69,
+    "lon": -0.63,
+    "country": "Algeria"
+  },
+  {
+    "name": "Constantine",
+    "lat": 36.36,
+    "lon": 6.61,
+    "country": "Algeria"
+  },
+  {
+    "name": "Port Elizabeth",
+    "lat": -33.96,
+    "lon": 25.61,
+    "country": "South Africa"
+  },
+  {
+    "name": "Guadalajara",
+    "lat": 20.67,
+    "lon": -103.34,
+    "country": "Mexico"
+  },
+  {
+    "name": "Monterrey",
+    "lat": 25.67,
+    "lon": -100.3,
+    "country": "Mexico"
+  },
+  {
+    "name": "Puebla",
+    "lat": 19.04,
+    "lon": -98.19,
+    "country": "Mexico"
+  },
+  {
+    "name": "Tijuana",
+    "lat": 32.51,
+    "lon": -117.03,
+    "country": "Mexico"
+  },
+  {
+    "name": "Leon",
+    "lat": 21.12,
+    "lon": -101.67,
+    "country": "Mexico"
+  },
+  {
+    "name": "Juarez",
+    "lat": 31.73,
+    "lon": -106.48,
+    "country": "Mexico"
+  },
+  {
+    "name": "Zapopan",
+    "lat": 20.72,
+    "lon": -103.39,
+    "country": "Mexico"
+  },
+  {
+    "name": "Merida",
+    "lat": 20.96,
+    "lon": -89.62,
+    "country": "Mexico"
+  },
+  {
+    "name": "Guatemala City",
+    "lat": 14.62,
+    "lon": -90.52,
+    "country": "Guatemala"
+  },
+  {
+    "name": "San Salvador",
+    "lat": 13.69,
+    "lon": -89.19,
+    "country": "El Salvador"
+  },
+  {
+    "name": "Tegucigalpa",
+    "lat": 14.06,
+    "lon": -87.21,
+    "country": "Honduras"
+  },
+  {
+    "name": "Managua",
+    "lat": 12.13,
+    "lon": -86.25,
+    "country": "Nicaragua"
+  },
+  {
+    "name": "San Jose",
+    "lat": 9.92,
+    "lon": -84.08,
+    "country": "Costa Rica"
+  },
+  {
+    "name": "Panama City",
+    "lat": 8.98,
+    "lon": -79.51,
+    "country": "Panama"
+  },
+  {
+    "name": "Santo Domingo",
+    "lat": 18.48,
+    "lon": -69.89,
+    "country": "Dominican Republic"
+  },
+  {
+    "name": "Havana",
+    "lat": 23.13,
+    "lon": -82.38,
+    "country": "Cuba"
+  },
+  {
+    "name": "Port-au-Prince",
+    "lat": 18.54,
+    "lon": -72.33,
+    "country": "Haiti"
+  },
+  {
+    "name": "Kingston",
+    "lat": 17.97,
+    "lon": -76.79,
+    "country": "Jamaica"
+  },
+  {
+    "name": "San Juan",
+    "lat": 18.46,
+    "lon": -66.1,
+    "country": "Puerto Rico"
+  },
+  {
+    "name": "Barranquilla",
+    "lat": 10.96,
+    "lon": -74.79,
+    "country": "Colombia"
+  },
+  {
+    "name": "Cartagena",
+    "lat": 10.39,
+    "lon": -75.51,
+    "country": "Colombia"
+  },
+  {
+    "name": "Cucuta",
+    "lat": 7.89,
+    "lon": -72.5,
+    "country": "Colombia"
+  },
+  {
+    "name": "Bucaramanga",
+    "lat": 7.11,
+    "lon": -73.11,
+    "country": "Colombia"
+  },
+  {
+    "name": "Valencia",
+    "lat": 10.16,
+    "lon": -68,
+    "country": "Venezuela"
+  },
+  {
+    "name": "Barquisimeto",
+    "lat": 10.06,
+    "lon": -69.31,
+    "country": "Venezuela"
+  },
+  {
+    "name": "Trujillo",
+    "lat": -8.11,
+    "lon": -79.02,
+    "country": "Peru"
+  },
+  {
+    "name": "Cusco",
+    "lat": -13.53,
+    "lon": -71.96,
+    "country": "Peru"
+  },
+  {
+    "name": "Chiclayo",
+    "lat": -6.77,
+    "lon": -79.84,
+    "country": "Peru"
+  },
+  {
+    "name": "Cochabamba",
+    "lat": -17.41,
+    "lon": -66.16,
+    "country": "Bolivia"
+  },
+  {
+    "name": "Sucre",
+    "lat": -19.03,
+    "lon": -65.26,
+    "country": "Bolivia"
+  },
+  {
+    "name": "Valparaiso",
+    "lat": -33.04,
+    "lon": -71.62,
+    "country": "Chile"
+  },
+  {
+    "name": "Concepcion",
+    "lat": -36.82,
+    "lon": -73.04,
+    "country": "Chile"
+  },
+  {
+    "name": "Mar del Plata",
+    "lat": -38,
+    "lon": -57.55,
+    "country": "Argentina"
+  },
+  {
+    "name": "Mendoza",
+    "lat": -32.88,
+    "lon": -68.82,
+    "country": "Argentina"
+  },
+  {
+    "name": "San Miguel de Tucuman",
+    "lat": -26.82,
+    "lon": -65.21,
+    "country": "Argentina"
+  },
+  {
+    "name": "Campinas",
+    "lat": -22.9,
+    "lon": -47.06,
+    "country": "Brazil"
+  },
+  {
+    "name": "Goiania",
+    "lat": -16.67,
+    "lon": -49.25,
+    "country": "Brazil"
+  },
+  {
+    "name": "Sao Luis",
+    "lat": -2.53,
+    "lon": -44.3,
+    "country": "Brazil"
+  },
+  {
+    "name": "Natal",
+    "lat": -5.79,
+    "lon": -35.2,
+    "country": "Brazil"
+  },
+  {
+    "name": "Joao Pessoa",
+    "lat": -7.11,
+    "lon": -34.86,
+    "country": "Brazil"
+  },
+  {
+    "name": "Maceio",
+    "lat": -9.66,
+    "lon": -35.73,
+    "country": "Brazil"
+  },
+  {
+    "name": "Teresina",
+    "lat": -5.09,
+    "lon": -42.8,
+    "country": "Brazil"
+  },
+  {
+    "name": "Nuuk",
+    "lat": 64.18,
+    "lon": -51.72,
+    "country": "Greenland"
+  },
+  {
+    "name": "Reykjavik",
+    "lat": 64.14,
+    "lon": -21.94,
+    "country": "Iceland"
+  },
+  {
+    "name": "Torshavn",
+    "lat": 62,
+    "lon": -6.79,
+    "country": "Faroe Islands"
+  },
+  {
+    "name": "Longyearbyen",
+    "lat": 78.22,
+    "lon": 15.65,
+    "country": "Svalbard"
+  },
+  {
+    "name": "Murmansk",
+    "lat": 68.95,
+    "lon": 33.08,
+    "country": "Russia"
+  },
+  {
+    "name": "Norilsk",
+    "lat": 69.35,
+    "lon": 88.2,
+    "country": "Russia"
+  },
+  {
+    "name": "Yakutsk",
+    "lat": 62.03,
+    "lon": 129.74,
+    "country": "Russia"
+  },
+  {
+    "name": "Magadan",
+    "lat": 59.55,
+    "lon": 150.81,
+    "country": "Russia"
+  },
+  {
+    "name": "Anadyr",
+    "lat": 64.73,
+    "lon": 177.51,
+    "country": "Russia"
+  },
+  {
+    "name": "Utqiagvik",
+    "lat": 71.29,
+    "lon": -156.78,
+    "country": "USA"
+  },
+  {
+    "name": "Fairbanks",
+    "lat": 64.83,
+    "lon": -147.71,
+    "country": "USA"
+  },
+  {
+    "name": "Yellowknife",
+    "lat": 62.45,
+    "lon": -114.37,
+    "country": "Canada"
+  },
+  {
+    "name": "Whitehorse",
+    "lat": 60.72,
+    "lon": -135.05,
+    "country": "Canada"
+  },
+  {
+    "name": "Iqaluit",
+    "lat": 63.74,
+    "lon": -68.51,
+    "country": "Canada"
+  },
+  {
+    "name": "Irkutsk",
+    "lat": 52.29,
+    "lon": 104.27,
+    "country": "Russia"
+  },
+  {
+    "name": "Vladivostok",
+    "lat": 43.11,
+    "lon": 131.88,
+    "country": "Russia"
+  },
+  {
+    "name": "Khabarovsk",
+    "lat": 48.48,
+    "lon": 135.07,
+    "country": "Russia"
+  },
+  {
+    "name": "Omsk",
+    "lat": 54.98,
+    "lon": 73.32,
+    "country": "Russia"
+  },
+  {
+    "name": "Krasnoyarsk",
+    "lat": 56.01,
+    "lon": 92.86,
+    "country": "Russia"
+  },
+  {
+    "name": "Chelyabinsk",
+    "lat": 55.16,
+    "lon": 61.43,
+    "country": "Russia"
+  },
+  {
+    "name": "Nizhny Novgorod",
+    "lat": 56.32,
+    "lon": 44,
+    "country": "Russia"
+  },
+  {
+    "name": "Samara",
+    "lat": 53.24,
+    "lon": 50.27,
+    "country": "Russia"
+  },
+  {
+    "name": "Ufa",
+    "lat": 54.73,
+    "lon": 55.95,
+    "country": "Russia"
+  },
+  {
+    "name": "Perm",
+    "lat": 58.01,
+    "lon": 56.22,
+    "country": "Russia"
+  },
+  {
+    "name": "Suva",
+    "lat": -18.14,
+    "lon": 178.44,
+    "country": "Fiji"
+  },
+  {
+    "name": "Port Moresby",
+    "lat": -9.44,
+    "lon": 147.18,
+    "country": "Papua New Guinea"
+  },
+  {
+    "name": "Noumea",
+    "lat": -22.27,
+    "lon": 166.45,
+    "country": "New Caledonia"
+  },
+  {
+    "name": "Papeete",
+    "lat": -17.55,
+    "lon": -149.56,
+    "country": "French Polynesia"
+  },
+  {
+    "name": "Honiara",
+    "lat": -9.44,
+    "lon": 159.95,
+    "country": "Solomon Islands"
+  },
+  {
+    "name": "Apia",
+    "lat": -13.83,
+    "lon": -171.75,
+    "country": "Samoa"
+  },
+  {
+    "name": "Nuku'alofa",
+    "lat": -21.13,
+    "lon": -175.19,
+    "country": "Tonga"
+  },
+  {
+    "name": "Majuro",
+    "lat": 7.09,
+    "lon": 171.38,
+    "country": "Marshall Islands"
+  },
+  {
+    "name": "Palikir",
+    "lat": 6.92,
+    "lon": 158.16,
+    "country": "Micronesia"
+  },
+  {
+    "name": "Hagatna",
+    "lat": 13.47,
+    "lon": 144.75,
+    "country": "Guam"
+  },
+  {
+    "name": "Ushuaia",
+    "lat": -54.8,
+    "lon": -68.3,
+    "country": "Argentina"
+  },
+  {
+    "name": "Punta Arenas",
+    "lat": -53.16,
+    "lon": -70.93,
+    "country": "Chile"
+  },
+  {
+    "name": "Iquitos",
+    "lat": -3.74,
+    "lon": -73.25,
+    "country": "Peru"
+  },
+  {
+    "name": "Cayenne",
+    "lat": 4.92,
+    "lon": -52.31,
+    "country": "French Guiana"
+  },
+  {
+    "name": "Georgetown",
+    "lat": 6.8,
+    "lon": -58.15,
+    "country": "Guyana"
+  },
+  {
+    "name": "Paramaribo",
+    "lat": 5.85,
+    "lon": -55.2,
+    "country": "Suriname"
+  },
+  {
+    "name": "Galapagos",
+    "lat": -0.95,
+    "lon": -90.96,
+    "country": "Ecuador"
+  },
+  {
+    "name": "Antofagasta",
+    "lat": -23.65,
+    "lon": -70.4,
+    "country": "Chile"
+  },
+  {
+    "name": "Windhoek",
+    "lat": -22.56,
+    "lon": 17.06,
+    "country": "Namibia"
+  },
+  {
+    "name": "Gaborone",
+    "lat": -24.62,
+    "lon": 25.92,
+    "country": "Botswana"
+  },
+  {
+    "name": "Lilongwe",
+    "lat": -13.96,
+    "lon": 33.78,
+    "country": "Malawi"
+  },
+  {
+    "name": "Mogadishu",
+    "lat": 2.04,
+    "lon": 45.31,
+    "country": "Somalia"
+  },
+  {
+    "name": "Djibouti City",
+    "lat": 11.57,
+    "lon": 43.14,
+    "country": "Djibouti"
+  },
+  {
+    "name": "Asmara",
+    "lat": 15.32,
+    "lon": 38.92,
+    "country": "Eritrea"
+  },
+  {
+    "name": "Nouakchott",
+    "lat": 18.07,
+    "lon": -15.95,
+    "country": "Mauritania"
+  },
+  {
+    "name": "N'Djamena",
+    "lat": 12.13,
+    "lon": 15.05,
+    "country": "Chad"
+  },
+  {
+    "name": "Bangui",
+    "lat": 4.39,
+    "lon": 18.55,
+    "country": "CAR"
+  },
+  {
+    "name": "Kabul",
+    "lat": 34.55,
+    "lon": 69.2,
+    "country": "Afghanistan"
+  },
+  {
+    "name": "Kandahar",
+    "lat": 31.6,
+    "lon": 65.7,
+    "country": "Afghanistan"
+  },
+  {
+    "name": "Herat",
+    "lat": 34.35,
+    "lon": 62.2,
+    "country": "Afghanistan"
+  },
+  {
+    "name": "Mazar-i-Sharif",
+    "lat": 36.72,
+    "lon": 67.11,
+    "country": "Afghanistan"
+  },
+  {
+    "name": "Quetta",
+    "lat": 30.17,
+    "lon": 66.97,
+    "country": "Pakistan"
+  },
+  {
+    "name": "Zahedan",
+    "lat": 29.49,
+    "lon": 60.87,
+    "country": "Iran"
+  },
+  {
+    "name": "Kerman",
+    "lat": 30.28,
+    "lon": 57.08,
+    "country": "Iran"
+  },
+  {
+    "name": "Ponta Delgada",
+    "lat": 37.74,
+    "lon": -25.66,
+    "country": "Azores"
+  },
+  {
+    "name": "Funchal",
+    "lat": 32.65,
+    "lon": -16.9,
+    "country": "Madeira"
+  },
+  {
+    "name": "Santa Cruz de Tenerife",
+    "lat": 28.46,
+    "lon": -16.25,
+    "country": "Spain"
+  },
+  {
+    "name": "Praia",
+    "lat": 14.93,
+    "lon": -23.51,
+    "country": "Cape Verde"
+  },
+  {
+    "name": "Saint Helena",
+    "lat": -15.96,
+    "lon": -5.7,
+    "country": "UK"
+  }
+]

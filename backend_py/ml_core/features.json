@@ -1,0 +1,19 @@
+[
+  "pm2_5",
+  "pm10",
+  "no2",
+  "so2",
+  "co",
+  "o3",
+  "wind_speed",
+  "wind_sin",
+  "wind_cos",
+  "temp",
+  "humidity",
+  "hour",
+  "dow",
+  "pm25_pm10",
+  "aod",
+  "fire_count",
+  "month"
+]

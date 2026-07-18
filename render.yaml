@@ -1,17 +1,8 @@
 services:
   - type: web
-    name: aqi-monitor
-    runtime: docker
-    plan: free # Changed to free since GraphHopper is disabled
-    envVars:
-      - key: JAVA_OPTS
-        value: "-Xmx300m -Xms128m"
-      # To run with a production PostgreSQL DB, add your DB variables here or set them in the Render Dashboard:
-      # - key: SPRING_PROFILES_ACTIVE
-      #   value: postgres
-      # - key: SPRING_DATASOURCE_URL
-      #   value: "your-postgres-connection-string"
-      # - key: SPRING_DATASOURCE_USERNAME
-      #   value: "postgres"
-      # - key: SPRING_DATASOURCE_PASSWORD
-      #   value: "your-password"
+    name: aqi-monitor-backend
+    env: python
+    rootDir: backend_py
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    plan: free

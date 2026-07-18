@@ -31,39 +31,52 @@ BreatheLens is a comprehensive, dual-portal platform designed to monitor air qua
 
 * **Frontend (Citizen Portal):** React (18.2.0), Vite, Tailwind CSS, Recharts, Leaflet
 * **Frontend (Authority Portal):** Vanilla HTML/CSS/JS, Leaflet.js (Mapping)
-* **Backend:** Java 17, Spring Boot (3.2.2), Spring Data JPA, GraphHopper (Routing)
-* **Machine Learning & Python (`ml_core`):** Python, Pandas, NumPy, Scikit-Learn, LightGBM, TensorFlow / Keras, Joblib
-* **Database:** H2 (In-Memory) / PostgreSQL
-* **External APIs:** Open-Meteo (Air Quality & Weather), OpenStreetMap/Photon (Geocoding)
-* **Deployment:** Docker, Vercel (Frontend), Render (Backend)
+* **Backend:** Python (3.11+), FastAPI, SQLAlchemy, APScheduler
+* **Machine Learning (`ml_core`):** Python, Pandas, NumPy, Scikit-Learn, LightGBM, TensorFlow / Keras, Joblib
+* **Database:** SQLite
+* **External APIs:** Open-Meteo (Air Quality & Weather), OpenStreetMap (Geocoding), OSRM (Routing)
+* **Deployment:** Vercel (Frontend), Render (Backend)
 
 ---
 
 ## 🚀 How to Run Locally
 
-The project includes a startup script configured to work **out-of-the-box with zero installation or setup** for Windows users.
+1. **Clone the repository:**
+   ```bash
+   git clone <your-repo-url>
+   cd AirPollution_SourceContribution_Analysis
+   ```
 
-1. Clone the repository.
-2. Double-click the **`start_server.bat`** file in the project root.
+2. **Navigate to the Backend and Install Dependencies:**
+   ```bash
+   cd backend_py
+   python -m venv venv
+   
+   # Activate the virtual environment
+   # Windows:
+   .\venv\Scripts\activate
+   # Mac/Linux:
+   source venv/bin/activate
+   
+   pip install -r requirements.txt
+   ```
 
-**What the script does:**
-1. Checks for conflicting processes on port `8080` and clears them if needed.
-2. Detects if Apache Maven is installed globally. If not, it falls back to a pre-configured local Maven bundle (`maven-temp`).
-3. Compiles the Vite React frontend bundle and copies it to the Spring Boot static assets directory.
-4. Spins up the unified Spring Boot backend.
-5. Serves the application on **[http://localhost:8080](http://localhost:8080)**.
+3. **Start the Server:**
+   ```bash
+   uvicorn main:app --reload --port 8080
+   ```
+
+4. **Access the Application:**
+   * Open your browser and go to **[http://localhost:8080](http://localhost:8080)**.
 
 ### Local Database Configuration
-By default, the application uses a **Zero-Configuration In-Memory Database (H2)**. On startup, if the database is empty, it automatically parses and seeds over 970 global cities from `src/main/resources/cities.json`.
-
-If you prefer to run a persistent PostgreSQL database (`localhost:5432/aqi_db`), you can run the application with the postgres profile:
-```bash
-mvn spring-boot:run "-Dspring-boot.run.jvmArguments=-Dspring.profiles.active=postgres"
-```
+By default, the application uses a lightweight **SQLite Database**. On startup, if the database is empty, it automatically parses and seeds over 970 global cities from `cities.json`.
 
 ---
 
 ## 🔧 Recent Architectural Improvements
 
-* **Direct API Integration:** Both the Authority and Citizen portals have been refactored to fetch live AQI data directly from the Open-Meteo API, bypassing backend bottlenecks and ensuring 100% uptime for real-time metrics.
-* **Dynamic History Aggregation:** The Spring Boot backend dynamically aggregates hourly AQI data into daily maximums to support accurate 180-day historical trend analysis.
+* **Java to Python Migration:** The backend has been completely rewritten from Java Spring Boot to **Python FastAPI**, seamlessly unifying the application's API endpoints with the native Python machine learning scripts.
+* **Direct API Integration:** Both portals fetch live AQI data directly from the Open-Meteo API, bypassing backend bottlenecks. The frontend is built to intelligently fall back to recent historical data if the current hour is unavailable.
+* **Dynamic History Aggregation:** The backend dynamically aggregates hourly AQI data into daily maximums to support accurate 180-day historical trend analysis.
+* **Cloud Routing Replacement:** GraphHopper routing was successfully replaced with OSRM, reducing local overhead while maintaining accurate safe-route exposure calculations.
