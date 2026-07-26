@@ -394,7 +394,7 @@ export async function getStationsInBounds(lat1, lon1, lat2, lon2) {
  */
 let globalFetchPromise = null;
 
-// --- Spring Boot Backend Integration ---
+// --- Python FastAPI Backend Integration ---
 const BACKEND_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8080/api/aqi";
 
 export async function getGlobalStations(onProgress = null) {
@@ -410,7 +410,7 @@ export async function getGlobalStations(onProgress = null) {
     // Otherwise, start a new fetch
     globalFetchPromise = (async () => {
         try {
-            console.log("Fetching Global Stations from Spring Boot Backend...");
+            console.log("Fetching Global Stations from Python Backend...");
 
             const response = await fetch(`${BACKEND_BASE_URL}/global`);
 

@@ -29,6 +29,9 @@ const StationMarker = React.memo(({ station, onSelect }) => {
 
     let hexColor = '#94a3b8'; // Default / No Data (Slate 400ish)
 
+    // Using our helper from context or local import
+
+
     if (aqi !== null && !isNaN(aqi)) {
         if (aqi <= 50) hexColor = '#00ddd0';       // Good
         else if (aqi <= 100) hexColor = '#fdd64b'; // Moderate

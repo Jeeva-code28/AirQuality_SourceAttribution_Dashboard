@@ -13,6 +13,8 @@ const getBarColor = (value) => {
 };
 
 export default function AnnualTrendChart({ data, loading }) {
+    const { theme } = useTheme();
+
     if (loading || !data) {
         return (
             <div className="col-span-12 lg:col-span-6 bg-[#1e293b]/50 backdrop-blur-md rounded-3xl p-6 border border-slate-700/50 shadow-xl animate-pulse h-[350px]">
@@ -68,7 +70,6 @@ export default function AnnualTrendChart({ data, loading }) {
         };
     });
 
-    const { theme } = useTheme();
     const axisColor = theme === 'dark' ? '#94a3b8' : '#64748b';
 
     return (
