@@ -480,7 +480,7 @@ export async function triggerBackendRefresh() {
 export async function reverseGeocode(lat, lon) {
     try {
         // Use OpenStreetMap Nominatim API as it is more reliable and free
-        const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=18&addressdetails=1`);
+        const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=18&addressdetails=1&accept-language=en`);
 
         if (!response.ok) throw new Error("Reverse geocoding failed");
 

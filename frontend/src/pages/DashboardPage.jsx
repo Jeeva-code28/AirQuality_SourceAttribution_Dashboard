@@ -173,9 +173,9 @@ export default function DashboardPage() {
             // Fallback to New Delhi if we were locating
             setCoordinates({ lat: 28.61, lon: 77.21 });
         }, {
-            enableHighAccuracy: false, // Use low accuracy for speed/reliability
+            enableHighAccuracy: true, // Use high accuracy (Wi-Fi/GPS triangulation)
             timeout: 15000,
-            maximumAge: 300000 // Accept positions up to 5 mins old
+            maximumAge: 60000 // Accept positions up to 1 min old
         });
     };
 
