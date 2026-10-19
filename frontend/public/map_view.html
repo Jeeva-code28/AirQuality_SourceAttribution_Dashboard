@@ -40,6 +40,10 @@
             transition: all 0.2s;
         }
 
+        .dark-tiles {
+            filter: brightness(0.6) invert(1) contrast(3) hue-rotate(200deg) saturate(0.3) brightness(0.7);
+        }
+
         .back-button:hover {
             background: rgba(0, 243, 255, 0.1);
             border-color: #00F3FF;
@@ -492,16 +496,16 @@
         const mapHotspot = L.map('map-hotspot').setView([22.5, 82.0], 5);
 
         // Base Layer for AQI Map
-        L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
-            subdomains: 'abcd',
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            className: 'dark-tiles',
             maxZoom: 19
         }).addTo(mapAqi);
 
         // Base Layer for Hotspot Map
-        L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
-            subdomains: 'abcd',
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            className: 'dark-tiles',
             maxZoom: 19
         }).addTo(mapHotspot);
 
@@ -766,9 +770,9 @@
 
         // Initialize Route Map
         const mapRoute = L.map('map-route').setView([28.6139, 77.2090], 12);
-        L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-            attribution: '&copy; OSM &copy; CARTO',
-            subdomains: 'abcd',
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            className: 'dark-tiles',
             maxZoom: 19
         }).addTo(mapRoute);
 

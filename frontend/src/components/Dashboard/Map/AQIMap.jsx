@@ -220,8 +220,9 @@ export default function AQIMap({ center = { lat: 20, lon: 0 }, zoom = 5, onStati
                     <MapUpdater center={validCenter} zoomLevel={zoom} isExpanded={isExpanded} />
                     <MapEvents onBoundsChange={handleBoundsChange} />
                     <TileLayer
-                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a>'
-                        url={theme === 'dark' ? "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png" : "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"}
+                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                        className={theme === 'dark' ? 'dark-tiles' : ''}
                     />
                     {visibleStations.map((station) => (
                         <StationMarker key={station.uid} station={station} onSelect={onStationSelect} />
