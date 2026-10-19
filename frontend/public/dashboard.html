@@ -310,6 +310,72 @@
                     </div>
                 </div>
 
+                <!-- Health Advisory Panel -->
+                <div class="card health-advisory-card" style="grid-column: span 12;">
+                    <div class="card-header">
+                        <h2><i class="fa-solid fa-heart-pulse" style="margin-right: 8px; color: #ef4444;"></i>Health Advisory & Activity Guide</h2>
+                        <i class="fa-solid fa-user-doctor icon-main"></i>
+                    </div>
+
+                    <!-- Overall Risk Level -->
+                    <div id="health-risk-banner" style="display: flex; align-items: center; gap: 15px; padding: 15px; background: rgba(255,255,255,0.03); border-radius: 10px; margin-bottom: 15px; border-left: 4px solid var(--success);">
+                        <i id="health-risk-icon" class="fa-solid fa-circle-check" style="font-size: 2rem; color: var(--success);"></i>
+                        <div>
+                            <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;">Overall Risk Level</div>
+                            <div id="health-risk-level" style="font-size: 1.3rem; font-weight: 700; color: var(--text-main);">Analyzing...</div>
+                            <div id="health-risk-message" style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">Loading health advisory data...</div>
+                        </div>
+                    </div>
+
+                    <!-- Activity Advisories Grid -->
+                    <div style="margin-bottom: 15px;">
+                        <h3 style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px;">
+                            <i class="fa-solid fa-person-running"></i> Activity-Specific Guidance
+                        </h3>
+                        <div id="activity-advisories" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px;">
+                            <!-- Populated by JS -->
+                            <div style="padding: 15px; background: rgba(255,255,255,0.03); border-radius: 8px; color: var(--text-muted);">
+                                <i class="fa-solid fa-spinner fa-spin"></i> Loading activity advisories...
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sensitive Groups -->
+                    <div style="margin-bottom: 15px;">
+                        <h3 style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px;">
+                            <i class="fa-solid fa-shield-heart"></i> Vulnerable Population Alerts
+                        </h3>
+                        <div id="sensitive-group-alerts" style="display: flex; flex-direction: column; gap: 8px;">
+                            <!-- Populated by JS -->
+                            <div style="padding: 10px; background: rgba(255,255,255,0.03); border-radius: 8px; color: var(--text-muted); font-size: 0.85rem;">
+                                Checking population risk factors...
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Protective Measures & Source Insight -->
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div>
+                            <h3 style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px;">
+                                <i class="fa-solid fa-shield"></i> Protective Measures
+                            </h3>
+                            <div id="protective-measures" style="display: flex; flex-direction: column; gap: 6px;">
+                                <div style="padding: 8px; background: rgba(255,255,255,0.03); border-radius: 6px; color: var(--text-muted); font-size: 0.85rem;">
+                                    Loading...
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px;">
+                                <i class="fa-solid fa-magnifying-glass-chart"></i> Source-Specific Insight
+                            </h3>
+                            <div id="source-health-insight" style="padding: 12px; background: rgba(147, 51, 234, 0.08); border-left: 3px solid var(--accent, #9333ea); border-radius: 0 8px 8px 0; font-size: 0.9rem; color: var(--text-main); line-height: 1.5;">
+                                Fetching source attribution data for health analysis...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div> <!-- End Grid -->
 
             <footer>

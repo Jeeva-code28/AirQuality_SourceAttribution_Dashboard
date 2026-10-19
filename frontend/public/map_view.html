@@ -187,6 +187,187 @@
         .search-container button:hover {
             transform: scale(1.1);
         }
+
+        /* Route Finder Panel */
+        .route-panel {
+            position: absolute;
+            top: 70px;
+            left: 20px;
+            z-index: 1000;
+            width: 340px;
+            background: rgba(15, 23, 42, 0.95);
+            border-radius: 12px;
+            border: 1px solid rgba(0, 243, 255, 0.2);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(12px);
+            overflow: hidden;
+            display: none;
+            max-height: calc(100vh - 100px);
+            overflow-y: auto;
+        }
+
+        .route-panel-header {
+            padding: 15px;
+            background: linear-gradient(135deg, rgba(0, 243, 255, 0.1), rgba(0, 255, 163, 0.05));
+            border-bottom: 1px solid rgba(0, 243, 255, 0.15);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .route-panel-header h3 {
+            margin: 0;
+            color: #00F3FF;
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        .route-panel-body {
+            padding: 15px;
+        }
+
+        .route-input-group {
+            margin-bottom: 12px;
+        }
+
+        .route-input-group label {
+            display: block;
+            font-size: 0.75rem;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 5px;
+        }
+
+        .route-input-group input {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #f1f5f9;
+            padding: 10px 12px;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            outline: none;
+            box-sizing: border-box;
+            transition: border-color 0.2s;
+        }
+
+        .route-input-group input:focus {
+            border-color: #00F3FF;
+        }
+
+        .route-mode-selector {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 6px;
+            margin-bottom: 15px;
+        }
+
+        .route-mode-btn {
+            padding: 8px 4px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: #94a3b8;
+            cursor: pointer;
+            text-align: center;
+            font-size: 0.7rem;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.2s;
+        }
+
+        .route-mode-btn:hover {
+            background: rgba(0, 243, 255, 0.1);
+            color: #00F3FF;
+        }
+
+        .route-mode-btn.active {
+            background: rgba(0, 243, 255, 0.15);
+            border-color: #00F3FF;
+            color: #00F3FF;
+            font-weight: 600;
+        }
+
+        .route-mode-btn i {
+            display: block;
+            font-size: 1.1rem;
+            margin-bottom: 4px;
+        }
+
+        .route-find-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #00F3FF, #00FFA3);
+            color: #0f172a;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .route-find-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(0, 243, 255, 0.3);
+        }
+
+        .route-find-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .route-results {
+            margin-top: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .route-result-card {
+            padding: 12px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.03);
+            border-left: 4px solid;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .route-result-card:hover {
+            background: rgba(255, 255, 255, 0.06);
+            transform: translateX(3px);
+        }
+
+        .route-result-card .route-label {
+            font-weight: 700;
+            font-size: 0.85rem;
+            margin-bottom: 6px;
+        }
+
+        .route-result-card .route-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 4px;
+            font-size: 0.7rem;
+            color: #94a3b8;
+        }
+
+        .route-result-card .route-stats .stat-val {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #f1f5f9;
+        }
+
+        .route-panel::-webkit-scrollbar {
+            width: 4px;
+        }
+        .route-panel::-webkit-scrollbar-thumb {
+            background: rgba(0, 243, 255, 0.3);
+            border-radius: 2px;
+        }
     </style>
 </head>
 
@@ -215,6 +396,54 @@
 
     <!-- View 3: Hotspot Map -->
     <div id="map-hotspot" class="map-view hidden-view"></div>
+
+    <!-- View 4: Clean Route Map -->
+    <div id="map-route" class="map-view hidden-view"></div>
+
+    <!-- Clean Route Finder Panel -->
+    <div id="route-panel" class="route-panel">
+        <div class="route-panel-header">
+            <i class="fa-solid fa-route" style="color: #00FFA3; font-size: 1.2rem;"></i>
+            <h3>Clean Route Finder</h3>
+        </div>
+        <div class="route-panel-body">
+            <div class="route-input-group">
+                <label><i class="fa-solid fa-circle" style="color: #10b981; font-size: 0.5rem;"></i> Start Location</label>
+                <input type="text" id="route-start" placeholder="Search or click map...">
+            </div>
+            <div class="route-input-group">
+                <label><i class="fa-solid fa-location-dot" style="color: #ef4444; font-size: 0.6rem;"></i> Destination</label>
+                <input type="text" id="route-end" placeholder="Search or click map...">
+            </div>
+
+            <label style="display: block; font-size: 0.75rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">Travel Mode</label>
+            <div class="route-mode-selector">
+                <div class="route-mode-btn" data-mode="WALKER" onclick="selectRouteMode(this)">
+                    <i class="fa-solid fa-person-walking"></i>Walk
+                </div>
+                <div class="route-mode-btn active" data-mode="JOGGER" onclick="selectRouteMode(this)">
+                    <i class="fa-solid fa-person-running"></i>Jog
+                </div>
+                <div class="route-mode-btn" data-mode="CYCLIST" onclick="selectRouteMode(this)">
+                    <i class="fa-solid fa-bicycle"></i>Cycle
+                </div>
+                <div class="route-mode-btn" data-mode="DRIVER" onclick="selectRouteMode(this)">
+                    <i class="fa-solid fa-car"></i>Drive
+                </div>
+            </div>
+
+            <div style="background: rgba(0,243,255,0.05); padding: 8px; border-radius: 6px; margin-bottom: 12px; font-size: 0.75rem; color: #94a3b8;">
+                <i class="fa-solid fa-lungs" style="color: #00F3FF;"></i>
+                <span id="breathing-rate-info">Jogger breathes 2.5× more than driver — exposure is breathing-rate adjusted.</span>
+            </div>
+
+            <button class="route-find-btn" id="route-find-btn" onclick="findSafeRoutes()">
+                <i class="fa-solid fa-shield-heart"></i> Find Safest Route
+            </button>
+
+            <div id="route-results" class="route-results"></div>
+        </div>
+    </div>
 
     <!-- AQI Legend (Only for AQI View) -->
     <div id="aqi-legend" class="aqi-legend">
@@ -521,11 +750,13 @@
 
 
         // Toggle Logic
-        // Modes: AQI (Default) -> Wind -> Hotspot -> AQI
-        let currentMode = 0; // 0: AQI, 1: Wind, 2: Hotspot
+        // Modes: AQI (Default) -> Wind -> Hotspot -> Route -> AQI
+        let currentMode = 0; // 0: AQI, 1: Wind, 2: Hotspot, 3: Route
         const aqiView = document.getElementById('map-aqi');
         const windView = document.getElementById('map-wind');
         const hotspotView = document.getElementById('map-hotspot');
+        const routeView = document.getElementById('map-route');
+        const routePanel = document.getElementById('route-panel');
 
         const aqiLegend = document.getElementById('aqi-legend');
         const hotspotLegend = document.getElementById('hotspot-legend');
@@ -533,16 +764,192 @@
         const btnText = document.getElementById('toggle-text');
         const btnIcon = document.querySelector('#toggle-btn i');
 
+        // Initialize Route Map
+        const mapRoute = L.map('map-route').setView([28.6139, 77.2090], 12);
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; OSM &copy; CARTO',
+            subdomains: 'abcd',
+            maxZoom: 19
+        }).addTo(mapRoute);
+
+        // Route state
+        let routeStartCoords = null;
+        let routeEndCoords = null;
+        let routeClickMode = 'start'; // 'start' or 'end'
+        let routeMarkers = [];
+        let routePolylines = [];
+        let selectedMode = 'JOGGER';
+
+        const startIcon = L.icon({
+            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/markers/marker-icon-2x-green.png',
+            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+            iconSize: [25, 41], iconAnchor: [12, 41], popupAnchor: [1, -34], shadowSize: [41, 41]
+        });
+        const endIcon = L.icon({
+            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/markers/marker-icon-2x-red.png',
+            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+            iconSize: [25, 41], iconAnchor: [12, 41], popupAnchor: [1, -34], shadowSize: [41, 41]
+        });
+
+        // Route map click handler
+        mapRoute.on('click', async function(e) {
+            const lat = e.latlng.lat;
+            const lon = e.latlng.lng;
+
+            // Reverse geocode
+            let name = `${lat.toFixed(4)}, ${lon.toFixed(4)}`;
+            try {
+                const resp = await fetch(`https://photon.komoot.io/reverse?lon=${lon}&lat=${lat}`);
+                const data = await resp.json();
+                if (data.features && data.features[0]) {
+                    const p = data.features[0].properties;
+                    name = p.name || p.street || p.district || p.city || name;
+                }
+            } catch(e) {}
+
+            if (routeClickMode === 'start') {
+                routeStartCoords = { lat, lon };
+                document.getElementById('route-start').value = name;
+                // Remove old start marker
+                routeMarkers.forEach(m => { if (m._isStart) mapRoute.removeLayer(m); });
+                routeMarkers = routeMarkers.filter(m => !m._isStart);
+                const m = L.marker([lat, lon], { icon: startIcon }).addTo(mapRoute).bindPopup('Start: ' + name);
+                m._isStart = true;
+                routeMarkers.push(m);
+                routeClickMode = 'end';
+            } else {
+                routeEndCoords = { lat, lon };
+                document.getElementById('route-end').value = name;
+                routeMarkers.forEach(m => { if (m._isEnd) mapRoute.removeLayer(m); });
+                routeMarkers = routeMarkers.filter(m => !m._isEnd);
+                const m = L.marker([lat, lon], { icon: endIcon }).addTo(mapRoute).bindPopup('End: ' + name);
+                m._isEnd = true;
+                routeMarkers.push(m);
+                routeClickMode = 'start';
+            }
+        });
+
+        function selectRouteMode(el) {
+            document.querySelectorAll('.route-mode-btn').forEach(b => b.classList.remove('active'));
+            el.classList.add('active');
+            selectedMode = el.dataset.mode;
+
+            const rateMap = { 'WALKER': '1.5×', 'JOGGER': '2.5×', 'CYCLIST': '2.0×', 'DRIVER': '1.0×' };
+            const nameMap = { 'WALKER': 'Walker', 'JOGGER': 'Jogger', 'CYCLIST': 'Cyclist', 'DRIVER': 'Driver' };
+            document.getElementById('breathing-rate-info').textContent =
+                `${nameMap[selectedMode]} breathes ${rateMap[selectedMode]} more than at rest — exposure is breathing-rate adjusted.`;
+        }
+
+        async function findSafeRoutes() {
+            if (!routeStartCoords || !routeEndCoords) {
+                alert('Please set both start and end points by clicking on the map.');
+                return;
+            }
+
+            const btn = document.getElementById('route-find-btn');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Calculating...';
+
+            // Clear old routes
+            routePolylines.forEach(p => mapRoute.removeLayer(p));
+            routePolylines = [];
+
+            try {
+                const resp = await fetch('/api/routes/calculate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        startLat: routeStartCoords.lat,
+                        startLon: routeStartCoords.lon,
+                        endLat: routeEndCoords.lat,
+                        endLon: routeEndCoords.lon,
+                        mode: selectedMode
+                    })
+                });
+
+                if (!resp.ok) throw new Error(`Route API returned ${resp.status}`);
+                const routes = await resp.json();
+
+                if (!routes || Object.keys(routes).length === 0) {
+                    document.getElementById('route-results').innerHTML =
+                        '<div style="padding: 12px; background: rgba(239,68,68,0.1); border-radius: 8px; color: #f87171; font-size: 0.85rem;"><i class="fa-solid fa-circle-xmark"></i> No routes found. Try different locations.</div>';
+                    return;
+                }
+
+                const resultsHTML = [];
+                const routeLabels = {
+                    green: { label: '🟢 Safest Route (Least Exposure)', css: '#10b981' },
+                    yellow: { label: '🟡 Alternative Route', css: '#f59e0b' },
+                    red: { label: '🔴 Shortest Route', css: '#ef4444' }
+                };
+
+                // Draw routes on map + build result cards
+                for (const [key, route] of Object.entries(routes)) {
+                    const info = routeLabels[key] || { label: key, css: '#64748b' };
+                    const color = route.color || info.css;
+
+                    // Draw polyline
+                    if (route.points && route.points.length > 0) {
+                        const latlngs = route.points.map(p => [p[0], p[1]]);
+                        const polyline = L.polyline(latlngs, {
+                            color: color,
+                            weight: key === 'green' ? 6 : 4,
+                            opacity: key === 'green' ? 0.9 : 0.7
+                        }).addTo(mapRoute);
+                        routePolylines.push(polyline);
+                    }
+
+                    // Stats
+                    const distKm = (route.distance / 1000).toFixed(1);
+                    const timeMins = Math.round(route.time / 60000);
+                    const avgAqi = Math.round(route.avgAQI || 0);
+                    const exposure = Math.round(route.totalExposure || 0);
+
+                    resultsHTML.push(`
+                        <div class="route-result-card" style="border-left-color: ${color};">
+                            <div class="route-label" style="color: ${color};">${info.label}</div>
+                            <div class="route-stats">
+                                <div><span class="stat-val">${distKm} km</span><br>Distance</div>
+                                <div><span class="stat-val">${timeMins} min</span><br>Duration</div>
+                                <div><span class="stat-val">${avgAqi}</span><br>Avg AQI</div>
+                            </div>
+                            <div style="margin-top: 8px; font-size: 0.7rem; color: #94a3b8;">
+                                <i class="fa-solid fa-lungs"></i> Cumulative Exposure: <strong style="color: ${color};">${exposure}</strong>
+                            </div>
+                        </div>
+                    `);
+                }
+
+                document.getElementById('route-results').innerHTML = resultsHTML.join('');
+
+                // Fit map bounds to show all routes
+                if (routePolylines.length > 0) {
+                    const group = L.featureGroup(routePolylines);
+                    mapRoute.fitBounds(group.getBounds().pad(0.1));
+                }
+
+            } catch (err) {
+                console.error('Route calculation error:', err);
+                document.getElementById('route-results').innerHTML =
+                    `<div style="padding: 12px; background: rgba(239,68,68,0.1); border-radius: 8px; color: #f87171; font-size: 0.85rem;"><i class="fa-solid fa-circle-xmark"></i> ${err.message}</div>`;
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fa-solid fa-shield-heart"></i> Find Safest Route';
+            }
+        }
+
         function toggleMapMode() {
-            currentMode = (currentMode + 1) % 3;
+            currentMode = (currentMode + 1) % 4;
 
             // Reset all
             aqiView.className = 'map-view hidden-view';
             windView.className = 'map-view hidden-view';
             hotspotView.className = 'map-view hidden-view';
+            routeView.className = 'map-view hidden-view';
 
             aqiLegend.style.display = 'none';
             hotspotLegend.style.display = 'none';
+            routePanel.style.display = 'none';
 
             if (currentMode === 0) {
                 // AQI Mode
@@ -555,15 +962,20 @@
                 windView.className = 'map-view active-view';
                 btnText.textContent = "Hotspot Detection";
                 btnIcon.className = "fa-solid fa-fire-flame-curved";
-            } else {
+            } else if (currentMode === 2) {
                 // Hotspot Mode
                 hotspotView.className = 'map-view active-view';
                 hotspotLegend.style.display = 'block';
+                btnText.textContent = "Clean Route Finder";
+                btnIcon.className = "fa-solid fa-route";
+                mapHotspot.invalidateSize();
+            } else {
+                // Route Mode
+                routeView.className = 'map-view active-view';
+                routePanel.style.display = 'block';
                 btnText.textContent = "AQI Values";
                 btnIcon.className = "fa-solid fa-layer-group";
-
-                // Invalidate size to ensure tiles render correctly after being hidden
-                mapHotspot.invalidateSize();
+                mapRoute.invalidateSize();
             }
         }
 

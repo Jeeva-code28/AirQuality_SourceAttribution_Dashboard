@@ -11,6 +11,8 @@ def get_breathing_rate(mode: str) -> float:
         return 2.5
     elif mode == "CYCLIST":
         return 2.0
+    elif mode == "WALKER":
+        return 1.5
     return 1.0
 
 def calculate_exposure(db: Session, points: List[List[float]], time_ms: float, mode: str) -> float:
@@ -46,10 +48,10 @@ def calculate_exposure(db: Session, points: List[List[float]], time_ms: float, m
 def calculate_safe_routes(db: Session, request: RouteRequest) -> Dict[str, Any]:
     # 1. Request routes from OSRM Public API
     vehicle = "driving"
-    if request.mode.upper() == "JOGGER":
-        vehicle = "walking"
+    if request.mode.upper() in ("JOGGER", "WALKER"):
+        vehicle = "foot"
     elif request.mode.upper() == "CYCLIST":
-        vehicle = "cycling"
+        vehicle = "bike"
         
     url = f"http://router.project-osrm.org/route/v1/{vehicle}/{request.startLon},{request.startLat};{request.endLon},{request.endLat}?alternatives=3&geometries=geojson"
     

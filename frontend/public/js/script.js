@@ -126,6 +126,9 @@ function fetchData(lat, lon) {
 
     // Fetch Analytics Data (Source Classification & Forecast)
     fetchAnalyticsData(lat, lon);
+
+    // Fetch Health Advisory (new live API)
+    fetchHealthAdvisory(lat, lon);
 }
 
 /* ---------------- NEAREST STATION LOGIC ---------------- */
@@ -1000,40 +1003,74 @@ async function fetchAnalyticsData(lat, lon) {
 
     try {
         console.log("Fetching analytics data...");
-        // Add cache buster
-        const response = await fetch('dashboard_data.json?v=' + new Date().getTime());
-        if (!response.ok) throw new Error("Failed to load dashboard data");
-        const data = await response.json();
-        console.log("Dashboard Data Loaded:", data.length, "stations");
 
-        // Find nearest station in the JSON data
-        const nearest = findNearestStationInJSON(data, lat, lon);
-        console.log("Nearest Station for Analytics:", nearest);
-
-        if (nearest) {
-            // Store globally for Summary Generator
-            window.latestAnalyticsData = nearest;
-
-            // Render Source Data (New)
-            if (nearest.source_contribution) {
-                console.log("Rendering Source Chart with:", nearest.source_contribution);
-                renderSourceChart(nearest.source_contribution);
-                updateSourceDetails(nearest);
-            } else {
-                console.warn("Source contribution missing for station:", nearest.name);
+        // --- TRY LIVE API FIRST (Source Attribution) ---
+        let liveSourceData = null;
+        try {
+            const srcResp = await fetch(`/api/source/predict?lat=${lat}&lon=${lon}`);
+            if (srcResp.ok) {
+                liveSourceData = await srcResp.json();
+                console.log("Live Source API response:", liveSourceData);
+                if (liveSourceData && liveSourceData.sources) {
+                    renderSourceChart(liveSourceData.sources);
+                    // Build a station-like object for updateSourceDetails
+                    const stationLike = {
+                        source_contribution: liveSourceData.sources,
+                        confidence_score: liveSourceData.confidence,
+                        primary_source: liveSourceData.primary_source
+                    };
+                    updateSourceDetails(stationLike);
+                    window.latestAnalyticsData = stationLike;
+                }
             }
-
-            renderForecastChart(nearest.hourly_forecast);
-
-            // Re-run summary to include new source info if available
-            generateSummary();
-
-            // New: History Chart & Trend
-            if (nearest.history_24h) renderHistoryChart(nearest.history_24h);
-            if (nearest.trend_value !== undefined) updateTrendCard(nearest.trend_value);
-        } else {
-            console.warn("No matching station found in dashboard_data.json for current coordinates.");
+        } catch (srcErr) {
+            console.warn("Live source API unavailable:", srcErr.message);
         }
+
+        // --- TRY LIVE API (AQI Forecast) ---
+        let liveForecastData = null;
+        try {
+            const fcResp = await fetch(`/api/forecast/predict?lat=${lat}&lon=${lon}&hours=72`);
+            if (fcResp.ok) {
+                liveForecastData = await fcResp.json();
+                console.log("Live Forecast API response:", liveForecastData.model);
+                if (liveForecastData && liveForecastData.forecast) {
+                    renderForecastChart(liveForecastData.forecast);
+                }
+            }
+        } catch (fcErr) {
+            console.warn("Live forecast API unavailable:", fcErr.message);
+        }
+
+        // --- FALLBACK: dashboard_data.json ---
+        if (!liveSourceData || !liveForecastData) {
+            console.log("Falling back to dashboard_data.json...");
+            const response = await fetch('dashboard_data.json?v=' + new Date().getTime());
+            if (!response.ok) throw new Error("Failed to load dashboard data");
+            const data = await response.json();
+            console.log("Dashboard Data Loaded:", data.length, "stations");
+
+            const nearest = findNearestStationInJSON(data, lat, lon);
+            console.log("Nearest Station for Analytics:", nearest);
+
+            if (nearest) {
+                if (!liveSourceData && nearest.source_contribution) {
+                    console.log("Using JSON fallback for Source Chart");
+                    renderSourceChart(nearest.source_contribution);
+                    updateSourceDetails(nearest);
+                    window.latestAnalyticsData = nearest;
+                }
+                if (!liveForecastData && nearest.hourly_forecast) {
+                    console.log("Using JSON fallback for Forecast Chart");
+                    renderForecastChart(nearest.hourly_forecast);
+                }
+                if (nearest.history_24h) renderHistoryChart(nearest.history_24h);
+                if (nearest.trend_value !== undefined) updateTrendCard(nearest.trend_value);
+            }
+        }
+
+        // Re-run summary
+        generateSummary();
 
     } catch (error) {
         console.error("Error loading analytics data:", error);
@@ -1540,6 +1577,157 @@ function generateSummary() {
     `;
 
     summaryEl.innerHTML = summaryHTML;
+}
+
+/* ---------------- HEALTH ADVISORY (LIVE API) ---------------- */
+async function fetchHealthAdvisory(lat, lon) {
+    // Only run on dashboard page
+    if (!document.getElementById('health-risk-level')) return;
+
+    try {
+        const resp = await fetch(`/api/health/advisory?lat=${lat}&lon=${lon}`);
+        if (!resp.ok) throw new Error(`Health API returned ${resp.status}`);
+        const data = await resp.json();
+        renderHealthAdvisory(data);
+    } catch (err) {
+        console.warn("Health Advisory API unavailable, using fallback:", err.message);
+        // Fallback: generate from current AQI data
+        const aqi = window.latestAQIData?.current?.us_aqi || 100;
+        renderHealthAdvisoryFallback(aqi);
+    }
+}
+
+function renderHealthAdvisory(data) {
+    // 1. Risk Banner
+    const banner = document.getElementById('health-risk-banner');
+    const levelEl = document.getElementById('health-risk-level');
+    const msgEl = document.getElementById('health-risk-message');
+    const iconEl = document.getElementById('health-risk-icon');
+
+    if (levelEl && data.general_advisory) {
+        levelEl.textContent = data.general_advisory.risk || 'Unknown';
+        msgEl.textContent = data.general_advisory.message || '';
+
+        const color = data.category?.color || 'var(--text-muted)';
+        banner.style.borderLeftColor = color;
+        iconEl.style.color = color;
+        levelEl.style.color = color;
+
+        // Map icon
+        const iconMap = {
+            'fa-face-smile': 'fa-solid fa-face-smile',
+            'fa-face-meh': 'fa-solid fa-face-meh',
+            'fa-triangle-exclamation': 'fa-solid fa-triangle-exclamation',
+            'fa-circle-exclamation': 'fa-solid fa-circle-exclamation',
+            'fa-skull': 'fa-solid fa-skull',
+            'fa-skull-crossbones': 'fa-solid fa-skull-crossbones'
+        };
+        iconEl.className = iconMap[data.general_advisory.icon] || 'fa-solid fa-circle-check';
+    }
+
+    // 2. Activity Advisories
+    const actContainer = document.getElementById('activity-advisories');
+    if (actContainer && data.activity_advisories && data.activity_advisories.length > 0) {
+        actContainer.innerHTML = data.activity_advisories.map(act => `
+            <div style="padding: 15px; background: rgba(255,255,255,0.03); border-radius: 10px; border-left: 4px solid ${act.status_color || '#64748b'}; transition: transform 0.2s;" onmouseenter="this.style.transform='translateX(5px)'" onmouseleave="this.style.transform='translateX(0)'">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                    <span style="font-weight: 600; color: var(--text-main); display: flex; align-items: center; gap: 8px;">
+                        <i class="fa-solid ${act.icon}" style="color: ${act.status_color}"></i>
+                        ${act.activity}
+                    </span>
+                    <span style="font-size: 0.7rem; text-transform: uppercase; padding: 3px 8px; border-radius: 4px; font-weight: 800; letter-spacing: 0.5px; background: ${act.status_color}20; color: ${act.status_color};">
+                        ${act.status}
+                    </span>
+                </div>
+                <div style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.4;">${act.advice}</div>
+                ${act.breathing_note ? `<div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 8px; padding-top: 6px; border-top: 1px solid rgba(255,255,255,0.05); font-style: italic;"><i class="fa-solid fa-lungs" style="margin-right: 4px;"></i>${act.breathing_note}</div>` : ''}
+            </div>
+        `).join('');
+    }
+
+    // 3. Sensitive Groups
+    const sgContainer = document.getElementById('sensitive-group-alerts');
+    if (sgContainer && data.sensitive_groups && data.sensitive_groups.length > 0) {
+        sgContainer.innerHTML = data.sensitive_groups.map(sg => `
+            <div style="display: flex; align-items: flex-start; gap: 12px; padding: 10px; background: rgba(255,255,255,0.03); border-radius: 8px;">
+                <i class="fa-solid ${sg.icon}" style="color: var(--warning); font-size: 1.1rem; margin-top: 2px;"></i>
+                <div>
+                    <div style="font-weight: 600; color: var(--text-main); font-size: 0.9rem;">${sg.group}</div>
+                    <div style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.4; margin-top: 2px;">${sg.advice}</div>
+                </div>
+            </div>
+        `).join('');
+    } else if (sgContainer) {
+        sgContainer.innerHTML = '<div style="padding: 10px; background: rgba(16,185,129,0.1); border-radius: 8px; color: var(--success); font-size: 0.85rem;"><i class="fa-solid fa-circle-check"></i> No elevated risk for vulnerable populations at current levels.</div>';
+    }
+
+    // 4. Protective Measures
+    const pmContainer = document.getElementById('protective-measures');
+    if (pmContainer && data.protective_measures && data.protective_measures.length > 0) {
+        pmContainer.innerHTML = data.protective_measures.map(pm => {
+            const priorityColor = pm.priority === 'High' ? '#ef4444' : (pm.priority === 'Recommended' ? '#f59e0b' : '#64748b');
+            return `
+                <div style="display: flex; align-items: center; gap: 10px; padding: 8px 10px; background: rgba(255,255,255,0.03); border-radius: 6px;">
+                    <i class="fa-solid ${pm.icon}" style="color: ${priorityColor}; width: 20px; text-align: center;"></i>
+                    <span style="flex: 1; font-size: 0.85rem; color: var(--text-main);">${pm.measure}</span>
+                    <span style="font-size: 0.65rem; text-transform: uppercase; padding: 2px 6px; border-radius: 3px; background: ${priorityColor}20; color: ${priorityColor}; font-weight: 700;">${pm.priority}</span>
+                </div>
+            `;
+        }).join('');
+    } else if (pmContainer) {
+        pmContainer.innerHTML = '<div style="padding: 8px; background: rgba(16,185,129,0.1); border-radius: 6px; color: var(--success); font-size: 0.85rem;"><i class="fa-solid fa-check"></i> No special precautions needed.</div>';
+    }
+
+    // 5. Source Insight
+    const siEl = document.getElementById('source-health-insight');
+    if (siEl) {
+        siEl.textContent = data.source_insight || 'Source-specific health impact data is being analyzed...';
+    }
+}
+
+function renderHealthAdvisoryFallback(aqi) {
+    const levelEl = document.getElementById('health-risk-level');
+    const msgEl = document.getElementById('health-risk-message');
+    const banner = document.getElementById('health-risk-banner');
+    const iconEl = document.getElementById('health-risk-icon');
+
+    if (!levelEl) return;
+
+    let risk, msg, color, icon;
+    if (aqi <= 50) {
+        risk = 'Low'; msg = 'Air quality is good. Enjoy outdoor activities.'; color = 'var(--success)'; icon = 'fa-solid fa-face-smile';
+    } else if (aqi <= 100) {
+        risk = 'Low-Moderate'; msg = 'Acceptable air quality for most people.'; color = 'var(--warning)'; icon = 'fa-solid fa-face-meh';
+    } else if (aqi <= 200) {
+        risk = 'High'; msg = 'Reduce prolonged outdoor activities. Sensitive groups should stay indoors.'; color = 'var(--danger)'; icon = 'fa-solid fa-triangle-exclamation';
+    } else {
+        risk = 'Severe'; msg = 'Health emergency. Avoid all outdoor exposure.'; color = 'var(--danger)'; icon = 'fa-solid fa-skull-crossbones';
+    }
+
+    levelEl.textContent = risk;
+    levelEl.style.color = color;
+    msgEl.textContent = msg;
+    banner.style.borderLeftColor = color;
+    iconEl.className = icon;
+    iconEl.style.color = color;
+
+    // Activity advisories fallback
+    const actContainer = document.getElementById('activity-advisories');
+    if (actContainer) {
+        const jogStatus = aqi <= 100 ? 'Safe' : (aqi <= 150 ? 'Caution' : 'Avoid');
+        const jogColor = aqi <= 100 ? '#10b981' : (aqi <= 150 ? '#f59e0b' : '#ef4444');
+        const jogAdvice = aqi <= 100 ? 'Outdoor exercise is safe.' : (aqi <= 150 ? 'Shorten outdoor runs. Prefer indoor gyms.' : 'Do NOT exercise outdoors.');
+
+        actContainer.innerHTML = `
+            <div style="padding: 15px; background: rgba(255,255,255,0.03); border-radius: 10px; border-left: 4px solid ${jogColor};">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                    <span style="font-weight: 600; color: var(--text-main);"><i class="fa-solid fa-person-running" style="color: ${jogColor}; margin-right: 8px;"></i>Jogging & Walking</span>
+                    <span style="font-size: 0.7rem; padding: 3px 8px; border-radius: 4px; font-weight: 800; background: ${jogColor}20; color: ${jogColor};">${jogStatus}</span>
+                </div>
+                <div style="font-size: 0.85rem; color: var(--text-muted);">${jogAdvice}</div>
+            </div>
+        `;
+    }
 }
 
 /* ---------------- HOTSPOT ANALYSIS DISPLAY ---------------- */

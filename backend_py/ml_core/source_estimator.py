@@ -14,7 +14,11 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import TimeSeriesSplit
 import lightgbm as lgb
-from tqdm import tqdm
+try:
+    from tqdm import tqdm
+except ImportError:
+    def tqdm(iterable, *args, **kwargs):
+        return iterable
 from datetime import datetime, timedelta
 
 # Optuna is optional but recommended for hyperparameter tuning
@@ -392,7 +396,10 @@ class AttributionModel:
         # load models
         self.models = []
         for p in self.ensemble_paths:
-            if os.path.exists(p):
+            model_file = os.path.join(self.model_dir, os.path.basename(p))
+            if os.path.exists(model_file):
+                self.models.append(joblib.load(model_file))
+            elif os.path.exists(p):
                 self.models.append(joblib.load(p))
             else:
                 raise FileNotFoundError("Ensemble model not found: " + p)
@@ -413,14 +420,12 @@ class AttributionModel:
 
         # Prepare single-row DataFrame
         df = pd.DataFrame([input_dict]).copy()
-        # If timestamp present in input_dict, keep; else allow model.enrich to fill hour/dow using current time
-        if 'timestamp' in df.columns and (isinstance(df.loc[0,'timestamp'], (int,float))):
-            df.loc[0,'timestamp'] = pd.to_datetime(df.loc[0,'timestamp'], unit='s')
-        elif 'timestamp' in df.columns and isinstance(df.loc[0,'timestamp'], str):
-            try:
-                df.loc[0,'timestamp'] = pd.to_datetime(df.loc[0,'timestamp'])
-            except Exception:
-                df.loc[0,'timestamp'] = pd.to_datetime("now")
+        if 'timestamp' in df.columns and df['timestamp'].iloc[0] is not None:
+            df['timestamp'] = pd.to_datetime(df['timestamp'], errors='coerce')
+            if df['timestamp'].isna().iloc[0]:
+                df['timestamp'] = pd.to_datetime("now", utc=True)
+        else:
+            df['timestamp'] = pd.to_datetime("now", utc=True)
 
         X_df, _ = self.features_targets(df)
         # Reorder columns as training feature list if available

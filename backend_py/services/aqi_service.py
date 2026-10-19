@@ -49,9 +49,9 @@ def refresh_data(db: Session):
                     batch[0].updatedAt = datetime.utcnow()
                     
             db.commit()
-            print(f"✅ Updated batch {i // batch_size + 1} ({len(batch)} cities)")
+            print(f"[OK] Updated batch {i // batch_size + 1} ({len(batch)} cities)")
         except Exception as e:
-            print(f"❌ Error processing batch {i}: {e}")
+            print(f"[ERROR] Error processing batch {i}: {e}")
 
 def update_nearest_station(db: Session, lat: float, lon: float, aqi: int):
     stations = db.query(CityStation).all()
@@ -59,6 +59,8 @@ def update_nearest_station(db: Session, lat: float, lon: float, aqi: int):
     min_dist = float('inf')
     
     for s in stations:
+        if s.lat is None or s.lon is None:
+            continue
         dist = math.sqrt((s.lat - lat)**2 + (s.lon - lon)**2)
         if dist < min_dist:
             min_dist = dist
@@ -125,6 +127,8 @@ def get_estimated_aqi(db: Session, lat: float, lon: float) -> int:
     nearest = None
     min_dist = float('inf')
     for s in stations:
+        if s.lat is None or s.lon is None:
+            continue
         dist = math.sqrt((s.lat - lat)**2 + (s.lon - lon)**2)
         if dist < min_dist:
             min_dist = dist

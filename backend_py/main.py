@@ -9,7 +9,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 
 from database import engine, Base, SessionLocal
 from models import CityStation
-from api import aqi_routes, map_routes
+from api import aqi_routes, map_routes, source_routes, forecast_routes, policy_routes, health_routes
 from services.aqi_service import refresh_data
 
 Base.metadata.create_all(bind=engine)
@@ -85,6 +85,10 @@ app.add_middleware(
 # API Routers
 app.include_router(aqi_routes.router, prefix="/api/aqi", tags=["AQI"])
 app.include_router(map_routes.router, prefix="/api/routes", tags=["Routes"])
+app.include_router(source_routes.router, prefix="/api/source", tags=["Source Attribution"])
+app.include_router(forecast_routes.router, prefix="/api/forecast", tags=["Forecasting"])
+app.include_router(policy_routes.router, prefix="/api/policy", tags=["Policy"])
+app.include_router(health_routes.router, prefix="/api/health", tags=["Health"])
 
 # Static Files
 static_dir = os.path.join(os.path.dirname(__file__), "static")
