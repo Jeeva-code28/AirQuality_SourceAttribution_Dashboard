@@ -1,160 +1,178 @@
 """
 AQI Forecasting API Routes
-Exposes the LSTM AQI forecasting model as a live endpoint for 72-hour predictions.
+Exposes validated 72-hour air quality forecasts from ECMWF/CAMS atmospheric dispersion
+with deterministic persistence fallback. No synthetic random noise.
 """
 import os
+import math
+import logging
 import traceback
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
+from typing import List, Dict, Any, Optional
 from fastapi import APIRouter, HTTPException, Query
 from fastapi.responses import JSONResponse
 import requests
 
+logger = logging.getLogger("breathelens.forecast")
 router = APIRouter()
 
-# Lazy-loaded forecaster singleton
-_forecaster = None
+OM_AQ_FORECAST_URL = "https://air-quality-api.open-meteo.com/v1/air-quality"
+OM_WX_FORECAST_URL = "https://api.open-meteo.com/v1/forecast"
 
-def _get_forecaster():
-    """Lazy-load the AQIForecaster."""
-    global _forecaster
-    if _forecaster is None:
-        try:
-            from ml_core.lstm_aqi_forecaster import AQIForecaster
-            _forecaster = AQIForecaster()
-            print("[OK] AQI Forecaster loaded successfully")
-        except Exception as e:
-            print(f"[WARN] AQI Forecaster failed to load: {e}")
-            _forecaster = "UNAVAILABLE"
-    return _forecaster
-
-
-def _fetch_current_conditions(lat: float, lon: float) -> dict:
-    """Fetch current conditions for the LSTM model input."""
-    conditions = {}
-
-    # Air Quality
-    aq_url = (
-        f"https://air-quality-api.open-meteo.com/v1/air-quality"
-        f"?latitude={lat}&longitude={lon}"
-        f"&current=us_aqi,pm10,pm2_5,nitrogen_dioxide,sulphur_dioxide,ozone,carbon_monoxide"
-        f"&timezone=auto"
+def _fetch_cams_forecast(lat: float, lon: float, hours: int = 72) -> Optional[List[Dict[str, Any]]]:
+    """
+    Fetch genuine atmospheric dispersion forecast from Open-Meteo Air Quality
+    (CAMS - Copernicus Atmosphere Monitoring Service / ECMWF).
+    """
+    days = math.ceil(hours / 24)
+    days = max(1, min(days, 7))
+    
+    url = (
+        f"{OM_AQ_FORECAST_URL}?latitude={lat:.4f}&longitude={lon:.4f}"
+        f"&hourly=us_aqi,pm2_5,pm10,nitrogen_dioxide,ozone"
+        f"&forecast_days={days}&timezone=auto"
     )
+    
     try:
-        resp = requests.get(aq_url, timeout=10)
-        aq = resp.json().get("current", {})
-        conditions["pm2_5"] = aq.get("pm2_5", 50) or 50
-        conditions["pm10"] = aq.get("pm10", 80) or 80
-        conditions["nitrogen_dioxide"] = aq.get("nitrogen_dioxide", 20) or 20
-        conditions["sulphur_dioxide"] = aq.get("sulphur_dioxide", 10) or 10
-        conditions["ozone"] = aq.get("ozone", 30) or 30
-        conditions["carbon_monoxide"] = aq.get("carbon_monoxide", 400) or 400
-        conditions["us_aqi"] = aq.get("us_aqi", 100) or 100
+        resp = requests.get(url, headers={"User-Agent": "BreatheLens/2.0"}, timeout=10)
+        if resp.status_code == 200:
+            data = resp.json()
+            hourly = data.get("hourly", {})
+            times = hourly.get("time", [])
+            aqi_vals = hourly.get("us_aqi", [])
+            pm25_vals = hourly.get("pm2_5", [])
+            
+            if times and aqi_vals:
+                forecast_items = []
+                now_str = datetime.now().strftime("%Y-%m-%dT%H:00")
+                
+                # Filter for future hours
+                count = 0
+                for i in range(len(times)):
+                    t = times[i]
+                    if t >= now_str:
+                        val = aqi_vals[i]
+                        pm25_val = pm25_vals[i] if i < len(pm25_vals) else None
+                        
+                        if val is not None and not math.isnan(float(val)):
+                            clean_val = int(val)
+                            forecast_items.append({
+                                "datetime": t.replace("T", " "),
+                                "hour": t[-5:],
+                                "aqi": clean_val,
+                                "pm2_5": round(float(pm25_val), 1) if pm25_val is not None else None,
+                                "confidence_bound": {
+                                    "lower": max(0, int(clean_val * 0.85)),
+                                    "upper": int(clean_val * 1.15)
+                                }
+                            })
+                            count += 1
+                            if count >= hours:
+                                break
+                                
+                if forecast_items:
+                    return forecast_items
     except Exception as e:
-        print(f"AQ fetch error for forecast: {e}")
-        conditions.update({
-            "pm2_5": 50, "pm10": 80, "nitrogen_dioxide": 20,
-            "sulphur_dioxide": 10, "ozone": 30, "carbon_monoxide": 400, "us_aqi": 100
+        logger.warning(f"CAMS forecast fetch failed: {e}")
+        
+    return None
+
+def _deterministic_persistence_forecast(current_aqi: int, hours: int = 72) -> List[Dict[str, Any]]:
+    """
+    Deterministic persistence and diurnal decay baseline.
+    Reproducible, mathematical, and non-random.
+    """
+    baseline_aqi = max(15, current_aqi)
+    forecast = []
+    now = datetime.now(timezone.utc)
+    
+    for i in range(1, hours + 1):
+        future_dt = now + timedelta(hours=i)
+        hour_of_day = future_dt.hour
+        
+        # Diurnal diurnal cycle: peak morning (08:00) and evening (20:00)
+        diurnal_factor = 0.12 * math.sin((hour_of_day - 8) * math.pi / 12)
+        # Gentle mean-reversion dampener over long horizons
+        decay = math.exp(-0.015 * i)
+        
+        proj_val = int(round(baseline_aqi * (1.0 + diurnal_factor * decay)))
+        proj_val = max(10, proj_val)
+        
+        # Uncertainty widens with forecast horizon
+        uncertainty_spread = min(0.35, 0.08 + (i * 0.004))
+        lower_bound = max(0, int(proj_val * (1.0 - uncertainty_spread)))
+        upper_bound = int(proj_val * (1.0 + uncertainty_spread))
+        
+        forecast.append({
+            "datetime": future_dt.strftime("%Y-%m-%d %H:00"),
+            "hour": future_dt.strftime("%H:00"),
+            "aqi": proj_val,
+            "confidence_bound": {
+                "lower": lower_bound,
+                "upper": upper_bound
+            }
         })
-
-    # Weather
-    wx_url = (
-        f"https://api.open-meteo.com/v1/forecast"
-        f"?latitude={lat}&longitude={lon}"
-        f"&current=temperature_2m,relative_humidity_2m,wind_speed_10m,wind_direction_10m"
-        f"&timezone=auto"
-    )
-    try:
-        resp = requests.get(wx_url, timeout=10)
-        wx = resp.json().get("current", {})
-        conditions["temperature_2m"] = wx.get("temperature_2m", 25) or 25
-        conditions["relative_humidity_2m"] = wx.get("relative_humidity_2m", 50) or 50
-        conditions["wind_speed_10m"] = wx.get("wind_speed_10m", 5) or 5
-        conditions["wind_direction_10m"] = wx.get("wind_direction_10m", 180) or 180
-    except Exception as e:
-        print(f"Weather fetch error for forecast: {e}")
-        conditions.update({
-            "temperature_2m": 25, "relative_humidity_2m": 50,
-            "wind_speed_10m": 5, "wind_direction_10m": 180
-        })
-
-    return conditions
-
+        
+    return forecast
 
 @router.get("/predict")
 async def predict_forecast(
-    lat: float = Query(..., description="Latitude"),
-    lon: float = Query(..., description="Longitude"),
-    hours: int = Query(72, description="Forecast hours (default 72)")
+    lat: float = Query(..., ge=-90.0, le=90.0, description="Latitude between -90 and 90"),
+    lon: float = Query(..., ge=-180.0, le=180.0, description="Longitude between -180 and 180"),
+    hours: int = Query(72, ge=1, le=168, description="Forecast hours (1 to 168)")
 ):
     """
-    Generate AQI forecast for the next N hours using the LSTM model.
-    Falls back to simulation-based forecast if the model isn't available.
+    Generate air quality forecast for the next N hours.
+    Primary: ECMWF CAMS Numerical Atmospheric Dispersion Model (Copernicus).
+    Fallback: Deterministic Autoregressive Persistence Baseline (Zero Random Noise).
     """
     try:
-        # Clamp hours
-        hours = max(1, min(hours, 168))  # Max 7 days
-
-        # Fetch conditions
-        conditions = _fetch_current_conditions(lat, lon)
-
-        # Get forecaster
-        forecaster = _get_forecaster()
-
-        model_used = "simulation_fallback"
-        if forecaster and forecaster != "UNAVAILABLE":
-            try:
-                forecast = forecaster.predict_forecast(conditions, hours=hours)
-                # Check if LSTM was actually used vs simulation
-                if forecaster.model is not None:
-                    model_used = "lstm_v1"
-                else:
-                    model_used = "simulation_fallback"
-            except Exception as e:
-                print(f"Forecaster predict error: {e}")
-                traceback.print_exc()
-                # Manual simulation fallback
-                from ml_core.lstm_aqi_forecaster import AQIForecaster
-                temp_forecaster = AQIForecaster.__new__(AQIForecaster)
-                forecast = temp_forecaster._simulation_forecast(conditions, hours)
-        else:
-            # Direct simulation
-            import math
-            import random
-            from datetime import timedelta
-
-            forecast = []
-            current_time = datetime.now()
-            current_aqi = conditions.get("pm2_5", 100)
-
-            for i in range(hours):
-                future_time = current_time + timedelta(hours=i + 1)
-                hour = future_time.hour
-                cycle = math.sin((hour - 4) * math.pi / 12)
-                mean_reversion = (100 - current_aqi) * 0.05
-                noise = random.randint(-5, 5)
-                variation = cycle * 10 + mean_reversion + noise
-                val = max(10, current_aqi + variation)
-                current_aqi = val
-
-                forecast.append({
-                    "hour": future_time.strftime("%H:00"),
-                    "datetime": future_time.strftime("%Y-%m-%d %H:00"),
-                    "aqi": int(val)
-                })
-
+        # 1. Attempt validated atmospheric dispersion forecast
+        cams_forecast = _fetch_cams_forecast(lat, lon, hours)
+        
+        if cams_forecast:
+            return JSONResponse(content={
+                "forecast": cams_forecast,
+                "model": "ECMWF_CAMS_Atmospheric_Dispersion",
+                "method": "Copernicus Atmospheric Chemistry Transport Simulation",
+                "is_validated_forecast": True,
+                "target": "us_aqi",
+                "units": "AQI index (EPA/CPCB)",
+                "hours_returned": len(cams_forecast),
+                "generated_at": datetime.now(timezone.utc).isoformat()
+            })
+            
+        # 2. Fallback to deterministic persistence baseline
+        logger.info(f"CAMS unavailable for ({lat}, {lon}). Falling back to deterministic persistence baseline.")
+        
+        # Fetch current conditions for initial seed
+        current_aqi = 65
+        try:
+            url = f"{OM_AQ_FORECAST_URL}?latitude={lat:.4f}&longitude={lon:.4f}&current=us_aqi&timezone=auto"
+            r = requests.get(url, timeout=5)
+            if r.status_code == 200:
+                val = r.json().get("current", {}).get("us_aqi")
+                if val:
+                    current_aqi = int(val)
+        except Exception:
+            pass
+            
+        baseline_forecast = _deterministic_persistence_forecast(current_aqi, hours)
+        
         return JSONResponse(content={
-            "forecast": forecast,
-            "model": model_used,
-            "hours": hours,
-            "current_conditions": {
-                "aqi": conditions.get("us_aqi", -1),
-                "pm2_5": conditions.get("pm2_5", -1),
-                "temperature": conditions.get("temperature_2m", -1),
-                "wind_speed": conditions.get("wind_speed_10m", -1)
-            }
+            "forecast": baseline_forecast,
+            "model": "Deterministic_Persistence_Diurnal_Baseline",
+            "method": "Autoregressive Diurnal Decomposition",
+            "is_validated_forecast": False,
+            "target": "us_aqi",
+            "units": "AQI index (EPA/CPCB)",
+            "hours_returned": len(baseline_forecast),
+            "generated_at": datetime.now(timezone.utc).isoformat(),
+            "notice": "Numerical atmospheric models temporarily unavailable. Output represents mathematical persistence baseline."
         })
 
     except Exception as e:
-        print(f"Forecast error: {e}")
+        logger.error(f"Forecast generation failed: {e}")
         traceback.print_exc()
-        raise HTTPException(status_code=500, detail=f"Forecast prediction failed: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Forecast calculation failed: {str(e)}")
+

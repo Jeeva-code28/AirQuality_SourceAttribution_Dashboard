@@ -142,42 +142,28 @@ class AQIForecaster:
 
     def _simulation_forecast(self, current_conditions, hours):
         """
-        Generates realistic-looking synthetic data based on current conditions.
-        Used when the actual model cannot run.
+        Deterministic persistence baseline based on observed conditions and diurnal cycle.
+        Reproducible and non-random.
         """
         forecast = []
         current_time = datetime.datetime.now()
-        
-        # Start with current AQI (PM2.5) as baseline
-        current_aqi = current_conditions.get('pm2_5', 100)
+        base_val = max(15, current_conditions.get('pm2_5', 60))
         
         for i in range(hours):
-             future_time = current_time + datetime.timedelta(hours=i+1)
-             hour = future_time.hour
-             
-             # Diurnal Cycle: Peak at 8AM and 8PM (approx), typical urban traffic/cooking patterns
-             # Normalize hour to 0-2pi cyclic
-             cycle = math.sin((hour - 4) * math.pi / 12) 
-             # Shift so peaks align roughly with pollution events
-             
-             # Trend: slowly revert to mean (e.g., 100) if extremely high/low
-             mean_reversion = (100 - current_aqi) * 0.05
-             
-             # Random noise
-             noise = random.randint(-5, 5)
-             
-             # Apply changes
-             variation = cycle * 10 + mean_reversion + noise
-             val = max(10, current_aqi + variation)
-             
-             # Update for next step (smooth AR process)
-             current_aqi = val 
-             
-             forecast.append({
+            future_time = current_time + datetime.timedelta(hours=i+1)
+            hour = future_time.hour
+            
+            # Predictable diurnal oscillation: peaks during morning and evening rush hours
+            cycle = 0.12 * math.sin((hour - 8) * math.pi / 12)
+            decay = math.exp(-0.015 * i)
+            val = max(10, int(round(base_val * (1.0 + cycle * decay))))
+            
+            forecast.append({
                 "hour": future_time.strftime("%H:00"),
                 "datetime": future_time.strftime("%Y-%m-%d %H:00"),
-                "aqi": int(val)
-             })
+                "aqi": int(val),
+                "is_baseline": True
+            })
         return forecast
 
 # --- Legacy Training Logic (Dummy/Minimal) ---

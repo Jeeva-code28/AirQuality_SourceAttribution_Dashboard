@@ -45,31 +45,48 @@ def seed_database():
     finally:
         db.close()
 
+import threading
+
 def scheduled_refresh():
     db = SessionLocal()
     try:
         refresh_data(db)
+    except Exception as exc:
+        print(f"[APScheduler] Scheduled refresh failed: {exc}")
     finally:
         db.close()
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Startup
+    # Startup: seed static stations if database is empty
     seed_database()
     
-    # Run a refresh right away
-    scheduled_refresh()
+    # Launch initial refresh asynchronously in background to avoid blocking API startup
+    refresh_thread = threading.Thread(target=scheduled_refresh, name="InitialAQIRefreshWorker", daemon=True)
+    refresh_thread.start()
     
-    # Start APScheduler (run every 30 mins)
+    # Start APScheduler with concurrency safeguards:
+    # max_instances=1 prevents overlapping refreshes
+    # coalesce=True combines missed runs into a single execution
+    # misfire_grace_time=300 tolerates short thread delays
     scheduler = BackgroundScheduler()
-    scheduler.add_job(scheduled_refresh, 'interval', minutes=30)
+    scheduler.add_job(
+        scheduled_refresh,
+        'interval',
+        minutes=30,
+        id='periodic_aqi_refresh',
+        max_instances=1,
+        coalesce=True,
+        misfire_grace_time=300
+    )
     scheduler.start()
     
     yield
     
     # Shutdown
-    scheduler.shutdown()
+    if scheduler.running:
+        scheduler.shutdown(wait=False)
 
 app = FastAPI(title="AQI Monitor Dashboard API", lifespan=lifespan)
 

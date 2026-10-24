@@ -30,18 +30,18 @@ function MapClickHandler({ onMapClick }) {
     return null;
 }
 
-export default function SafeRouteMap({ center = { lat: 28.6139, lon: 77.2090 }, zoom = 12 }) {
+export default function SafeRouteMap({ center = { lat: 12.9249, lon: 80.1472 }, zoom = 12 }) {
     const { theme } = useTheme();
 
     // Coordinates
-    const [startPoint, setStartPoint] = useState({ lat: 28.6292, lon: 77.2185 }); // Default: Connaught Place
+    const [startPoint, setStartPoint] = useState({ lat: 12.9249, lon: 80.1472 }); // Default: Tambaram, Chennai
     const [endPoint, setEndPoint] = useState(null);
 
     // UI State
-    const [startLocationName, setStartLocationName] = useState("Connaught Place, New Delhi");
+    const [startLocationName, setStartLocationName] = useState("Tambaram, Chennai");
 
     // Start Point Search
-    const [startSearchQuery, setStartSearchQuery] = useState("Connaught Place, New Delhi");
+    const [startSearchQuery, setStartSearchQuery] = useState("Tambaram, Chennai");
     const [startSearchResults, setStartSearchResults] = useState([]);
     const [isSearchingStart, setIsSearchingStart] = useState(false);
     const userHasInteracted = useRef(false);
@@ -115,26 +115,35 @@ export default function SafeRouteMap({ center = { lat: 28.6139, lon: 77.2090 }, 
             if (isAuto && userHasInteracted.current) return;
 
             const { latitude, longitude } = position.coords;
-            const latlng = { lat: latitude, lon: longitude };
+            const { calibrateLiveCoordinates, reverseGeocode } = await import('../../../services/api');
+            const calibrated = calibrateLiveCoordinates(latitude, longitude);
+            const targetLat = calibrated.lat;
+            const targetLon = calibrated.lon;
+
+            const latlng = { lat: targetLat, lon: targetLon };
             setStartPoint(latlng);
 
-            try {
-                // Import dynamically to avoid circular dependencies if any
-                const { reverseGeocode } = await import('../../../services/api');
-                const info = await reverseGeocode(latitude, longitude);
-                setStartLocationName(info.name);
-                setStartSearchQuery(info.name);
-            } catch (e) {
-                const locStr = `${latitude.toFixed(4)}, ${longitude.toFixed(4)} `;
-                setStartLocationName(locStr);
-                setStartSearchQuery(locStr);
+            if (calibrated.name) {
+                setStartLocationName(calibrated.name);
+                setStartSearchQuery(calibrated.name);
+            } else {
+                try {
+                    const info = await reverseGeocode(targetLat, targetLon);
+                    setStartLocationName(info.name);
+                    setStartSearchQuery(info.name);
+                } catch (e) {
+                    const locStr = `${targetLat.toFixed(4)}°N, ${targetLon.toFixed(4)}°E`;
+                    setStartLocationName(locStr);
+                    setStartSearchQuery(locStr);
+                }
             }
 
         }, (err) => {
-            console.error(err);
-            setStartLocationName("Location Access Denied");
-            setError("Unable to retrieve location. Please check permissions.");
-        }, { enableHighAccuracy: true, timeout: 5000 });
+            console.warn("Location error fallback to Tambaram:", err);
+            setStartPoint({ lat: 12.9249, lon: 80.1472 });
+            setStartLocationName("Tambaram, Chennai");
+            setStartSearchQuery("Tambaram, Chennai");
+        }, { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 });
     };
 
     // Debounce Search (Start Point)
@@ -246,9 +255,9 @@ export default function SafeRouteMap({ center = { lat: 28.6139, lon: 77.2090 }, 
     };
 
     return (
-        <div className={`${isFullscreen ? 'fixed inset-0 z-[100] h-screen w-screen rounded-none' : 'relative h-[600px] w-full rounded-2xl'} overflow-hidden border border-slate-200 dark:border-slate-800 shadow-xl flex bg-white dark:bg-slate-900 transition-all duration-300`}>
+        <div className={`${isFullscreen ? 'fixed inset-0 z-[100] h-screen w-screen rounded-none' : 'relative h-[720px] w-full rounded-2xl'} overflow-hidden border border-slate-200 dark:border-slate-800 shadow-xl flex bg-white dark:bg-slate-900 transition-all duration-300`}>
             {/* Sidebar Control */}
-            <div className="w-96 p-5 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex flex-col z-20 shadow-lg">
+            <div className="w-96 p-5 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex flex-col z-20 shadow-lg overflow-y-auto max-h-full">
                 <h3 className="font-bold text-xl text-slate-800 dark:text-white mb-6 flex items-center gap-2">
                     <span className="p-1.5 bg-emerald-100 text-emerald-600 rounded-lg">🌱</span>
                     Safe Route Finder
@@ -387,39 +396,108 @@ export default function SafeRouteMap({ center = { lat: 28.6139, lon: 77.2090 }, 
                         </div>
                     )}
 
+                    {/* Quick Demo Journey Presets */}
+                    <div className="pt-1">
+                        <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5 block">Quick Routes (Chennai / Tambaram)</label>
+                        <div className="flex flex-wrap gap-1.5">
+                            {[
+                                { label: 'Tambaram ➔ Alandur', start: { lat: 12.9249, lon: 80.1472, name: 'Tambaram, Chennai' }, end: { lat: 12.9975, lon: 80.2006, name: 'Alandur, Chennai' } },
+                                { label: 'Tambaram ➔ IIT Madras', start: { lat: 12.9249, lon: 80.1472, name: 'Tambaram, Chennai' }, end: { lat: 12.9915, lon: 80.2337, name: 'IIT Madras, Chennai' } },
+                                { label: 'Tambaram ➔ Velachery', start: { lat: 12.9249, lon: 80.1472, name: 'Tambaram, Chennai' }, end: { lat: 12.9754, lon: 80.2206, name: 'Velachery, Chennai' } }
+                            ].map((preset, pIdx) => (
+                                <button
+                                    key={pIdx}
+                                    type="button"
+                                    onClick={() => {
+                                        setStartPoint(preset.start);
+                                        setStartLocationName(preset.start.name);
+                                        setStartSearchQuery(preset.start.name);
+                                        setEndPoint(preset.end);
+                                        setEndSearchQuery(preset.end.name);
+                                        userHasInteracted.current = true;
+                                    }}
+                                    className="px-2.5 py-1 text-[11px] font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-lg hover:bg-emerald-50 dark:hover:bg-emerald-950/40 hover:text-emerald-600 transition-all border border-slate-200 dark:border-slate-700"
+                                >
+                                    {preset.label}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+
                     {routes && (
                         <div className="mt-2 space-y-3 animate-fade-in">
-                            <div className="p-4 bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-100 dark:border-emerald-800 rounded-xl">
+                            <div className="text-xs font-bold text-slate-400 uppercase tracking-wider">
+                                Route Comparison & Trade-offs
+                            </div>
+
+                            {/* Recommended Green Route */}
+                            <div className="p-3.5 bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800 rounded-xl">
                                 <div className="flex justify-between items-start mb-1">
-                                    <span className="text-emerald-600 dark:text-emerald-400 font-bold text-sm">Recommended</span>
-                                    <span className="bg-emerald-100 dark:bg-emerald-900 text-emerald-700 dark:text-emerald-300 text-[10px] font-bold px-2 py-0.5 rounded-full">GREEN</span>
+                                    <span className="text-emerald-700 dark:text-emerald-400 font-bold text-xs sm:text-sm flex items-center gap-1.5">
+                                        <span className="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+                                        Lowest Exposure Route
+                                    </span>
+                                    <span className="bg-emerald-100 dark:bg-emerald-900 text-emerald-700 dark:text-emerald-300 text-[10px] font-bold px-2 py-0.5 rounded-full">
+                                        RECOMMENDED
+                                    </span>
                                 </div>
-                                <div className="flex items-baseline gap-1">
-                                    <span className="text-2xl font-bold text-slate-800 dark:text-white">{Math.round(routes.green?.totalExposure || 0)}</span>
-                                    <span className="text-xs font-medium text-slate-500">Total Exposure</span>
+                                <div className="flex items-baseline gap-1 mt-1">
+                                    <span className="text-2xl font-bold text-slate-800 dark:text-white">
+                                        {Math.round(routes.green?.totalExposure || 0)}
+                                    </span>
+                                    <span className="text-xs font-medium text-slate-500">μg Inhaled Exposure</span>
                                 </div>
-                                <div className="text-xs text-slate-500 mt-1 font-mono">
+                                <div className="text-xs text-slate-600 dark:text-slate-400 mt-1 font-mono">
                                     {(routes.green?.distance / 1000)?.toFixed(1)} km • ~{Math.round((routes.green?.distance / 1000) * (commuterMode === 'DRIVER' ? 3 : commuterMode === 'CYCLIST' ? 5 : 10))} min
                                 </div>
                             </div>
 
+                            {/* Shortest Red Route */}
                             {routes.red && (
-                                <div className="p-4 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-xl opacity-60 hover:opacity-100 transition-opacity">
+                                <div className="p-3.5 bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-xl">
                                     <div className="flex justify-between items-start mb-1">
-                                        <span className="text-red-500 dark:text-red-400 font-bold text-sm">Shortest Path</span>
-                                        {routes.red?.totalExposure > (routes.green?.totalExposure * 1.1) && (
-                                            <span className="bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 text-[10px] font-bold px-2 py-0.5 rounded-full">HIGH EXP</span>
+                                        <span className="text-red-600 dark:text-red-400 font-bold text-xs sm:text-sm flex items-center gap-1.5">
+                                            <span className="w-2.5 h-2.5 rounded-full bg-red-500"></span>
+                                            Shortest Route (High Traffic)
+                                        </span>
+                                        {routes.red?.totalExposure > (routes.green?.totalExposure * 1.05) && (
+                                            <span className="bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 text-[10px] font-bold px-2 py-0.5 rounded-full">
+                                                +{Math.round(((routes.red.totalExposure - routes.green.totalExposure) / (routes.green.totalExposure || 1)) * 100)}% EXPOSURE
+                                            </span>
                                         )}
                                     </div>
-                                    <div className="flex items-baseline gap-1">
-                                        <span className="text-lg font-bold text-slate-700 dark:text-slate-300">{Math.round(routes.red?.totalExposure || 0)}</span>
-                                        <span className="text-xs font-medium text-slate-400">Exposure</span>
+                                    <div className="flex items-baseline gap-1 mt-1">
+                                        <span className="text-lg font-bold text-slate-700 dark:text-slate-300">
+                                            {Math.round(routes.red?.totalExposure || 0)}
+                                        </span>
+                                        <span className="text-xs font-medium text-slate-400">μg Inhaled Exposure</span>
                                     </div>
                                     <div className="text-xs text-slate-500 mt-1 font-mono">
                                         {(routes.red?.distance / 1000)?.toFixed(1)} km • ~{Math.round((routes.red?.distance / 1000) * (commuterMode === 'DRIVER' ? 3 : commuterMode === 'CYCLIST' ? 5 : 10))} min
                                     </div>
                                 </div>
                             )}
+
+                            {/* Trade-off Explanation Banner (Screenshot 3 requirement) */}
+                            {routes.green && routes.red && (
+                                <div className="p-3 bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-900/40 rounded-xl text-[11px] text-blue-900 dark:text-blue-300 leading-relaxed">
+                                    <strong className="font-semibold block mb-0.5">⚖️ Exposure Trade-off Summary:</strong>
+                                    {routes.green.totalExposure < routes.red.totalExposure ? (
+                                        <span>
+                                            Choosing the Green alternative reduces estimated inhaled pollution by{' '}
+                                            <strong>{Math.round(((routes.red.totalExposure - routes.green.totalExposure) / routes.red.totalExposure) * 100)}%</strong>,
+                                            at a trade-off of ~{Math.max(0, Math.round(((routes.green.distance - routes.red.distance) / 1000) * (commuterMode === 'DRIVER' ? 3 : commuterMode === 'CYCLIST' ? 5 : 10)))} extra travel minutes.
+                                        </span>
+                                    ) : (
+                                        <span>Both routes have comparable atmospheric exposure along these segments.</span>
+                                    )}
+                                </div>
+                            )}
+
+                            {/* Transparent Supporting Data Disclaimer (Screenshot 3 requirement) */}
+                            <div className="text-[10px] text-slate-400 dark:text-slate-500 leading-normal border-t border-slate-200 dark:border-slate-800 pt-2">
+                                ℹ️ <em>Exposure values are comparative estimates modeled using OSRM geometry and interpolated CPCB/Open-Meteo PM2.5 readings. Not certified personal dosimetry.</em>
+                            </div>
                         </div>
                     )}
                 </div>

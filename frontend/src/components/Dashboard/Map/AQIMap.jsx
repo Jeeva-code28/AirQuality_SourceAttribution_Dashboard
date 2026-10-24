@@ -138,7 +138,7 @@ export default function AQIMap({ center = { lat: 20, lon: 0 }, zoom = 5, onStati
     // Validate center coordinates to prevent map crash
     const validCenter = (center && typeof center.lat === 'number' && typeof center.lon === 'number')
         ? center
-        : { lat: 28.61, lon: 77.21 }; // Default to Delhi if invalid
+        : { lat: 12.9249, lon: 80.1472 }; // Default to Tambaram, Chennai if invalid
 
     const updateVisibleStations = (bounds) => {
         if (!bounds) return;
