@@ -32,9 +32,27 @@ def get_ingestion_status():
     return JSONResponse(content=get_scheduler_status())
 
 @router.post("/refresh")
-def trigger_refresh(background_tasks: BackgroundTasks, db: Session = Depends(get_db)):
-    """Trigger background telemetry refresh for priority monitoring stations."""
-    background_tasks.add_task(refresh_data, db)
+def trigger_refresh(background_tasks: BackgroundTasks):
+    """Trigger background telemetry refresh for priority monitoring stations.
+
+    Uses a dedicated session so the background task is not racing against
+    request-scoped session cleanup.
+    """
+    from database import SessionLocal
+    import logging as _logging
+
+    def _bg_refresh():
+        db = SessionLocal()
+        try:
+            refresh_data(db)
+        except Exception as exc:
+            _logging.getLogger("breathelens.aqi_routes").error(
+                f"Background refresh failed: {exc}", exc_info=True
+            )
+        finally:
+            db.close()
+
+    background_tasks.add_task(_bg_refresh)
     return JSONResponse(content={
         "status": "refresh_dispatched",
         "message": "Background data refresh started for priority monitoring stations."
