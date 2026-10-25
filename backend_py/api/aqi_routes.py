@@ -15,7 +15,8 @@ from services.aqi_service import (
     add_station,
     search_stations,
     get_scheduler_status,
-    validate_coordinates
+    validate_coordinates,
+    find_nearest_station_details
 )
 from models import CityStation
 
@@ -114,4 +115,23 @@ def add_new_station(station: CityStationSchema, db: Session = Depends(get_db)):
 @router.get("/search", response_model=List[CityStationSchema])
 def search_stations_route(query: str = Query(..., min_length=1), db: Session = Depends(get_db)):
     return search_stations(db, query)
+
+
+@router.get("/station/nearest")
+def get_nearest_station_endpoint(
+    lat: float = Query(..., ge=-90.0, le=90.0, description="Latitude between -90 and 90"),
+    lon: float = Query(..., ge=-180.0, le=180.0, description="Longitude between -180 and 180"),
+    db: Session = Depends(get_db)
+):
+    """Find the closest verified environmental monitoring station to requested coordinates.
+    
+    Guarantees strict separation between user-selected coordinates and station coordinates.
+    Calculates great-circle distance in kilometers and determines locality status.
+    """
+    if not validate_coordinates(lat, lon):
+        raise HTTPException(status_code=422, detail="Invalid coordinates")
+    result = find_nearest_station_details(db, lat, lon)
+    if not result:
+        raise HTTPException(status_code=404, detail="No stations found in database")
+    return JSONResponse(content=result)
 

@@ -183,26 +183,87 @@ def refresh_data(db: Session) -> Dict[str, Any]:
     logger.info(f"Refresh completed: {updated_count} stations updated, {failed_batches} failed batches.")
     return dict(_scheduler_state)
 
+def haversine_distance(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
+    """Calculate the great-circle distance between two points on Earth in kilometers."""
+    R = 6371.0  # Earth radius in kilometers
+    dlat = math.radians(lat2 - lat1)
+    dlon = math.radians(lon2 - lon1)
+    a = (
+        math.sin(dlat / 2.0) ** 2
+        + math.cos(math.radians(lat1))
+        * math.cos(math.radians(lat2))
+        * math.sin(dlon / 2.0) ** 2
+    )
+    c = 2.0 * math.atan2(math.sqrt(a), math.sqrt(1.0 - a))
+    return R * c
+
+
+def find_nearest_station_details(db: Session, lat: float, lon: float) -> Optional[Dict[str, Any]]:
+    """Find the nearest monitoring station to (lat, lon) with accurate Haversine distance.
+    
+    Preserves strict separation between user coordinates and station coordinates.
+    """
+    if not validate_coordinates(lat, lon):
+        return None
+
+    stations = db.query(CityStation).all()
+    if not stations:
+        return None
+
+    nearest = None
+    min_dist_km = float('inf')
+
+    for s in stations:
+        if s.lat is None or s.lon is None:
+            continue
+        dist = haversine_distance(lat, lon, s.lat, s.lon)
+        if dist < min_dist_km:
+            min_dist_km = dist
+            nearest = s
+
+    if nearest is None:
+        return None
+
+    is_nearby = min_dist_km <= 25.0
+    return {
+        "station": {
+            "id": nearest.id,
+            "name": nearest.name,
+            "country": nearest.country,
+            "lat": nearest.lat,
+            "lon": nearest.lon,
+            "aqi": nearest.aqi,
+            "updated_at": nearest.updatedAt.isoformat() if hasattr(nearest, "updatedAt") and nearest.updatedAt else None
+        },
+        "distance_km": round(min_dist_km, 2),
+        "distance_label": f"{min_dist_km:.1f} km away" if min_dist_km >= 1.0 else f"{int(min_dist_km * 1000)} m away",
+        "is_nearby": is_nearby,
+        "classification": "local_station" if is_nearby else "regional_station",
+        "data_provider": "CPCB / Ambient Monitoring Network",
+        "requested_coordinates": {"lat": lat, "lon": lon}
+    }
+
+
 def update_nearest_station(db: Session, lat: float, lon: float, aqi: int):
-    """Lazily update nearest station in database within 15km threshold."""
+    """Lazily update nearest station in database within 15km threshold using Haversine distance."""
     if not validate_coordinates(lat, lon) or aqi <= 0:
         return
         
     try:
         stations = db.query(CityStation).all()
         nearest = None
-        min_dist = float('inf')
+        min_dist_km = float('inf')
         
         for s in stations:
             if s.lat is None or s.lon is None:
                 continue
-            dist = math.sqrt((s.lat - lat)**2 + (s.lon - lon)**2)
-            if dist < min_dist:
-                min_dist = dist
+            dist_km = haversine_distance(lat, lon, s.lat, s.lon)
+            if dist_km < min_dist_km:
+                min_dist_km = dist_km
                 nearest = s
                 
-        # ~0.15 degrees is roughly 15km
-        if nearest is not None and min_dist < 0.15:
+        # 15km threshold
+        if nearest is not None and min_dist_km <= 15.0:
             nearest.aqi = int(aqi)
             nearest.updatedAt = datetime.now(timezone.utc)
             db.commit()

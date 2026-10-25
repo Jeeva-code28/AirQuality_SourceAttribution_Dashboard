@@ -13,8 +13,8 @@ import AQIMap from '../components/Dashboard/Map/AQIMap';
 import HealthAdvisory from '../components/Dashboard/Advisory/HealthAdvisory';
 import LocationComparison from '../components/Dashboard/Map/LocationComparison';
 import SafeRouteMap from '../components/Dashboard/Map/SafeRouteMap';
-import { getAirQuality, getWeather, getCityRankings } from '../services/api';
-import { Compass, Map, Route, TrendingUp, HeartPulse, AlertCircle, X, ShieldAlert, ArrowRight } from 'lucide-react';
+import { getAirQuality, getWeather, getCityRankings, getNearestStationInfo } from '../services/api';
+import { Compass, Map, Route, TrendingUp, HeartPulse, AlertCircle, X, ShieldAlert, ArrowRight, Navigation, MapPin } from 'lucide-react';
 
 const TABS = [
     { id: 'home', label: 'Home / Air Quality', badge: 'Core', icon: Compass, desc: 'Current AQI, local conditions and daily guidance.' },
@@ -33,6 +33,15 @@ export default function DashboardPage({ onSwitchPortal }) {
     const [cityRankings, setCityRankings] = useState([]);
     const [mostPolluted, setMostPolluted] = useState([]);
     const [geoNotice, setGeoNotice] = useState(null);
+    const [matchedStation, setMatchedStation] = useState(null);
+    const [deviceLocation, setDeviceLocation] = useState(() => {
+        try {
+            const saved = localStorage.getItem('aqi_device_loc');
+            return saved ? JSON.parse(saved) : null;
+        } catch {
+            return null;
+        }
+    });
 
     // Active Navigation Tab (matches Screenshot 5)
     const [activeTab, setActiveTab] = useState(() => {
@@ -92,6 +101,19 @@ export default function DashboardPage({ onSwitchPortal }) {
         }
         localStorage.setItem('aqi_location_name', locationName);
     }, [coordinates, locationName]);
+
+    // Dynamically calculate and match nearest monitoring station whenever coordinates change
+    useEffect(() => {
+        let active = true;
+        if (coordinates && typeof coordinates.lat === 'number' && typeof coordinates.lon === 'number') {
+            getNearestStationInfo(coordinates.lat, coordinates.lon).then((st) => {
+                if (active && st) {
+                    setMatchedStation(st);
+                }
+            });
+        }
+        return () => { active = false; };
+    }, [coordinates]);
 
     useEffect(() => {
         const fetchData = async (isBackground = false) => {
@@ -165,6 +187,13 @@ export default function DashboardPage({ onSwitchPortal }) {
         if (selectedLocation && typeof selectedLocation.lat === 'number') {
             setCoordinates({ lat: selectedLocation.lat, lon: selectedLocation.lon });
             setLocationName(`${selectedLocation.name}, ${selectedLocation.country || ''}`);
+            setDeviceLocation(prev => ({
+                ...(prev || {}),
+                lat: selectedLocation.lat,
+                lon: selectedLocation.lon,
+                method: 'manual',
+                isApproximate: false
+            }));
         } else {
             console.error("Invalid location selected:", selectedLocation);
         }
@@ -172,7 +201,7 @@ export default function DashboardPage({ onSwitchPortal }) {
 
     const handleLocateMe = () => {
         if (!navigator.geolocation) {
-            setGeoNotice("Geolocation is not supported by your browser. Defaulting to verified Tambaram, Chennai.");
+            setGeoNotice("Geolocation is not supported by your browser. You can select your location or search above.");
             return;
         }
 
@@ -180,31 +209,62 @@ export default function DashboardPage({ onSwitchPortal }) {
         setLocationName("Locating live coordinates...");
 
         navigator.geolocation.getCurrentPosition(async (position) => {
-            const { latitude, longitude } = position.coords;
-            const { calibrateLiveCoordinates, reverseGeocode } = await import('../services/api');
+            const { latitude, longitude, accuracy } = position.coords;
+            const isDesktop = !/Android|iPhone|iPad|iPod|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            const isApprox = (typeof accuracy === 'number' && accuracy > 500) || isDesktop;
+
+            const devLoc = {
+                lat: latitude,
+                lon: longitude,
+                accuracy: accuracy || (isDesktop ? 2500 : 20),
+                method: isApprox ? 'network_ip' : 'gps',
+                isApproximate: isApprox,
+                timestamp: Date.now()
+            };
+            setDeviceLocation(devLoc);
+            try {
+                localStorage.setItem('aqi_device_loc', JSON.stringify(devLoc));
+            } catch (e) {
+                // ignore
+            }
+
+            const { calibrateLiveCoordinates, reverseGeocode, getNearestStationInfo } = await import('../services/api');
             const calibrated = calibrateLiveCoordinates(latitude, longitude);
 
             const targetLat = calibrated.lat;
             const targetLon = calibrated.lon;
             setCoordinates({ lat: targetLat, lon: targetLon });
-            setGeoNotice(null);
 
+            // Dynamically resolve nearest station
+            const station = await getNearestStationInfo(targetLat, targetLon);
+            if (station) setMatchedStation(station);
+
+            let resolvedName = "";
             if (calibrated.name) {
+                resolvedName = calibrated.name;
                 setLocationName(calibrated.name);
             } else {
                 try {
                     const locationInfo = await reverseGeocode(targetLat, targetLon);
-                    setLocationName(locationInfo.name ? `${locationInfo.name}, ${locationInfo.country || 'India'}` : "Tambaram, Chennai, Tamil Nadu");
+                    resolvedName = locationInfo.name ? `${locationInfo.name}, ${locationInfo.country || 'India'}` : "Tambaram, Chennai, Tamil Nadu";
+                    setLocationName(resolvedName);
                 } catch (e) {
                     console.error("Reverse geocode failed", e);
                     setLocationName("Tambaram, Chennai, Tamil Nadu");
                 }
             }
+
+            // If desktop detected approximate ISP location (e.g. Zone 14 Perungudi)
+            if (isApprox) {
+                setGeoNotice(
+                    `Desktop browser approximate network location detected: ${resolvedName.split(',')[0]} (±${Math.round(accuracy || 2500)}m). On desktop without hardware GPS, browsers resolve through ISP gateways. If your physical position is West Tambaram, click below to calibrate.`
+                );
+            } else {
+                setGeoNotice(null);
+            }
         }, (error) => {
-            console.warn("Location error, defaulting to verified live location:", error);
-            setLocationName("Tambaram, Chennai, Tamil Nadu");
-            setCoordinates({ lat: 12.9249, lon: 80.1472 });
-            setGeoNotice("GPS permission was denied or signal unavailable. BreatheLens is using your verified ambient station in Tambaram, Chennai. You can also search any city above.");
+            console.warn("Location error:", error);
+            setGeoNotice("GPS permission was denied or unavailable. You can search any locality or pick from saved favorites.");
         }, {
             enableHighAccuracy: true,
             timeout: 10000,
@@ -226,29 +286,45 @@ export default function DashboardPage({ onSwitchPortal }) {
             activeTab={activeTab}
             onSelectTab={handleSelectTab}
         >
-            {/* Top Location Breadcrumbs & Favorite Switcher */}
+            {/* Top Location Breadcrumbs, Matched Station & Favorite Switcher */}
             <LocationHeader
                 location={locationName}
                 coordinates={coordinates}
                 onSelectLocation={handleLocationSelect}
-                geoStatus={geoNotice ? "Default Station: Tambaram" : "Live Station: Tambaram"}
+                matchedStation={matchedStation}
+                deviceLocation={deviceLocation}
             />
 
-            {/* Graceful Geolocation Denial Notice (Screenshot 1 requirement) */}
+            {/* Geolocation Accuracy & Calibration Notice */}
             {geoNotice && (
-                <div className="mb-6 p-3.5 bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800/60 rounded-2xl flex items-center justify-between gap-3 text-xs text-amber-800 dark:text-amber-200 animate-fade-in shadow-sm">
-                    <div className="flex items-center gap-2.5">
+                <div className="mb-6 p-4 bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800/60 rounded-2xl flex flex-wrap items-center justify-between gap-3 text-xs text-amber-800 dark:text-amber-200 animate-fade-in shadow-sm">
+                    <div className="flex items-center gap-2.5 flex-1 min-w-[280px]">
                         <ShieldAlert className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0" />
-                        <span>{geoNotice}</span>
+                        <span className="leading-relaxed">{geoNotice}</span>
                     </div>
-                    <button
-                        type="button"
-                        onClick={() => setGeoNotice(null)}
-                        className="p-1 rounded-lg text-amber-500 hover:text-amber-700 dark:hover:text-amber-300 transition-colors"
-                        aria-label="Dismiss notice"
-                    >
-                        <X className="w-4 h-4" />
-                    </button>
+                    <div className="flex items-center gap-2 shrink-0">
+                        <button
+                            type="button"
+                            onClick={() => handleLocationSelect({
+                                name: "West Tambaram, Chennai",
+                                lat: 12.9230,
+                                lon: 80.1180,
+                                country: "India"
+                            })}
+                            className="px-3 py-1.5 bg-amber-600 hover:bg-amber-700 text-white rounded-xl font-bold transition-all shadow-sm active:scale-95 flex items-center gap-1.5"
+                        >
+                            <MapPin className="w-3.5 h-3.5" />
+                            <span>Switch to West Tambaram</span>
+                        </button>
+                        <button
+                            type="button"
+                            onClick={() => setGeoNotice(null)}
+                            className="p-1 rounded-lg text-amber-500 hover:text-amber-700 dark:hover:text-amber-300 transition-colors"
+                            aria-label="Dismiss notice"
+                        >
+                            <X className="w-4 h-4" />
+                        </button>
+                    </div>
                 </div>
             )}
 
@@ -293,6 +369,9 @@ export default function DashboardPage({ onSwitchPortal }) {
                             error={error}
                             onLocate={handleLocateMe}
                             onRetry={() => setRetryCount(c => c + 1)}
+                            locationName={locationName}
+                            matchedStation={matchedStation}
+                            deviceLocation={deviceLocation}
                         />
                         <div id="weather-card" className="col-span-12 lg:col-span-4 h-full">
                             <WeatherCard data={weatherData} loading={loading} />
@@ -388,6 +467,9 @@ export default function DashboardPage({ onSwitchPortal }) {
                         <AQIMap
                             center={coordinates}
                             zoom={10}
+                            userLocation={deviceLocation || { lat: coordinates.lat, lon: coordinates.lon, accuracy: 25, isApproximate: false }}
+                            locationName={locationName}
+                            matchedStation={matchedStation}
                             onStationSelect={handleStationSelect}
                         />
                     </div>

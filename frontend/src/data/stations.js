@@ -49,6 +49,7 @@ export const aqiStations = [
     { name: "Kurla, Mumbai", lat: 19.0726, lon: 72.8805 },
 
     // --- CHENNAI ---
+    { name: "West Tambaram, Chennai", lat: 12.9230, lon: 80.1180 },
     { name: "Tambaram, Chennai", lat: 12.9249, lon: 80.1472 },
     { name: "Tambaram Sanatorium, Chennai", lat: 12.9460, lon: 80.1380 },
     { name: "Irumbuliyur, Tambaram", lat: 12.9150, lon: 80.1320 },

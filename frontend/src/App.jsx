@@ -198,7 +198,10 @@ function App() {
 
         navigator.geolocation.getCurrentPosition(
             async (pos) => {
-                const { latitude, longitude } = pos.coords;
+                const { latitude, longitude, accuracy } = pos.coords;
+                const isDesktop = !/Android|iPhone|iPad|iPod|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+                const isApprox = (typeof accuracy === 'number' && accuracy > 500) || isDesktop;
+
                 const { calibrateLiveCoordinates } = await import('./services/api');
                 const calibrated = calibrateLiveCoordinates(latitude, longitude);
                 const targetLat = calibrated.lat;

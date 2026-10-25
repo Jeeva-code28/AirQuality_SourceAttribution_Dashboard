@@ -2,7 +2,16 @@ import React, { useState } from 'react';
 import { Navigation, RefreshCw, AlertTriangle, Share2, Check, Radio, TrendingUp, TrendingDown, Info } from 'lucide-react';
 import { getAQILevel } from '../../../services/api';
 
-export default function CurrentAQICard({ data, loading, error, onLocate, onRetry, locationName = "Your Location" }) {
+export default function CurrentAQICard({
+    data,
+    loading,
+    error,
+    onLocate,
+    onRetry,
+    locationName = "Your Location",
+    matchedStation = null,
+    deviceLocation = null
+}) {
     const [copied, setCopied] = useState(false);
 
     const handleRetry = () => {
@@ -124,8 +133,23 @@ export default function CurrentAQICard({ data, loading, error, onLocate, onRetry
         conditionSummary = `Emergency Hazardous conditions in ${cleanCity} (AQI ${us_aqi}). Stay indoors in sealed, filtered environments. Serious health risk for the entire population.`;
     }
 
+    // Extract genuine observation time from telemetry payload
+    const observationIso = data?.provenance?.observation_time || data?.current?.time;
+    let timeLabel = "Live Telemetry";
+    if (observationIso) {
+        try {
+            const dateObj = new Date(observationIso);
+            if (!isNaN(dateObj.getTime())) {
+                timeLabel = `Observed at ${dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+            }
+        } catch {
+            // keep fallback
+        }
+    }
+
     const handleShare = () => {
-        const text = `BreatheLens Air Quality Report | ${cleanCity}: AQI ${us_aqi} (${label}) • PM2.5: ${Math.round(pm2_5 || 0)} µg/m³ • Live Telemetry synced with CPCB & Open-Meteo as of ${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+        const stationPart = matchedStation ? ` • Nearest Station: ${matchedStation.name?.split(',')[0]} (${matchedStation.distanceLabel || (matchedStation.distanceKm?.toFixed(1) + ' km')})` : '';
+        const text = `BreatheLens Air Quality Report | ${cleanCity}: AQI ${us_aqi} (${label}) • PM2.5: ${Math.round(pm2_5 || 0)} µg/m³ • Copernicus CAMS Model Telemetry${stationPart} as of ${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
         if (navigator.clipboard) {
             navigator.clipboard.writeText(text);
             setCopied(true);
@@ -141,15 +165,25 @@ export default function CurrentAQICard({ data, loading, error, onLocate, onRetry
             <div>
                 {/* Top Data Freshness Bar */}
                 <div className="flex flex-wrap items-center justify-between gap-2 pb-4 mb-4 border-b border-slate-100 dark:border-slate-800">
-                    <div className="flex items-center gap-2">
+                    <div className="flex flex-wrap items-center gap-2">
                         <span className="flex h-2.5 w-2.5 relative">
                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                             <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
                         </span>
                         <span className="text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">
-                            Live Telemetry • Verified 2m ago
+                            {timeLabel}
                         </span>
-                        <span className="text-[11px] text-slate-400 hidden sm:inline">• CPCB & Open-Meteo Synced</span>
+                        <span
+                            className="text-[11px] text-slate-400 hidden sm:inline cursor-help"
+                            title="Atmospheric dispersion data from Copernicus CAMS via Open-Meteo (~45 km regional atmospheric grid model)"
+                        >
+                            • Copernicus CAMS Model (~45km grid)
+                        </span>
+                        {matchedStation && (
+                            <span className="text-[11px] text-cyan-700 dark:text-cyan-300 hidden md:inline ml-1 font-medium bg-cyan-50 dark:bg-cyan-950/40 px-2 py-0.5 rounded-md border border-cyan-500/20">
+                                Nearest Station: {matchedStation.name?.split(',')[0]} ({matchedStation.distanceLabel || (matchedStation.distanceKm?.toFixed(1) + ' km')})
+                            </span>
+                        )}
                     </div>
 
                     <div className="flex items-center gap-2">

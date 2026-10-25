@@ -73,7 +73,10 @@ export default function Header({ onLocationSelect, activeTab = 'home', onSelectT
         setLocating(true);
         navigator.geolocation.getCurrentPosition(
             async (position) => {
-                const { latitude, longitude } = position.coords;
+                const { latitude, longitude, accuracy } = position.coords;
+                const isDesktop = !/Android|iPhone|iPad|iPod|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+                const isApprox = (typeof accuracy === 'number' && accuracy > 500) || isDesktop;
+
                 const calibrated = calibrateLiveCoordinates(latitude, longitude);
                 const targetLat = calibrated.lat;
                 const targetLon = calibrated.lon;
@@ -96,7 +99,9 @@ export default function Header({ onLocationSelect, activeTab = 'home', onSelectT
                         name: locationName,
                         lat: targetLat,
                         lon: targetLon,
-                        country: countryName
+                        country: countryName,
+                        accuracy: accuracy || (isDesktop ? 2500 : 20),
+                        isApproximate: isApprox
                     });
                 }
                 setLocating(false);

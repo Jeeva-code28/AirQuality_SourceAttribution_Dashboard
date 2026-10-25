@@ -1,9 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, useMap, useMapEvents } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, Circle, useMap, useMapEvents } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import { getAQILevel } from '../../../services/api';
 import { useTheme } from '../../../context/ThemeContext';
+
+// User position marker icon (distinct pulsating blue beacon)
+const userLocationIcon = L.divIcon({
+    className: 'custom-user-marker',
+    html: `
+        <div style="position: relative; width: 22px; height: 22px;">
+            <div style="position: absolute; inset: -6px; border-radius: 50%; background: rgba(59, 130, 246, 0.4); animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;"></div>
+            <div style="position: relative; width: 22px; height: 22px; border-radius: 50%; background: #2563eb; border: 3px solid #ffffff; box-shadow: 0 2px 6px rgba(0,0,0,0.35);"></div>
+        </div>
+    `,
+    iconSize: [22, 22],
+    iconAnchor: [11, 11],
+    popupAnchor: [0, -11]
+});
 
 // Fix for default marker icon in React-Leaflet
 delete L.Icon.Default.prototype._getIconUrl;
@@ -125,7 +139,14 @@ function MapUpdater({ center, zoomLevel, isExpanded }) {
     return null;
 }
 
-export default function AQIMap({ center = { lat: 20, lon: 0 }, zoom = 5, onStationSelect }) {
+export default function AQIMap({
+    center = { lat: 20, lon: 0 },
+    zoom = 5,
+    userLocation = null,
+    locationName = "Selected Location",
+    matchedStation = null,
+    onStationSelect
+}) {
     const { theme } = useTheme();
     const [localStations, setLocalStations] = useState([]);
     const [visibleStations, setVisibleStations] = useState([]);
@@ -224,19 +245,62 @@ export default function AQIMap({ center = { lat: 20, lon: 0 }, zoom = 5, onStati
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                         className={theme === 'dark' ? 'dark-tiles' : ''}
                     />
+
+                    {/* Dedicated User Position Marker (Distinguishes personal location from monitoring stations) */}
+                    {validCenter && (
+                        <>
+                            <Marker position={[validCenter.lat, validCenter.lon]} icon={userLocationIcon}>
+                                <Popup>
+                                    <div className="text-slate-900 font-sans min-w-[190px]">
+                                        <div className="font-bold text-sm text-blue-600 border-b border-slate-200 pb-1 mb-1.5 flex items-center gap-1.5">
+                                            <span className="w-2 h-2 rounded-full bg-blue-600"></span>
+                                            <span>{userLocation?.method === 'manual' ? 'Selected Location' : 'Detected Position'}</span>
+                                        </div>
+                                        <div className="text-xs font-bold text-slate-800 mb-1">{locationName}</div>
+                                        <div className="text-[11px] font-mono text-slate-500 mb-1.5">
+                                            {validCenter.lat.toFixed(4)}°N, {validCenter.lon.toFixed(4)}°E
+                                        </div>
+                                        {userLocation?.accuracy && (
+                                            <div className="text-[10px] text-slate-500 bg-blue-50 p-1.5 rounded border border-blue-200/60">
+                                                Accuracy: ±{Math.round(userLocation.accuracy)}m ({userLocation.isApproximate ? 'Desktop Network ISP' : 'Device GPS'})
+                                            </div>
+                                        )}
+                                        {matchedStation && (
+                                            <div className="mt-2 pt-1.5 border-t border-slate-200 text-[10px] text-slate-600">
+                                                Nearest station: <strong>{matchedStation.name?.split(',')[0]}</strong> ({matchedStation.distanceLabel || (matchedStation.distanceKm?.toFixed(1) + ' km')})
+                                            </div>
+                                        )}
+                                    </div>
+                                </Popup>
+                            </Marker>
+                            {userLocation?.accuracy && userLocation.accuracy > 50 && userLocation.accuracy <= 50000 && (
+                                <Circle
+                                    center={[validCenter.lat, validCenter.lon]}
+                                    radius={userLocation.accuracy}
+                                    pathOptions={{ color: '#3b82f6', fillColor: '#3b82f6', fillOpacity: 0.08, weight: 1.5, dashArray: '4, 4' }}
+                                />
+                            )}
+                        </>
+                    )}
+
                     {visibleStations.map((station) => (
                         <StationMarker key={station.uid} station={station} onSelect={onStationSelect} />
                     ))}
                 </MapContainer>
             </div>
 
-            <div className="mt-4 flex flex-wrap gap-4 text-xs text-slate-400">
-                <div className="flex items-center gap-2"><span className="w-3 h-3 rounded-full bg-[#00ddd0]"></span> Good (0-50)</div>
-                <div className="flex items-center gap-2"><span className="w-3 h-3 rounded-full bg-[#fdd64b]"></span> Moderate (51-100)</div>
-                <div className="flex items-center gap-2"><span className="w-3 h-3 rounded-full bg-[#ff9b57]"></span> Sens. (101-150)</div>
-                <div className="flex items-center gap-2"><span className="w-3 h-3 rounded-full bg-[#fe6a69]"></span> Unhealthy (151-200)</div>
-                <div className="flex items-center gap-2"><span className="w-3 h-3 rounded-full bg-[#a155b9]"></span> Very Unh. (201-300)</div>
-                <div className="flex items-center gap-2"><span className="w-3 h-3 rounded-full bg-[#b91c1c]"></span> Hazardous (300+)</div>
+            <div className="mt-4 flex flex-wrap items-center justify-between gap-4 text-xs text-slate-400">
+                <div className="flex flex-wrap gap-4">
+                    <div className="flex items-center gap-2"><span className="w-3 h-3 rounded-full bg-[#00ddd0]"></span> Good (0-50)</div>
+                    <div className="flex items-center gap-2"><span className="w-3 h-3 rounded-full bg-[#fdd64b]"></span> Moderate (51-100)</div>
+                    <div className="flex items-center gap-2"><span className="w-3 h-3 rounded-full bg-[#ff9b57]"></span> Sens. (101-150)</div>
+                    <div className="flex items-center gap-2"><span className="w-3 h-3 rounded-full bg-[#fe6a69]"></span> Unhealthy (151-200)</div>
+                    <div className="flex items-center gap-2"><span className="w-3 h-3 rounded-full bg-[#a155b9]"></span> Very Unh. (201-300)</div>
+                    <div className="flex items-center gap-2"><span className="w-3 h-3 rounded-full bg-[#b91c1c]"></span> Hazardous (300+)</div>
+                </div>
+                <div className="flex items-center gap-2 text-blue-500 font-medium">
+                    <span className="w-2.5 h-2.5 rounded-full bg-blue-600 border border-white"></span> Your Location (Beacon)
+                </div>
             </div>
         </div>
     );

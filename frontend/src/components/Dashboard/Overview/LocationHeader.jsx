@@ -2,13 +2,22 @@ import React, { useState, useEffect } from 'react';
 import { ChevronRight, MapPin, Bookmark, Plus, Check, Star, Navigation } from 'lucide-react';
 
 const DEFAULT_FAVORITES = [
-    { id: 'fav-home', label: 'Home', name: 'Tambaram, Chennai', lat: 12.9249, lon: 80.1472, icon: '🏠' },
-    { id: 'fav-work', label: 'Work', name: 'Alandur, Chennai', lat: 12.9975, lon: 80.2006, icon: '💼' },
+    { id: 'fav-west-tambaram', label: 'West Tambaram', name: 'West Tambaram, Chennai', lat: 12.9230, lon: 80.1180, icon: '📍' },
+    { id: 'fav-home', label: 'Tambaram', name: 'Tambaram, Chennai', lat: 12.9249, lon: 80.1472, icon: '🏠' },
+    { id: 'fav-work', label: 'Alandur', name: 'Alandur, Chennai', lat: 12.9975, lon: 80.2006, icon: '💼' },
     { id: 'fav-campus', label: 'Campus', name: 'IIT Madras, Chennai', lat: 12.9915, lon: 80.2337, icon: '🎓' },
+    { id: 'fav-perungudi', label: 'Perungudi', name: 'Zone 14 Perungudi, Chennai', lat: 12.9553, lon: 80.2455, icon: '🏙️' },
     { id: 'fav-velachery', label: 'Velachery', name: 'Velachery, Chennai', lat: 12.9754, lon: 80.2206, icon: '🏙️' }
 ];
 
-export default function LocationHeader({ location = "Tambaram, Chennai, Tamil Nadu", coordinates, onSelectLocation, geoStatus }) {
+export default function LocationHeader({
+    location = "Tambaram, Chennai, Tamil Nadu",
+    coordinates,
+    onSelectLocation,
+    matchedStation = null,
+    deviceLocation = null,
+    geoStatus = null
+}) {
     // Sanitize and filter out any concatenated highway corridors or raw polylines
     const isCorridor = (s) => s.includes(' - ') || s.length > 30 || /highway|expressway|sh-|nh-/i.test(s);
     const rawParts = location.split(',').map(p => p.trim()).filter(Boolean);
@@ -91,33 +100,72 @@ export default function LocationHeader({ location = "Tambaram, Chennai, Tamil Na
                     <span className="text-slate-900 dark:text-slate-100 font-semibold">{city}</span>
                 </nav>
 
+                {/* Dynamically matched monitoring station with real calculated distance */}
                 <div className="flex items-center gap-2">
-                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-300 border border-emerald-500/20">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                        {geoStatus || "Verified Live Station: Tambaram"}
-                    </span>
+                    {matchedStation ? (
+                        <span
+                            className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold border ${
+                                matchedStation.isNearby
+                                    ? "bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-300 border-emerald-500/20"
+                                    : "bg-blue-50 dark:bg-blue-950/50 text-blue-700 dark:text-blue-300 border-blue-500/20"
+                            }`}
+                            title={`Nearest station: ${matchedStation.name} • Coords: ${matchedStation.lat?.toFixed(4)}°N, ${matchedStation.lon?.toFixed(4)}°E • Distance: ${matchedStation.distanceLabel || (matchedStation.distanceKm?.toFixed(1) + ' km')}`}
+                        >
+                            <span className={`w-1.5 h-1.5 rounded-full ${matchedStation.isNearby ? "bg-emerald-500" : "bg-blue-500"} animate-pulse`}></span>
+                            <span>
+                                {matchedStation.isNearby ? "Live Station: " : "Regional Station: "}
+                                <strong className="font-bold">{matchedStation.name?.split(',')[0]}</strong>
+                                <span className="opacity-80 font-normal ml-1">
+                                    ({matchedStation.distanceLabel || (matchedStation.distanceKm?.toFixed(1) + ' km')})
+                                </span>
+                            </span>
+                        </span>
+                    ) : (
+                        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-300 border border-emerald-500/20">
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                            {geoStatus || "Atmospheric Telemetry Synced"}
+                        </span>
+                    )}
                 </div>
             </div>
 
-            {/* Main City Title and Coordinate Display */}
+            {/* Main City Title, Coordinates, and Accuracy Indicator */}
             <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
                 <div className="flex items-center gap-3">
                     <div className="p-2.5 bg-emerald-500/10 dark:bg-emerald-500/20 rounded-2xl text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 shadow-sm">
                         <MapPin className="w-6 h-6" />
                     </div>
                     <div>
-                        <div className="flex items-center gap-2">
+                        <div className="flex flex-wrap items-center gap-2">
                             <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
                                 {city}
                             </h1>
                             {coordinates && (
-                                <span className="text-xs font-mono px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700">
-                                    {coordinates.lat.toFixed(4)}°N, {coordinates.lon.toFixed(4)}°E
-                                </span>
+                                <div className="flex flex-wrap items-center gap-1.5">
+                                    <span className="text-xs font-mono px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700">
+                                        {coordinates.lat.toFixed(4)}°N, {coordinates.lon.toFixed(4)}°E
+                                    </span>
+                                    {deviceLocation?.isApproximate ? (
+                                        <span
+                                            className="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-amber-50 dark:bg-amber-950/50 text-amber-700 dark:text-amber-300 border border-amber-300/40 cursor-help"
+                                            title={`Desktop geolocation operates without hardware GPS and estimated this location via ISP network routing (±${Math.round(deviceLocation.accuracy || 2500)}m).`}
+                                        >
+                                            Approx. Network/ISP Location
+                                        </span>
+                                    ) : deviceLocation?.method === 'gps' ? (
+                                        <span
+                                            className="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-300 border border-emerald-300/40"
+                                            title={`Precise device GPS fix (±${Math.round(deviceLocation.accuracy || 15)}m)`}
+                                        >
+                                            GPS (±{Math.round(deviceLocation.accuracy || 15)}m)
+                                        </span>
+                                    ) : null}
+                                </div>
                             )}
                         </div>
-                        <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
-                            {region && region !== country ? `${region}, ${country}` : country} • Continuous CPCB & Ambient Telemetry
+                        {/* Truthful Data Source Attribution */}
+                        <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-0.5">
+                            {region && region !== country ? `${region}, ${country}` : country} • Copernicus CAMS & Regional Telemetry
                         </p>
                     </div>
                 </div>
